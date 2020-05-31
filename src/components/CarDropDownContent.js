@@ -1,6 +1,6 @@
 import React from 'react'
 
-const NadlanDropDownContent = () => {
+const CarDropDownContent = () => {
     return (
         // <div class="dropdown-content">
         <>
@@ -16,6 +16,6 @@ const NadlanDropDownContent = () => {
     )
 }
 
-export { NadlanDropDownContent as default }
+export { CarDropDownContent as default }
 
 
