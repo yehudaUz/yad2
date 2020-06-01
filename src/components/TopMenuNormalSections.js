@@ -39,7 +39,7 @@ const TopMenuNormalSections = () => {
                         <NadlanDropDownContent />
                     </ul>
                 </li>
-                <img src="/yad2Logo.png" className="yad2-logo"></img>
+                <img src="/yad2Logo.png" alt="yad2Logo" className="yad2-logo"></img>
                 {/* </> */}
             </div>
     )

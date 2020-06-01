@@ -8,6 +8,19 @@ body {
     margin-left: 3px;
 }
 
+.special-topBar-wrapper, .normal-topBar-wrapper {
+    /* display: contents; */
+}
+
+@media only screen and (max-width: 1700px) {
+    .top-menu-special-text {
+        display: none;
+    }
+    .top-menu-small-icon {
+        margin-right: 25px;
+    }
+}
+
 .top-menu-2-parts-wrapper {
     display: flex;
     align-items: center;
@@ -24,11 +37,12 @@ body {
     font-weight: 500;
     color: white;
     border: none;
-    font-size: large;
+    font-size: 1.2vw;
     /* border; */
 }
 
 .yad2-logo {
+    width: 5vw;
     vertical-align: middle;
     max-width: 80px;
     margin-left: 20px;
@@ -45,6 +59,8 @@ body {
 
 ul {
     list-style: none;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
 }
 
 li {
@@ -53,7 +69,7 @@ li {
     display: inline-block;
     margin-left: 15px;
     font-family: Rubik, sans-serif;
-    font-size: 16px;
+    font-size: 1.2vw;
     font-weight: 400;
     /* line-height: 70px; */
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -91,7 +107,7 @@ li {
     padding: 0;
     border: 0;
     outline: 0;
-    font-size: 100%;
+    font-size: 1vw;
     font: inherit;
     vertical-align: baseline;
     box-sizing: inherit;
