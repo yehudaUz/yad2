@@ -4,7 +4,7 @@ const Ads = () => {
 
     return (
         <div>
-            <img src="/yad2Ad.png"></img>
+            <img src="/yad2Ad.png" className="yad2Ads"></img>
         </div>
     )
 }

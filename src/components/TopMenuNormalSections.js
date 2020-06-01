@@ -9,23 +9,23 @@ const TopMenuNormalSections = () => {
     return (
         <div className="normal-topBar-wrapper">
                  {/* <> */}
-                <li>...עוד<ul class="dropdown">
+                <li>...עוד<ul className="dropdown">
                     <NadlanDropDownContent />
                 </ul></li>
-                <li>בעלי מקצוע<ul class="dropdown">
+                <li>בעלי מקצוע<ul className="dropdown">
                     <NadlanDropDownContent />
                 </ul></li>
-                <li>חיות מחמד<ul class="dropdown">
+                <li>חיות מחמד<ul className="dropdown">
                     <NadlanDropDownContent />
                 </ul></li>
-                <li>הכל לעסק<ul class="dropdown">
+                <li>הכל לעסק<ul className="dropdown">
                     <NadlanDropDownContent />
                 </ul></li>
-                <li>דרושים<ul class="dropdown">
+                <li>דרושים<ul className="dropdown">
                     <NadlanDropDownContent />
                 </ul>
                 </li>
-                <li>יד שנייה<ul class="dropdown">
+                <li>יד שנייה<ul className="dropdown">
                     <NadlanDropDownContent />
                 </ul>
                 </li>
@@ -35,7 +35,7 @@ const TopMenuNormalSections = () => {
                     </ul>
                 </li>
                 <li className="dropbtn">נדל"ן
-            <ul class="dropdown">
+            <ul className="dropdown">
                         <NadlanDropDownContent />
                     </ul>
                 </li>
