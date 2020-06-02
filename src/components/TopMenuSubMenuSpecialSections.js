@@ -1,10 +1,10 @@
 import React from 'react'
 
-const TopMenuSubMenuSpecialSections = () => {
-    const carSpecialSubMenuButtons = [{ name: "מחירון רכב", path: "" }, { name: "מכרזים וכינוסים", path: "" }, { name: "מימון רכב", path: "" }]
+const TopMenuSubMenuSpecialSections = (props) => {
+    // const carSpecialSubMenuButtons = [{ name: "מחירון רכב", path: "" }, { name: "מכרזים וכינוסים", path: "" }, { name: "מימון רכב", path: "" }]
 
     const renderButtons = () => {
-        return carSpecialSubMenuButtons.reverse().map((nameAndSymbol) => (
+        return props.buttonsCategory.special.reverse().map((nameAndSymbol) => (
             <>
                 <li>{nameAndSymbol.name}</li>
                 {

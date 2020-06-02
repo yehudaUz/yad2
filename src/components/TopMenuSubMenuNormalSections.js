@@ -1,20 +1,22 @@
 
 
 import React from 'react'
-import NadlanDropDownContent from './NadlanDropDownContent'
-import CarDropDownContent from './CarDropDownContent'
 
-const TopMenuSubMenuNormalSections = () => {
-    const carNormalSubMenuButtons = ["פרטי", "מסחרי", "ג'יפים", "אופנועים", "אופנועים", "קטנועים", "משאיות", "כלי שיט", "מיוחדים", "אביזרים"]
+const TopMenuSubMenuNormalSections = (props) => {
+    // const carNormalSubMenuButtons = ["פרטי", "מסחרי", "ג'יפים", "אופנועים", "אופנועים", "קטנועים", "משאיות", "כלי שיט", "מיוחדים", "אביזרים"]
 
     const renderButtons = () => {
-        return carNormalSubMenuButtons.reverse().map((carName) => (
-            <li>{carName}</li>
-        ))
+        // switch (props.buttonsCategory) {
+            // case "cars":
+                return props.buttonsCategory.normal.reverse().map((button) => (
+                    <li>{button}</li>
+                ))
+        // }
+
     }
 
     return (
-        <div className="normal-topBar-wrapper">
+        <div className="normal-topBar-wrapper sub-menu">
             {renderButtons()}
         </div>
     )

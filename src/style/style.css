@@ -8,9 +8,11 @@ body {
     margin-left: 3px;
 }
 
-.special-topBar-wrapper, .normal-topBar-wrapper {
-    /* display: contents; */
-}
+/* .special-topBar-wrapper, .normal-topBar-wrapper { */
+
+/* display: contents; */
+
+/* } */
 
 @media only screen and (max-width: 1700px) {
     .top-menu-special-text {
@@ -19,6 +21,16 @@ body {
     .top-menu-small-icon {
         margin-right: 25px;
     }
+}
+
+@media only screen and (max-width: 1200px) {
+    .yad2-logo {
+        display: none;
+    }
+}
+
+.yad2-logo-link {
+    display: unset;
 }
 
 .top-menu-2-parts-wrapper {
@@ -37,7 +49,7 @@ body {
     font-weight: 500;
     color: white;
     border: none;
-    font-size: 1.2vw;
+    font-size: 1vw;
     /* border; */
 }
 
@@ -57,6 +69,10 @@ body {
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, .2);
 }
 
+.normal-topBar-wrapper.sub-menu {
+    margin-right: 5vw;
+}
+
 ul {
     list-style: none;
     margin-block-start: 0em;
@@ -69,7 +85,7 @@ li {
     display: inline-block;
     margin-left: 15px;
     font-family: Rubik, sans-serif;
-    font-size: 1.2vw;
+    font-size: 1vw;
     font-weight: 400;
     /* line-height: 70px; */
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
