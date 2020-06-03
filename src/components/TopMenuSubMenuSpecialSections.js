@@ -6,10 +6,10 @@ const TopMenuSubMenuSpecialSections = (props) => {
     const renderButtons = () => {
         return props.buttonsCategory.special.reverse().map((nameAndSymbol) => (
             <>
-                <li>{nameAndSymbol.name}</li>
+                <li key={nameAndSymbol.name}>{nameAndSymbol.name}</li>
                 {
                     nameAndSymbol.path !== "" ?
-                        <img src={nameAndSymbol.path} alt={nameAndSymbol.name} className="top-subMenu-small-icon" ></img>
+                        <img key={nameAndSymbol.name} src={nameAndSymbol.path} alt={nameAndSymbol.name} className="top-subMenu-small-icon" ></img>
                         : ""
                 }
             </>

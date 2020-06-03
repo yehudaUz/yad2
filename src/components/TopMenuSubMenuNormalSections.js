@@ -9,7 +9,7 @@ const TopMenuSubMenuNormalSections = (props) => {
         // switch (props.buttonsCategory) {
             // case "cars":
                 return props.buttonsCategory.normal.reverse().map((button) => (
-                    <li>{button}</li>
+                    <li key={button}>{button}</li>
                 ))
         // }
 

@@ -1,12 +1,22 @@
 import React from 'react'
+import { connect } from 'react-redux';
 
-const Ads = () => {
-
+const Ads = (props) => {
+    console.log("fasdfasdf", props)
     return (
         <div>
-            <img src="/yad2Ad.png" className="yad2Ads"></img>
+            <img src={props.adsPath} className="yad2Ads"></img>
         </div>
     )
 }
 
-export { Ads as default }
+// export { Ads as default }
+
+const mapStateToProps = (state) => {
+    return state
+    // return {
+    //     expenses: selectExpenses(state.expenses, state.filters)
+    // };
+};
+
+export default connect(mapStateToProps)(Ads);
