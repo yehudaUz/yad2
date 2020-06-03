@@ -1,5 +1,7 @@
 body {
     margin: 0px;
+    /* color: #363636; */
+    /* background-color: #F9F9F9; #F5F5F5 */
 }
 
 .person-png, .heart-png, .search-png, .arrows-png {
@@ -222,4 +224,10 @@ a {
 
 .yad2Ads {
     width: 100%;
+}
+
+.sitemap-link {
+    background-color: #F9F9F9;
+    text-align: right;
+    padding-right: 9vw;
 }

@@ -20,7 +20,7 @@ const App = () => {
                 {/* <TopSubMenu/> */}
                 <Switch>
                     <Route exact path="/" />
-                    <Route exact path='/cars' render={(props) => <TopSubMenu {...props} buttonsCategory={cars} />} />
+                    <Route exact path='/cars' render={ (props) => <TopSubMenu {...props} buttonsCategory={cars} />} />
                     <Route exact path='/realestate' render={(props) => <TopSubMenu {...props} buttonsCategory={realestate} />} />
 
                     {/* <Route exact path="/cars/private" component={TopSubMenu} /> */}

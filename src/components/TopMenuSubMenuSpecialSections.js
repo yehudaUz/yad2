@@ -4,6 +4,7 @@ const TopMenuSubMenuSpecialSections = (props) => {
     // const carSpecialSubMenuButtons = [{ name: "מחירון רכב", path: "" }, { name: "מכרזים וכינוסים", path: "" }, { name: "מימון רכב", path: "" }]
 
     const renderButtons = () => {
+        console.log("AAA",props.buttonsCategory)
         return props.buttonsCategory.special.reverse().map((nameAndSymbol) => (
             <>
                 <li key={nameAndSymbol.name}>{nameAndSymbol.name}</li>

@@ -1,48 +1,37 @@
 import React from 'react'
+import { connect } from 'react-redux';
 import NadlanDropDownContent from './NadlanDropDownContent'
 import CarDropDownContent from './CarDropDownContent'
 // import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 // import TopMenuSubMenuSpecialSections from './TopMenuSubMenuSpecialSections'
 // import TopMenuSubMenuNormalSections from './TopMenuSubMenuNormalSections'
 
-const TopMenuNormalSections = () => {
+const topMenuData = [
+    { text: "...עוד", href: "/more", comp: <NadlanDropDownContent /> },
+    { text: "בעלי מקצוע", href: "/professional", comp: <NadlanDropDownContent /> },
+    { text: "חיות מחמד", href: "/pets", comp: <NadlanDropDownContent /> },
+    { text: "הכל לעסק", href: "/business", comp: <NadlanDropDownContent /> },
+    { text: "דרושים", href: "/wanted", comp: <NadlanDropDownContent /> },
+    { text: "יד שנייה", href: "/secondHand", comp: <NadlanDropDownContent /> },
+    { text: "רכב", href: "/cars", comp: <CarDropDownContent /> },
+]
+
+const TopMenuNormalSections = (props) => {
+    console.log("props",props)
+    const renderButtons = () => {
+        return topMenuData.map((menuButtonData) => (
+            <li className="dropbtn"><a href={menuButtonData.href}
+                onClick={() => props.dispatch({ type: "UPDATE_ADS", ads: "" })}>{menuButtonData.text}</a>
+                <ul className="dropdown">
+                    {menuButtonData.comp}
+                </ul></li>
+        ))
+    }
 
     return (
         // <Router>
         <div className="normal-topBar-wrapper">
-            {/* <> */}
-            <li><a href="/more">...עוד</a>
-                <ul className="dropdown">
-                    <NadlanDropDownContent />
-                </ul></li>
-            <li><a href="/professional">בעלי מקצוע</a>
-                <ul className="dropdown">
-                    <NadlanDropDownContent />
-                </ul></li>
-            <li><a href="/pets">חיות מחמד</a>
-                <ul className="dropdown">
-                    <NadlanDropDownContent />
-                </ul></li>
-            <li><a href="/business">הכל לעסק</a>
-                <ul className="dropdown">
-                    <NadlanDropDownContent />
-                </ul></li>
-            <li><a href="/wanted">דרושים</a>
-                <ul className="dropdown">
-                    <NadlanDropDownContent />
-                </ul></li>
-            <li><a href="/secondHand">יד שנייה</a>
-                <ul className="dropdown">
-                    <NadlanDropDownContent />
-                </ul></li>
-            <li className="dropbtn"><a href="/cars">רכב</a>
-                <ul className="dropdown">
-                    <CarDropDownContent />
-                </ul></li>
-            <li className="dropbtn"><a href="/realestate">נדל"ן</a>
-                <ul className="dropdown">
-                    <NadlanDropDownContent />
-                </ul></li>
+            {renderButtons()}
             <a href="/" className="yad2-logo-link"><img src="/yad2Logo.png" alt="yad2Logo" className="yad2-logo"></img></a>
             {/* </> */}
 
@@ -63,22 +52,14 @@ const TopMenuNormalSections = () => {
                     </Route> */}
             {/* </Switch> */}
 
-        </div>
+        </div >
         // </Router>
 
     )
 }
 
-function Home() {
-    return <h2>Home</h2>;
+const mapStateToProps = (state) => {
+    return state
 }
 
-function About() {
-    return <h2>About</h2>;
-}
-
-function Users() {
-    return <h2>Users</h2>;
-}
-
-export { TopMenuNormalSections as default }
+export default connect(mapStateToProps)(TopMenuNormalSections);

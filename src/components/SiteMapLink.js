@@ -4,11 +4,9 @@ import { connect } from 'react-redux';
 const SiteMapLink = (props) => {
     console.log("ZZZZZZZZZZZ", props)
     const renderMapTexts = () => {
-        props.menuText.forEach(text => {
-            return (
-                <li key={text}>  {text}</li>
-            )
-        });
+        return props.menuText.map(text => (    
+                <li key={text} className="sitemap-link-text">{text}</li>
+        ))
     }
 
     return (

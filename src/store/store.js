@@ -5,6 +5,7 @@ import { createStore, combineReducers } from 'redux';
 const initialState = { adsPath: "/yad2Ad.png", menuText: ["ראשי"] }
 
 function reducer(state = initialState, action) {
+    console.log("action: " + JSON.stringify(action) + "   state: " + JSON.stringify(state))
     switch (action.type) {
         case 'UPDATE_ADS':
             return { ...state, ads: action.ads }
