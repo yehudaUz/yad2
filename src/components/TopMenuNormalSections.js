@@ -9,20 +9,26 @@ import CarDropDownContent from './CarDropDownContent'
 const topMenuData = [
     { text: "...עוד", href: "/more", comp: <NadlanDropDownContent /> },
     { text: "בעלי מקצוע", href: "/professional", comp: <NadlanDropDownContent /> },
-    { text: "חיות מחמד", href: "/pets", comp: <NadlanDropDownContent /> },
-    { text: "הכל לעסק", href: "/business", comp: <NadlanDropDownContent /> },
+    { text: "חיות מחמד", href: "/pets", comp: <NadlanDropDownContent />, adsPath: "/pets.jpg" },
+    { text: "הכל לעסק", href: "/business", comp: <NadlanDropDownContent />, adsPath: "/business.png" },
     { text: "דרושים", href: "/wanted", comp: <NadlanDropDownContent /> },
-    { text: "יד שנייה", href: "/secondHand", comp: <NadlanDropDownContent /> },
-    { text: "רכב", href: "/cars", comp: <CarDropDownContent /> },
+    { text: "יד שנייה", href: "/secondHand", comp: <NadlanDropDownContent />, adsPath: "/secondHand.jpg" },
+    { text: "רכב", href: "/cars", comp: <CarDropDownContent />, adsPath: "/cars.gif" },
 ]
 
 const TopMenuNormalSections = (props) => {
-    console.log("props",props)
+    console.log("props", props)
     const renderButtons = () => {
         return topMenuData.map((menuButtonData) => (
-            <li className="dropbtn"><a href={menuButtonData.href}
-                onClick={() => props.dispatch({ type: "UPDATE_ADS", ads: "" })}>{menuButtonData.text}</a>
-                <ul className="dropdown">
+            <li key={menuButtonData.href} className="dropbtn"><a href={menuButtonData.href}
+                onClick={(e) => {
+                    // e.preventDefault();
+                    // console.log("action");
+                    props.dispatch({
+                        type: "UPDATE_ADS", ads: menuButtonData.adsPath
+                    })
+                }}>{menuButtonData.text}</a>
+                <ul key={menuButtonData.href} className="dropdown">
                     {menuButtonData.comp}
                 </ul></li>
         ))

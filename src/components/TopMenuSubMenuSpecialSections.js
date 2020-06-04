@@ -7,7 +7,7 @@ const TopMenuSubMenuSpecialSections = (props) => {
         console.log("AAA",props.buttonsCategory)
         return props.buttonsCategory.special.reverse().map((nameAndSymbol) => (
             <>
-                <li key={nameAndSymbol.name}>{nameAndSymbol.name}</li>
+                <li key={nameAndSymbol.name} className="top-subMenu-li">{nameAndSymbol.name}</li>
                 {
                     nameAndSymbol.path !== "" ?
                         <img key={nameAndSymbol.name} src={nameAndSymbol.path} alt={nameAndSymbol.name} className="top-subMenu-small-icon" ></img>

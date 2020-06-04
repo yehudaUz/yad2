@@ -8,9 +8,9 @@ function reducer(state = initialState, action) {
     console.log("action: " + JSON.stringify(action) + "   state: " + JSON.stringify(state))
     switch (action.type) {
         case 'UPDATE_ADS':
-            return { ...state, ads: action.ads }
+            return { ...state, adsPath: action.ads }
         case 'UPDATE_MENU':
-            return { ...state, menu: action.menu }
+            return { ...state, menuText: action.menu }
         default:
             return state
     }
