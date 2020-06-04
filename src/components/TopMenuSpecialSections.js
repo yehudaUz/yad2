@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TopMenuSpecial = () => {
+const TopMenuSpecial = (props) => {
 
     return (
         <div className="special-topBar-wrapper">
@@ -13,7 +13,8 @@ const TopMenuSpecial = () => {
             <li className="top-menu-special-text">חיפושים אחרונים</li>
             <img src="search.png" alt="search" className="top-menu-small-icon search-png"></img>
             <li className="top-menu-special-text">השוואת רכבים</li>
-            <img src="arrows.png" alt="arrows" className="top-menu-small-icon arrows-png"></img>
+            <img src="arrows.png" alt="arrows" className="top-menu-small-icon arrows-png">
+            </img>
             {/* </p> */}
         </div>
     )
