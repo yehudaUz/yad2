@@ -5,7 +5,7 @@ const Ads = (props) => {
     console.log("fasdfasdf", props)
     return (
         <div>
-            <img src={props.adsPath} className="yad2Ads"></img>
+            <img src={props.adsPath} alt="yad2Ads" className="yad2Ads"></img>
         </div>
     )
 }
