@@ -4,7 +4,6 @@ import TopMenuSubMenuSpecialSections from './TopMenuSubMenuSpecialSections'
 import TopMenuSubMenuNormalSections from './TopMenuSubMenuNormalSections'
 
 const TopSubMenu = (props) => {
-    console.log(props.buttonsCategory)
     return (
         <nav className="subMenu">
             <ul className="top-menu-2-parts-wrapper">

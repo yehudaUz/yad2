@@ -243,3 +243,24 @@ a {
     margin-top: 7px;
     margin-bottom: 7px;
 }
+
+.sitemap-link-text {
+    color: #999;
+    font-size: .875rem;
+    line-height: 20px;
+    /* padding: 8px; */
+    padding: 8px 0px 8px 0px;
+    margin-left: 10px;
+}
+
+.video-tag-404 {
+    width: -webkit-fill-available;
+}
+
+.search-bar-div {
+    text-align: center;
+}
+
+.search-bar-input {
+    display: block;
+}

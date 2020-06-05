@@ -2,11 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux';
 
 const SiteMapLink = (props) => {
-    console.log("ZZZZZZZZZZZ", props)
     const renderMapTexts = () => {
         return props.menuText.map(text => (
-            <li key={text} className="sitemap-link-text">{text}</li>
-        ))
+            <li key={text} className="sitemap-link-text">{
+                text != props.menuText[props.menuText.length - 1] ? "  < " + text : text}</li>
+        )).reverse()
     }
 
     return (
@@ -27,10 +27,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(SiteMapLink);
-
-
-// .wrapper ul.breadcrumbs li[data-v-14009976]:before {
-//     content: ">";
-//     color: grey;
-//     display: inline-block;
-//     font-size: 10px;

@@ -6,4 +6,7 @@ const realestateNormalSubMenuButtons = ["מכירה", "השכרה", "דירות 
 const realestateSpecialSubMenuButtons = [{ name: "הערכת שווי נכס", path: "" }, { name: "יד1 דירות חדשות", path: "" }, { name: 'מדד הנדל"ן', path: "" }, { name: "כונס נכסים", path: "" }]
 const realestate = { normal: realestateNormalSubMenuButtons, special: realestateSpecialSubMenuButtons }
 
-export { cars, realestate } 
+const nadlanDropDownContentArrText = ["הערכת שווי נכס", "יד1 דירות חדשות", `מדד הנדל"ן`, "כונס נכסים", "חיפוש על המפה", "מסחרי", "שותפים", "דירות להשכרה", "דירות למכירה"]
+const carDropDownContentArrText = ["מימון רכב","מכרזים וכינוס","מחירון רכב","קטלוג רכבים","כלי שייט","רכבי יוקרה","משאיות","אביזרים","מיוחדים","קטנועים","אופנועים",`ג'יפים`,"מסחרי","פרטי"]
+
+export { cars, realestate,nadlanDropDownContentArrText,carDropDownContentArrText } 

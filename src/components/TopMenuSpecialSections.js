@@ -4,7 +4,6 @@ const TopMenuSpecial = (props) => {
 
     return (
         <div className="special-topBar-wrapper">
-            {/* <p className="special-topBar-actions"> */}
             <button className="new-item-button">פרסום מודעה חדשה +</button>
             <li className="top-menu-special-text">אזור אישי</li>
             <img src="person.png" alt="person" className="top-menu-small-icon person-png"></img>
@@ -15,7 +14,6 @@ const TopMenuSpecial = (props) => {
             <li className="top-menu-special-text">השוואת רכבים</li>
             <img src="arrows.png" alt="arrows" className="top-menu-small-icon arrows-png">
             </img>
-            {/* </p> */}
         </div>
     )
 }

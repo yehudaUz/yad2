@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
             localStorage.setItem('state', JSON.stringify(newState));
             return newState
         case 'UPDATE_MENU':
-            newState = { ...state, menu: action.menu }
+            newState = { ...state, menuText: action.menuText }
             localStorage.setItem('state', JSON.stringify(newState));
             return newState
         default:

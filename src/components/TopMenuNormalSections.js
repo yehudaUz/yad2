@@ -1,20 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import NadlanDropDownContent from './NadlanDropDownContent'
-import CarDropDownContent from './CarDropDownContent'
-// import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-// import TopMenuSubMenuSpecialSections from './TopMenuSubMenuSpecialSections'
-// import TopMenuSubMenuNormalSections from './TopMenuSubMenuNormalSections'
+import DropDownContent from './dropDownContent'
+import { updateAds, updateMenu } from '../actions/actions'
+import { nadlanDropDownContentArrText, carDropDownContentArrText } from '../other/utilities'
 
 const topMenuData = [
-    { text: "...עוד", href: "/more", comp: <NadlanDropDownContent /> },
-    { text: "בעלי מקצוע", href: "/professional", comp: <NadlanDropDownContent /> },
-    { text: "חיות מחמד", href: "/pets", comp: <NadlanDropDownContent />, adsPath: "/pets.jpg" },
-    { text: "הכל לעסק", href: "/business", comp: <NadlanDropDownContent />, adsPath: "/business.png" },
-    { text: "דרושים", href: "/wanted", comp: <NadlanDropDownContent /> },
-    { text: "יד שנייה", href: "/secondHand", comp: <NadlanDropDownContent />, adsPath: "/secondHand.jpg" },
-    { text: "רכב", href: "/cars", comp: <CarDropDownContent />, adsPath: "/cars.gif" },
-    { text: `נדל"ן`, href: "/realestate", comp: <NadlanDropDownContent />, adsPath: "/nadlan.jpg" },
+    { text: "...עוד", href: "/more", comp: <DropDownContent dropDownContentArrText={nadlanDropDownContentArrText} /> },
+    { text: "בעלי מקצוע", href: "/professional", comp: <DropDownContent dropDownContentArrText={nadlanDropDownContentArrText} /> },
+    { text: "חיות מחמד", href: "/pets", comp: <DropDownContent dropDownContentArrText={nadlanDropDownContentArrText} />, adsPath: "/pets.jpg" },
+    { text: "הכל לעסק", href: "/business", comp: <DropDownContent dropDownContentArrText={nadlanDropDownContentArrText} />, adsPath: "/business.png" },
+    { text: "דרושים", href: "/wanted", comp: <DropDownContent dropDownContentArrText={nadlanDropDownContentArrText} /> },
+    { text: "יד שנייה", href: "/secondHand", comp: <DropDownContent dropDownContentArrText={nadlanDropDownContentArrText} />, adsPath: "/secondHand.jpg" },
+    { text: "רכב", href: "/cars", comp: <DropDownContent dropDownContentArrText={carDropDownContentArrText.reverse()} />, adsPath: "/cars.gif" },
+    { text: `נדל"ן`, href: "/realestate", comp: <DropDownContent dropDownContentArrText={nadlanDropDownContentArrText.reverse()} />, adsPath: "/nadlan.jpg" },
 ]
 
 const TopMenuNormalSections = (props) => {
@@ -23,11 +21,8 @@ const TopMenuNormalSections = (props) => {
         return topMenuData.map((menuButtonData) => (
             <li key={menuButtonData.href} className="dropbtn"><a href={menuButtonData.href}
                 onClick={(e) => {
-                    // e.preventDefault();
-                    // console.log("action");
-                    props.dispatch({
-                        type: "UPDATE_ADS", adsPath: menuButtonData.adsPath
-                    })
+                    props.dispatch(updateAds(menuButtonData.adsPath))
+                    props.dispatch(updateMenu(["ראשי",menuButtonData.text,menuButtonData.comp.props.dropDownContentArrText[0]]))
                 }}>{menuButtonData.text}</a>
                 <ul key={menuButtonData.href} className="dropdown">
                     {menuButtonData.comp}
@@ -36,38 +31,14 @@ const TopMenuNormalSections = (props) => {
     }
 
     return (
-        // <Router>
         <div className="normal-topBar-wrapper">
             {renderButtons()}
             <a href="/" className="yad2-logo-link">
                 <img src="/yad2Logo.png" alt="yad2Logo" className="yad2-logo"
                     onClick={(e) => {
-                        props.dispatch({
-                            type: "UPDATE_ADS", adsPath: "/yad2Ad.PNG"
-                        })
+                        props.dispatch(updateAds("/yad2Ad.PNG"))
                     }}></img></a>
-            {/* </> */}
-
-            {/* <Switch>
-                    <Route path="/cars"> */}
-            {/* <nav className="subMenu">
-                            <ul className="top-menu-2-parts-wrapper">
-                                <TopMenuSubMenuSpecialSections />
-                                <TopMenuSubMenuNormalSections />
-                            </ul>
-                        </nav> */}
-            {/* </Route> */}
-            {/* <Route path="/users">
-                        <Users />
-                    </Route> */}
-            {/* <Route path="/">
-                        <Home />
-                    </Route> */}
-            {/* </Switch> */}
-
         </div >
-        // </Router>
-
     )
 }
 
