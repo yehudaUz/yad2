@@ -18,18 +18,31 @@ const SearchBar = () => {
                     <input className="search-bar-input" type="text" name="" autocomplete="off" placeholder="בחרו אזור" title="" ></input>
                     </li>
                     <li>מחיר בש"ח
-                    <input className="search-bar-input" type="text" name="" autocomplete="off" placeholder="ממחיר" ></input>
-                        <input className="search-bar-input" type="text" name="" autocomplete="off" placeholder="עד מחיר"></input>
+                    <div className="search-bar-input-wrapper">
+                            <input className="search-bar-input-double" type="text" name="" autocomplete="off" placeholder="עד מחיר"></input>
+                            <input className="search-bar-input-double" type="text" name="" autocomplete="off" placeholder="ממחיר" ></input>
+                        </div>
                     </li>
                     <li>שנה
-                    <input className="search-bar-input" type="text" name="" autocomplete="off" placeholder="משנה" ></input>
-                        <input className="search-bar-input" type="text" name="" autocomplete="off" placeholder="עד שנה" ></input>
+                        <div className="search-bar-input-wrapper">
+                            <input className="search-bar-input-double" type="text" name="" autocomplete="off" placeholder="עד שנה" ></input>
+                            <input className="search-bar-input-double" type="text" name="" autocomplete="off" placeholder="משנה" ></input>
+                        </div>
                     </li>
                     <li>דגם
                     <input className="search-bar-input" type="text" name="" autocomplete="off" placeholder="בחרו דגם" title="" ></input>
                     </li>
                     <li>יצרן
-                        <input className="search-bar-input" type="text" name="" autocomplete="off" placeholder="בחרו יצרן" title="" ></input>
+                        {/* <input className="search-bar-input" type="text" name="" autocomplete="off" placeholder="בחרו יצרן" title="" ></input> */}
+                        <ul class="suka">
+                            <li><input type="checkbox" />Apple </li>
+                            <li><input type="checkbox" />Orange</li>
+                            <li><input type="checkbox" />Grapes </li>
+                            <li><input type="checkbox" />Berry </li>
+                            <li><input type="checkbox" />Mango </li>
+                            <li><input type="checkbox" />Banana </li>
+                            <li><input type="checkbox" />Tomato</li>
+                        </ul>
                     </li>
                 </ul>
 

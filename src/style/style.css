@@ -232,6 +232,7 @@ a {
     margin-top: 50px;
     text-align: center;
 }
+
 .yad2Ads {
     background-color: white;
     width: 70vw;
@@ -271,6 +272,8 @@ a {
     width: -webkit-fill-available;
 }
 
+/*  Search bar   */
+
 .search-bar-div {
     margin-top: 50px;
     text-align: center;
@@ -281,17 +284,88 @@ a {
 }
 
 .search-form {
-    background-color: white;
     width: 70vw;
     text-align: center;
     display: inline-block;
+    border-radius: 4px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .1);
 }
 
 .search-form li {
     max-width: 10vw;
     margin: 0px;
+    text-align: -webkit-right;
 }
+
 .search-form input {
     max-width: 75%;
     text-align: center;
+}
+
+.search-bar-input-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.search-bar-input-double {
+    width: 50%;
+}
+
+.search-form h3 {
+    text-align: right;
+    margin-right: 30px;
+}
+
+
+/* dropdown searchbar content */
+.suka {
+    /* --breakpoint-header-medium: $breakpoint;
+    --breakpoint-header-small: $breakpoint;
+    --breakpoint-header: $breakpoint;
+    --breakpoint-desktop: $breakpoint;
+    --breakpoint-desktop-navbar: $breakpoint;
+    --breakpoint-desktop-small: $breakpoint;
+    --breakpoint-desktop-medium: $breakpoint;
+    --breakpoint-desktop-large: $breakpoint;
+    --breakpoint-desktop-large-gallery-dfp: $breakpoint;
+    --breakpoint-desktop-extra-small: $breakpoint;
+    --breakpoint-tablet: $breakpoint;
+    --breakpoint-mobile: $breakpoint;
+    --breakpoint-laptop-height: $breakpoint;
+    --breakpoint-laptop-height-medium: $breakpoint;
+    --breakpoint-laptop-height-small: $breakpoint;
+    --breakpoint-mobile-medium: $breakpoint;
+    --breakpoint-mobile-small: $breakpoint;
+    --pumpkin-orange: $pumpkin-orange;
+    --yad1-blue: $app_yad1_blue;
+    --map-agency-marker: $map_agency_marker; */
+    --vh: 4.53px;
+    color: #363636;
+    direction: rtl;
+    -webkit-tap-highlight-color: transparent;
+    text-align: right;
+    --number-of-options-to-display: 7;
+    --option-height: 40px;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    box-sizing: inherit;
+    list-style: none;
+    max-height: calc(var(--option-height)*var(--number-of-options-to-display));
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-bottom: 1px solid #ccc;
+}
+.suka ul {
+    display: block;
+}
+.suka li {
+    display: block;
 }
