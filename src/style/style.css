@@ -4,6 +4,7 @@
 
 body {
     margin: 0px;
+    background-color: #F9F9F9;
     /* color: #363636; */
     /* background-color: #F9F9F9; #F5F5F5 */
 }
@@ -43,6 +44,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-top: outset;
+    border-width: 1px;
 }
 
 .new-item-button {
@@ -225,8 +228,15 @@ a {
     -moz-columns: 2;
 } */
 
+.ads {
+    margin-top: 50px;
+    text-align: center;
+}
 .yad2Ads {
-    width: 100%;
+    background-color: white;
+    width: 70vw;
+    text-align: center;
+    display: inline-block;
 }
 
 .sitemap-link {
@@ -244,6 +254,10 @@ a {
     margin-bottom: 7px;
 }
 
+.subMenu {
+    background-color: white;
+}
+
 .sitemap-link-text {
     color: #999;
     font-size: .875rem;
@@ -258,9 +272,26 @@ a {
 }
 
 .search-bar-div {
+    margin-top: 50px;
     text-align: center;
 }
 
 .search-bar-input {
     display: block;
+}
+
+.search-form {
+    background-color: white;
+    width: 70vw;
+    text-align: center;
+    display: inline-block;
+}
+
+.search-form li {
+    max-width: 10vw;
+    margin: 0px;
+}
+.search-form input {
+    max-width: 75%;
+    text-align: center;
 }

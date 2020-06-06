@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 const Ads = (props) => {
     console.log("fasdfasdf", props)
     return (
-        <div>
+        <div className="ads">
             <img src={props.adsPath} alt="yad2Ads" className="yad2Ads"></img>
         </div>
     )
