@@ -25,14 +25,33 @@ const SearchBar = () => {
                     </li>
                     <li>שנה
                         <div className="search-bar-input-wrapper">
-                            <input className="search-bar-input-double" type="text" name="" autocomplete="off" placeholder="עד שנה" ></input>
-                            <input className="search-bar-input-double" type="text" name="" autocomplete="off" placeholder="משנה" ></input>
+                            <li><input className="search-bar-input" type="text" name="" autocomplete="off" placeholder="עד שנה" ></input>
+                                <ul class="suka">
+                                    <li><input type="checkbox" />Apple </li>
+                                    <li><input type="checkbox" />Orange</li>
+                                    <li><input type="checkbox" />Grapes </li>
+                                    <li><input type="checkbox" />Berry </li>
+                                    <li><input type="checkbox" />Mango </li>
+                                    <li><input type="checkbox" />Banana </li>
+                                    <li><input type="checkbox" />Tomato</li>
+                                </ul></li>
+                            <li> <input className="search-bar-input" type="text" name="" autocomplete="off" placeholder="משנה" ></input>
+                                <ul class="suka">
+                                    <li><input type="checkbox" />Apaaaaaaple </li>
+                                    <li><input type="checkbox" />Orange</li>
+                                    <li><input type="checkbox" />Grapes </li>
+                                    <li><input type="checkbox" />Berry </li>
+                                    <li><input type="checkbox" />Mango </li>
+                                    <li><input type="checkbox" />Banana </li>
+                                    <li><input type="checkbox" />Tomato</li>
+                                </ul></li>
                         </div>
                     </li>
                     <li>דגם
                     <input className="search-bar-input" type="text" name="" autocomplete="off" placeholder="בחרו דגם" title="" ></input>
                     </li>
                     <li>יצרן
+                        <input className="search-bar-input" placeholder="בחרו דגם"></input>
                         {/* <input className="search-bar-input" type="text" name="" autocomplete="off" placeholder="בחרו יצרן" title="" ></input> */}
                         <ul class="suka">
                             <li><input type="checkbox" />Apple </li>
