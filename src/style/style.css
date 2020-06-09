@@ -1,5 +1,5 @@
 * {
-    box-sizing: border-box;
+     box-sizing: border-box;
 }
 
 body {
@@ -302,6 +302,10 @@ a {
 .search-form input {
     max-width: 75%;
     text-align: center;
+    
+    border-radius: 0;
+    border-width: 1px;
+
 }
 
 .search-bar-input-wrapper {
@@ -341,6 +345,7 @@ a {
     --pumpkin-orange: $pumpkin-orange;
     --yad1-blue: $app_yad1_blue;
     --map-agency-marker: $map_agency_marker; */
+    display: none;
     --vh: 4.53px;
     color: #363636;
     direction: rtl;
