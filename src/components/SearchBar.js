@@ -1,6 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { updateCarSearchParmas } from '../actions/actions'
 
-const SearchBar = () => {
+const SearchBar = (props) => {
+    console.log("Z", props)
+    const submitForm = (e) => {
+        e.preventDefault()
+        const formValues = {
+            maker: e.target[24].value,
+            model: e.target[23].value,
+            fromYear: e.target[14].value,
+            toYear: e.target[5].value,
+            fromPrice: e.target[4].value,
+            toPrice: e.target[3].value,
+            area: e.target[2].value
+        }
+        console.log(JSON.stringify(formValues))
+        throw new Error()
+    }
     const onOffDropList = (className) => {
         if (document.querySelectorAll(className).length > 0) {
             switch (className) {
@@ -26,10 +43,10 @@ const SearchBar = () => {
     }
     return (
         <div className="search-bar-div">
-            <form className="search-form">
+            <form className="search-form" onSubmit={submitForm}>
                 <h3><span>?איזה רכב תרצו לחפש</span></h3>
                 <ul className="search-columns">
-                    <li className="search-button-li"><button type="submit"  className="search-button">
+                    <li className="search-button-li"><button type="submit" className="search-button">
                         <span className="button_content"><i className="y2i_search"></i> <span className="button_text">חיפוש</span>
                         </span></button>
                     </li>
@@ -43,7 +60,8 @@ const SearchBar = () => {
                     <li>מחיר בש"ח
                     <div className="search-bar-input-wrapper">
                             <input className="search-bar-input-double" type="text" name="" autoComplete="off" placeholder="עד מחיר"></input>
-                            <input className="search-bar-input-double" type="text" name="" autoComplete="off" placeholder="ממחיר" ></input>
+                            <input className="search-bar-input-double" type="text" name="" autoComplete="off" placeholder="ממחיר"
+                                onChange={(e) => props.dispatch(updateCarSearchParmas({ fromPrice: e.target.value }))}></input>
                         </div>
                     </li>
                     <li>שנה
@@ -54,22 +72,10 @@ const SearchBar = () => {
                                 <ul className="searchBarDropDown toYear hidden">
                                     <li><input type="checkbox" />עד שנה</li>
                                     <li><input type="checkbox" />עד שנה</li>
-                                    <li><input type="checkbox" />עד שנה</li>
-                                    <li><input type="checkbox" />עד שנה</li>
-                                    <li><input type="checkbox" />עד שנה</li>
-                                    <li><input type="checkbox" />עד שנה</li>
-                                    <li><input type="checkbox" />עד שנה</li>
-                                    <li><input type="checkbox" />עד שנה</li>
                                 </ul>
                                 <input className="search-bar-input-double" type="text" name="" autoComplete="off" placeholder="משנה"
                                     onClick={() => onOffDropList(".fromYear")} ></input>
                                 <ul className="searchBarDropDown fromYear hidden">
-                                    <li><input type="checkbox" />משנה</li>
-                                    <li><input type="checkbox" />משנה</li>
-                                    <li><input type="checkbox" />משנה</li>
-                                    <li><input type="checkbox" />משנה</li>
-                                    <li><input type="checkbox" />משנה</li>
-                                    <li><input type="checkbox" />משנה</li>
                                     <li><input type="checkbox" />משנה</li>
                                     <li><input type="checkbox" />משנה</li>
                                 </ul>
@@ -85,15 +91,6 @@ const SearchBar = () => {
                         <ul className="searchBarDropDown maker">
                             <li><input type="checkbox" />‏אאודי</li>
                             <li><input type="checkbox" />‏מרצדס</li>
-                            <li><input type="checkbox" />‏מרצדס </li>
-                            <li><input type="checkbox" />‏מרצדס </li>
-                            <li><input type="checkbox" />‏מרצדס </li>
-                            <li><input type="checkbox" />‏מרצדס </li>
-                            <li><input type="checkbox" />‏מרצדס</li>
-                            <li><input type="checkbox" />‏מרצדס</li>
-                            <li><input type="checkbox" />‏מרצדס</li>
-                            <li><input type="checkbox" />‏מרצדס</li>
-                            <li><input type="checkbox" />‏מרצדס</li>
                         </ul>
                     </li>
                 </ul>
@@ -103,7 +100,12 @@ const SearchBar = () => {
     )
 }
 
-export default SearchBar;
+const mapStateToProps = (state) => {
+    return state
+};
+
+export default connect(mapStateToProps)(SearchBar);
+
 
 
 // <li>שנה
