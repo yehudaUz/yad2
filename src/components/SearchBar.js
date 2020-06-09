@@ -2,21 +2,38 @@ import React from 'react';
 
 const SearchBar = () => {
     const onOffDropList = (className) => {
-        if (document.getElementsByClassName(className))
-            document.getElementsByClassName(className)[0].style.display === "none" ?
-                document.getElementsByClassName(className)[0].style.display = "block" :
-                document.getElementsByClassName(className)[0].style.display = "none"
+        if (document.querySelectorAll(className).length > 0) {
+            switch (className) {
+                case ".fromYear":
+                    if (document.querySelectorAll(className + ".hidden").length > 0) {
+                        document.querySelectorAll(className + ".hidden")[0].classList.remove("hidden")
+                        document.querySelectorAll(".toYear")[0].classList.add("hidden")
+                    } else
+                        document.querySelectorAll(className)[0].classList.add("hidden")
+                    break;
+                case ".toYear":
+                    if (document.querySelectorAll(className + ".hidden").length > 0) {
+                        document.querySelectorAll(className + ".hidden")[0].classList.remove("hidden")
+                        document.querySelectorAll(".fromYear")[0].classList.add("hidden")
+                    } else
+                        document.querySelectorAll(className)[0].classList.add("hidden")
+                    break;
+                default:
+                    console.log("unknown class for dropList onOff!")
+                    break;
+            }
+        }
     }
     return (
         <div className="search-bar-div">
             <form className="search-form">
                 <h3><span>?איזה רכב תרצו לחפש</span></h3>
                 <ul className="search-columns">
-                    <li><button type="submit" data-test-id="searchButton" className="y2_btn primary search_button">
+                    <li className="search-button-li"><button type="submit"  className="search-button">
                         <span className="button_content"><i className="y2i_search"></i> <span className="button_text">חיפוש</span>
                         </span></button>
                     </li>
-                    <li><div className="dropdown_btn"><button type="button" className="y2_btn advanced_search_button grey">
+                    <li><div className="dropdown_btn"><button type="button" className="advance-search">
                         <span className="button_content"><i className="y2i_plus_o"></i>
                             <span className="button_text">חיפוש מתקדם</span></span></button></div>
                     </li>
@@ -33,8 +50,8 @@ const SearchBar = () => {
                     <div className="search-bar-input-wrapper">
                             <li>
                                 <input className="search-bar-input-double" type="text" name="" autoComplete="off" placeholder="עד שנה"
-                                    onClick={() => onOffDropList("toYear")}></input>
-                                <ul className="suka toYear">
+                                    onClick={() => onOffDropList(".toYear")}></input>
+                                <ul className="searchBarDropDown toYear hidden">
                                     <li><input type="checkbox" />עד שנה</li>
                                     <li><input type="checkbox" />עד שנה</li>
                                     <li><input type="checkbox" />עד שנה</li>
@@ -45,8 +62,8 @@ const SearchBar = () => {
                                     <li><input type="checkbox" />עד שנה</li>
                                 </ul>
                                 <input className="search-bar-input-double" type="text" name="" autoComplete="off" placeholder="משנה"
-                                    onClick={() => onOffDropList("fromYear")} ></input>
-                                <ul className="suka fromYear">
+                                    onClick={() => onOffDropList(".fromYear")} ></input>
+                                <ul className="searchBarDropDown fromYear hidden">
                                     <li><input type="checkbox" />משנה</li>
                                     <li><input type="checkbox" />משנה</li>
                                     <li><input type="checkbox" />משנה</li>
@@ -63,9 +80,9 @@ const SearchBar = () => {
                     <input className="search-bar-input" type="text" name="" autoComplete="off" placeholder="בחרו דגם" title="" ></input>
                     </li>
                     <li>יצרן
-                        <input className="search-bar-input" placeholder="בחרו יצרן" onClick={() => onOffDropList("maker")}></input>
+                        <input className="search-bar-input" placeholder="בחרו יצרן" onClick={() => onOffDropList(".maker")}></input>
                         {/* <input className="search-bar-input" type="text" name="" autocomplete="off" placeholder="בחרו יצרן" title="" ></input> */}
-                        <ul className="suka maker">
+                        <ul className="searchBarDropDown maker">
                             <li><input type="checkbox" />‏אאודי</li>
                             <li><input type="checkbox" />‏מרצדס</li>
                             <li><input type="checkbox" />‏מרצדס </li>
@@ -92,7 +109,7 @@ export default SearchBar;
 // <li>שנה
 // <div className="search-bar-input-wrapper">
 //     <li><input className="search-bar-input" type="text" name="" autocomplete="off" placeholder="עד שנה" ></input>
-//         <ul class="suka">
+//         <ul class="searchBarDropDown">
 //             <li><input type="checkbox" />Apple </li>
 //             <li><input type="checkbox" />Orange</li>
 //             <li><input type="checkbox" />Grapes </li>
@@ -102,7 +119,7 @@ export default SearchBar;
 //             <li><input type="checkbox" />Tomato</li>
 //         </ul></li>
 //     <li> <input className="search-bar-input" type="text" name="" autocomplete="off" placeholder="משנה" ></input>
-//         <ul class="suka">
+//         <ul class="searchBarDropDown">
 //             <li><input type="checkbox" />Apaaaaaaple </li>
 //             <li><input type="checkbox" />Orange</li>
 //             <li><input type="checkbox" />Grapes </li>

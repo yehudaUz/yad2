@@ -1,5 +1,5 @@
 * {
-     box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
@@ -302,10 +302,8 @@ a {
 .search-form input {
     max-width: 75%;
     text-align: center;
-    
     border-radius: 0;
     border-width: 1px;
-
 }
 
 .search-bar-input-wrapper {
@@ -322,9 +320,9 @@ a {
     margin-right: 30px;
 }
 
-
 /* dropdown searchbar content */
-.suka {
+
+.searchBarDropDown {
     /* --breakpoint-header-medium: $breakpoint;
     --breakpoint-header-small: $breakpoint;
     --breakpoint-header: $breakpoint;
@@ -345,7 +343,6 @@ a {
     --pumpkin-orange: $pumpkin-orange;
     --yad1-blue: $app_yad1_blue;
     --map-agency-marker: $map_agency_marker; */
-    display: none;
     --vh: 4.53px;
     color: #363636;
     direction: rtl;
@@ -368,9 +365,34 @@ a {
     overflow-x: hidden;
     border-bottom: 1px solid #ccc;
 }
-.suka ul {
+
+.searchBarDropDown ul {
     display: block;
 }
-.suka li {
+
+.searchBarDropDown li {
     display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.search-button {
+    background: #ff7100;
+    border-width: 0px;
+    color: white;
+}
+.search-button-li {
+    background: #ff7100;
+}
+.advance-search {
+    max-width: 75%;
+    text-align: center;
+    border-radius: 0;
+    border-width: 0px;
 }
