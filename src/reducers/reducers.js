@@ -1,3 +1,4 @@
+
 const getLocalStorageOrSetDefault = () => {
     // localStorage.clear()
     if (localStorage.getItem('state')) {
@@ -11,7 +12,12 @@ const getLocalStorageOrSetDefault = () => {
             maker: [], model: [], fromYear: "", toYear: "", fromPrice: "", toPrice: "", area: [],
             fromKm: "", toKm: "", fromHand: "", toHand: "", color: "", ownership: "", engineCcFrom: "",
             engineCcTo: "", engineType: "", transmitionType: "", freeText: ""
-        }
+        },
+        searchResult: [{
+            maker:"",model:"",price:"",year:"",hand:"",engineCc:"",area:"",freeText:"",km:"",
+            engingType:"",transmitionType:"",dateOnTheRoad:"",testUntil:"",ownership:"",isReplaceOk:"",
+            isFitToDisability:""
+        }]
     }
     localStorage.setItem('state', JSON.stringify(state));
     return state

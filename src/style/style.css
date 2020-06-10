@@ -323,26 +323,6 @@ a {
 /* dropdown searchbar content */
 
 .searchBarDropDown {
-    /* --breakpoint-header-medium: $breakpoint;
-    --breakpoint-header-small: $breakpoint;
-    --breakpoint-header: $breakpoint;
-    --breakpoint-desktop: $breakpoint;
-    --breakpoint-desktop-navbar: $breakpoint;
-    --breakpoint-desktop-small: $breakpoint;
-    --breakpoint-desktop-medium: $breakpoint;
-    --breakpoint-desktop-large: $breakpoint;
-    --breakpoint-desktop-large-gallery-dfp: $breakpoint;
-    --breakpoint-desktop-extra-small: $breakpoint;
-    --breakpoint-tablet: $breakpoint;
-    --breakpoint-mobile: $breakpoint;
-    --breakpoint-laptop-height: $breakpoint;
-    --breakpoint-laptop-height-medium: $breakpoint;
-    --breakpoint-laptop-height-small: $breakpoint;
-    --breakpoint-mobile-medium: $breakpoint;
-    --breakpoint-mobile-small: $breakpoint;
-    --pumpkin-orange: $pumpkin-orange;
-    --yad1-blue: $app_yad1_blue;
-    --map-agency-marker: $map_agency_marker; */
     --vh: 4.53px;
     color: #363636;
     direction: rtl;
@@ -387,12 +367,44 @@ a {
     border-width: 0px;
     color: white;
 }
+
 .search-button-li {
     background: #ff7100;
 }
+
 .advance-search {
     max-width: 75%;
     text-align: center;
     border-radius: 0;
     border-width: 0px;
+}
+
+/* search result */
+
+.search-result-wrapper {
+    margin: 10vh 0 10vw 0;
+    text-align: center;
+}
+
+.search-result-header-wrapper {
+    /* text-align: right; */
+    width: 70vw;
+    text-align: center;
+    display: inline-block;
+}
+
+.search-result-header-name {
+    float: right;
+}
+
+.search-result-header-counter {
+    float: left;
+}
+.sortBy-wrapper {
+    width: 70vw;
+    text-align: center;
+    display: inline-block;
+}
+.sort-by-label {
+    float: right;
 }

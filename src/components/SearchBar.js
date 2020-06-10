@@ -1,9 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateCarSearchParmas } from '../actions/actions'
+import { onOffDropList } from '../logic/onOffDropList'
 
 const SearchBar = (props) => {
     console.log("Z", props)
+
+    const renderYears = () => {
+        let years = []
+        for (let i = 1971; i <= 2020; i++)
+            years.push(i)
+        return years.reverse().map(year => (
+            <li>{year}</li>
+
+        ))
+    }
+
+    const updateSearchParams = (e, propName, theProp) => {
+        console.log("TTTTT", e.target.parentNode.textContent, e.target.checked)
+        if (!e.target.checked) {
+            const makerArrWithoutUncheckedItem = theProp.filter(maker => maker !== e.target.parentNode.textContent)
+            props.dispatch(updateCarSearchParmas({ [propName]: [...makerArrWithoutUncheckedItem] }))
+        } else
+            props.dispatch(updateCarSearchParmas({ [propName]: [...theProp, e.target.parentNode.textContent] }))
+    }
+
     const submitForm = (e) => {
         // e.preventDefault()
         // const formValues = {
@@ -18,32 +39,8 @@ const SearchBar = (props) => {
         // console.log(JSON.stringify(formValues))
         // throw new Error()
     }
-    const onOffDropList = (className) => {
-        if (document.querySelectorAll(className).length > 0) {
-            switch (className) {
-                case ".fromYear":
-                    if (document.querySelectorAll(className + ".hidden").length > 0) {
-                        document.querySelectorAll(className + ".hidden")[0].classList.remove("hidden")
-                        document.querySelectorAll(".toYear")[0].classList.add("hidden")
-                    } else
-                        document.querySelectorAll(className)[0].classList.add("hidden")
-                    break;
-                case ".toYear":
-                    if (document.querySelectorAll(className + ".hidden").length > 0) {
-                        document.querySelectorAll(className + ".hidden")[0].classList.remove("hidden")
-                        document.querySelectorAll(".fromYear")[0].classList.add("hidden")
-                    } else
-                        document.querySelectorAll(className)[0].classList.add("hidden")
-                    break;
-                default:
-                    document.querySelectorAll(className + ".hidden").length > 0 ?
-                        document.querySelectorAll(className + ".hidden")[0].classList.remove("hidden")
-                        : document.querySelectorAll(className)[0].classList.add("hidden")
-                    console.log("unknown " + className + "  for dropList onOff!")
-                    break;
-            }
-        }
-    }
+
+
     return (
         <div className="search-bar-div">
             <form className="search-form" onSubmit={submitForm}>
@@ -61,7 +58,7 @@ const SearchBar = (props) => {
                     <input className="search-bar-input" type="text" name="" autoComplete="off" placeholder="בחרו אזור" title=""
                             onClick={() => onOffDropList(".area")} ></input>
                         <ul className="searchBarDropDown area hidden" onChange={(e) => {
-                            console.log("TTTTT", e.target.parentNode.textContent, e.target.checked)
+                            updateSearchParams(e, "area", props.carSearchParmas.area)
                         }}>
                             <li><input type="checkbox" />ירושלים</li>
                             <li><input type="checkbox" />תל אביב</li>
@@ -80,19 +77,21 @@ const SearchBar = (props) => {
                             <li>
                                 <input className="search-bar-input-double" type="text" name="" autoComplete="off" placeholder="עד שנה"
                                     onClick={() => onOffDropList(".toYear")}></input>
-                                <ul className="searchBarDropDown toYear hidden" onChange={(e) => {
-                                    console.log("TTTTT", e.target.parentNode.textContent, e.target.checked)
+                                <ul className="searchBarDropDown toYear hidden" onClick={(e) => {
+                                    props.dispatch(updateCarSearchParmas({
+                                        toYear: e.target.innerText
+                                    }))
                                 }}>
-                                    <li><input type="checkbox" />עד שנה</li>
-                                    <li><input type="checkbox" />עד שנה</li>
+                                    {renderYears()}
                                 </ul>
                                 <input className="search-bar-input-double" type="text" name="" autoComplete="off" placeholder="משנה"
                                     onClick={() => onOffDropList(".fromYear")} ></input>
-                                <ul className="searchBarDropDown fromYear hidden" onChange={(e) => {
-                                    console.log("TTTTT", e.target.parentNode.textContent, e.target.checked)
+                                <ul className="searchBarDropDown fromYear hidden" onClick={(e) => {
+                                    props.dispatch(updateCarSearchParmas({
+                                        fromYear: e.target.innerText
+                                    }))
                                 }}>
-                                    <li><input type="checkbox" />משנה</li>
-                                    <li><input type="checkbox" />משנה</li>
+                                    {renderYears()}
                                 </ul>
                             </li>
                         </div>
@@ -101,7 +100,7 @@ const SearchBar = (props) => {
                     <input className="search-bar-input" type="text" name="" autoComplete="off" placeholder="בחרו דגם" title=""
                             onClick={() => onOffDropList(".model")} ></input>
                         <ul className="searchBarDropDown model hidden" onChange={(e) => {
-                            console.log("TTTTT", e.target.parentNode.textContent, e.target.checked)
+                            updateSearchParams(e, "model", props.carSearchParmas.model)
                         }} >
                             <li><input type="checkbox" />A6</li>
                             <li><input type="checkbox" />MG</li>
@@ -109,14 +108,8 @@ const SearchBar = (props) => {
                     </li>
                     <li>יצרן
                         <input className="search-bar-input" placeholder="בחרו יצרן" onClick={() => onOffDropList(".maker")}></input>
-                        {/* <input className="search-bar-input" type="text" name="" autocomplete="off" placeholder="בחרו יצרן" title="" ></input> */}
                         <ul className="searchBarDropDown maker hidden" onChange={(e) => {
-                            console.log("TTTTT", e.target.parentNode.textContent, e.target.checked)
-                            if (!e.target.checked) {
-                                const makerArrWithoutUncheckedItem = props.carSearchParmas.maker.filter(maker => maker !== e.target.parentNode.textContent)
-                                props.dispatch(updateCarSearchParmas({ maker: [...makerArrWithoutUncheckedItem] }))
-                            } else
-                                props.dispatch(updateCarSearchParmas({ maker: [...props.carSearchParmas.maker, e.target.parentNode.textContent] }))
+                            updateSearchParams(e, "maker", props.carSearchParmas.maker)
                         }}>
                             <li><input type="checkbox" />‏אאודי</li>
                             <li><input type="checkbox" />‏מרצדס</li>

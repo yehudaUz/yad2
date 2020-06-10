@@ -5,6 +5,7 @@ import TopSubMenu from '../components/TopSubMenu'
 import SiteMapLink from '../components/SiteMapLink'
 import { cars } from '../other/utilities'
 import SearchBar from '../components/SearchBar.js'
+import SearchResult from '../components/SearchResult'
 // import Testing from './Testing.js'
 
 
@@ -16,6 +17,7 @@ const Cars = () => {
             <SiteMapLink />
             <Ads />
             <SearchBar/>
+            <SearchResult/>
             {/* <Testing/> */}
         </>
     )
