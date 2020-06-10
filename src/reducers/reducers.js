@@ -8,7 +8,7 @@ const getLocalStorageOrSetDefault = () => {
         adsPath: "/yad2Ad.png",
         menuText: ["ראשי"],
         carSearchParmas: {
-            maker: "", model: "", fromYear: "", toYear: "", fromPrice: "", toPrice: "", area: "",
+            maker: [], model: [], fromYear: "", toYear: "", fromPrice: "", toPrice: "", area: [],
             fromKm: "", toKm: "", fromHand: "", toHand: "", color: "", ownership: "", engineCcFrom: "",
             engineCcTo: "", engineType: "", transmitionType: "", freeText: ""
         }
@@ -31,7 +31,7 @@ export default (state = initialState, action) => {
             localStorage.setItem('state', JSON.stringify(newState));
             return newState
         case 'UPDATE_CAR_SEARCH_PARAMS':
-            newState = { ...state, carSearchParmas: action.carSearchParams }
+            newState = { ...state, carSearchParmas: { ...state.carSearchParmas, ...action.carSearchParams } }
             localStorage.setItem('state', JSON.stringify(newState));
             return newState
         default:

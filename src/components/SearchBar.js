@@ -5,18 +5,18 @@ import { updateCarSearchParmas } from '../actions/actions'
 const SearchBar = (props) => {
     console.log("Z", props)
     const submitForm = (e) => {
-        e.preventDefault()
-        const formValues = {
-            maker: e.target[24].value,
-            model: e.target[23].value,
-            fromYear: e.target[14].value,
-            toYear: e.target[5].value,
-            fromPrice: e.target[4].value,
-            toPrice: e.target[3].value,
-            area: e.target[2].value
-        }
-        console.log(JSON.stringify(formValues))
-        throw new Error()
+        // e.preventDefault()
+        // const formValues = {
+        //     maker: e.target[24].value,
+        //     model: e.target[23].value,
+        //     fromYear: e.target[14].value,
+        //     toYear: e.target[5].value,
+        //     fromPrice: e.target[4].value,
+        //     toPrice: e.target[3].value,
+        //     area: e.target[2].value
+        // }
+        // console.log(JSON.stringify(formValues))
+        // throw new Error()
     }
     const onOffDropList = (className) => {
         if (document.querySelectorAll(className).length > 0) {
@@ -36,7 +36,10 @@ const SearchBar = (props) => {
                         document.querySelectorAll(className)[0].classList.add("hidden")
                     break;
                 default:
-                    console.log("unknown class for dropList onOff!")
+                    document.querySelectorAll(className + ".hidden").length > 0 ?
+                        document.querySelectorAll(className + ".hidden")[0].classList.remove("hidden")
+                        : document.querySelectorAll(className)[0].classList.add("hidden")
+                    console.log("unknown " + className + "  for dropList onOff!")
                     break;
             }
         }
@@ -55,11 +58,19 @@ const SearchBar = (props) => {
                             <span className="button_text">חיפוש מתקדם</span></span></button></div>
                     </li>
                     <li>אזור
-                    <input className="search-bar-input" type="text" name="" autoComplete="off" placeholder="בחרו אזור" title="" ></input>
+                    <input className="search-bar-input" type="text" name="" autoComplete="off" placeholder="בחרו אזור" title=""
+                            onClick={() => onOffDropList(".area")} ></input>
+                        <ul className="searchBarDropDown area hidden" onChange={(e) => {
+                            console.log("TTTTT", e.target.parentNode.textContent, e.target.checked)
+                        }}>
+                            <li><input type="checkbox" />ירושלים</li>
+                            <li><input type="checkbox" />תל אביב</li>
+                        </ul>
                     </li>
                     <li>מחיר בש"ח
                     <div className="search-bar-input-wrapper">
-                            <input className="search-bar-input-double" type="text" name="" autoComplete="off" placeholder="עד מחיר"></input>
+                            <input className="search-bar-input-double" type="text" name="" autoComplete="off" placeholder="עד מחיר"
+                                onChange={(e) => props.dispatch(updateCarSearchParmas({ toPrice: e.target.value }))}></input>
                             <input className="search-bar-input-double" type="text" name="" autoComplete="off" placeholder="ממחיר"
                                 onChange={(e) => props.dispatch(updateCarSearchParmas({ fromPrice: e.target.value }))}></input>
                         </div>
@@ -69,13 +80,17 @@ const SearchBar = (props) => {
                             <li>
                                 <input className="search-bar-input-double" type="text" name="" autoComplete="off" placeholder="עד שנה"
                                     onClick={() => onOffDropList(".toYear")}></input>
-                                <ul className="searchBarDropDown toYear hidden">
+                                <ul className="searchBarDropDown toYear hidden" onChange={(e) => {
+                                    console.log("TTTTT", e.target.parentNode.textContent, e.target.checked)
+                                }}>
                                     <li><input type="checkbox" />עד שנה</li>
                                     <li><input type="checkbox" />עד שנה</li>
                                 </ul>
                                 <input className="search-bar-input-double" type="text" name="" autoComplete="off" placeholder="משנה"
                                     onClick={() => onOffDropList(".fromYear")} ></input>
-                                <ul className="searchBarDropDown fromYear hidden">
+                                <ul className="searchBarDropDown fromYear hidden" onChange={(e) => {
+                                    console.log("TTTTT", e.target.parentNode.textContent, e.target.checked)
+                                }}>
                                     <li><input type="checkbox" />משנה</li>
                                     <li><input type="checkbox" />משנה</li>
                                 </ul>
@@ -83,12 +98,26 @@ const SearchBar = (props) => {
                         </div>
                     </li>
                     <li>דגם
-                    <input className="search-bar-input" type="text" name="" autoComplete="off" placeholder="בחרו דגם" title="" ></input>
+                    <input className="search-bar-input" type="text" name="" autoComplete="off" placeholder="בחרו דגם" title=""
+                            onClick={() => onOffDropList(".model")} ></input>
+                        <ul className="searchBarDropDown model hidden" onChange={(e) => {
+                            console.log("TTTTT", e.target.parentNode.textContent, e.target.checked)
+                        }} >
+                            <li><input type="checkbox" />A6</li>
+                            <li><input type="checkbox" />MG</li>
+                        </ul>
                     </li>
                     <li>יצרן
                         <input className="search-bar-input" placeholder="בחרו יצרן" onClick={() => onOffDropList(".maker")}></input>
                         {/* <input className="search-bar-input" type="text" name="" autocomplete="off" placeholder="בחרו יצרן" title="" ></input> */}
-                        <ul className="searchBarDropDown maker">
+                        <ul className="searchBarDropDown maker hidden" onChange={(e) => {
+                            console.log("TTTTT", e.target.parentNode.textContent, e.target.checked)
+                            if (!e.target.checked) {
+                                const makerArrWithoutUncheckedItem = props.carSearchParmas.maker.filter(maker => maker !== e.target.parentNode.textContent)
+                                props.dispatch(updateCarSearchParmas({ maker: [...makerArrWithoutUncheckedItem] }))
+                            } else
+                                props.dispatch(updateCarSearchParmas({ maker: [...props.carSearchParmas.maker, e.target.parentNode.textContent] }))
+                        }}>
                             <li><input type="checkbox" />‏אאודי</li>
                             <li><input type="checkbox" />‏מרצדס</li>
                         </ul>
@@ -105,30 +134,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(SearchBar);
-
-
-
-// <li>שנה
-// <div className="search-bar-input-wrapper">
-//     <li><input className="search-bar-input" type="text" name="" autocomplete="off" placeholder="עד שנה" ></input>
-//         <ul class="searchBarDropDown">
-//             <li><input type="checkbox" />Apple </li>
-//             <li><input type="checkbox" />Orange</li>
-//             <li><input type="checkbox" />Grapes </li>
-//             <li><input type="checkbox" />Berry </li>
-//             <li><input type="checkbox" />Mango </li>
-//             <li><input type="checkbox" />Banana </li>
-//             <li><input type="checkbox" />Tomato</li>
-//         </ul></li>
-//     <li> <input className="search-bar-input" type="text" name="" autocomplete="off" placeholder="משנה" ></input>
-//         <ul class="searchBarDropDown">
-//             <li><input type="checkbox" />Apaaaaaaple </li>
-//             <li><input type="checkbox" />Orange</li>
-//             <li><input type="checkbox" />Grapes </li>
-//             <li><input type="checkbox" />Berry </li>
-//             <li><input type="checkbox" />Mango </li>
-//             <li><input type="checkbox" />Banana </li>
-//             <li><input type="checkbox" />Tomato</li>
-//         </ul></li>
-// </div>
-// </li>
