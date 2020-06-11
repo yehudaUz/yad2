@@ -21,6 +21,12 @@ body {
 
 /* } */
 
+.special-topBar-wrapper {
+    /* justify-content: center; */
+    align-items: center;
+    display: flex;
+}
+
 @media only screen and (max-width: 1700px) {
     .top-menu-special-text {
         display: none;
@@ -382,15 +388,19 @@ a {
 /* search result */
 
 .search-result-wrapper {
-    margin: 10vh 0 10vw 0;
+    /* margin: 10vh 0 10vw 0; */
+    /* text-align: center; */
+    margin: 10vh 15vw 10vw 15vw;
+    width: 70vw;
     text-align: center;
+    display: inline-block;
 }
 
 .search-result-header-wrapper {
     /* text-align: right; */
-    width: 70vw;
+    /* width: 70vw;
     text-align: center;
-    display: inline-block;
+    display: inline-block; */
 }
 
 .search-result-header-name {
@@ -400,11 +410,72 @@ a {
 .search-result-header-counter {
     float: left;
 }
+
 .sortBy-wrapper {
+    /* width: 70vw;
+    text-align: center; */
+    /* display: inline-block; */
+}
+
+.sort-by-label {
+    float: right;
+}
+
+.feed-options {
     width: 70vw;
     text-align: center;
     display: inline-block;
 }
-.sort-by-label {
+
+.filter-search-buttons {
+    float: left;
+}
+
+/* login page */
+
+.login-wrapper {
+    width: 70vw;
+    text-align: center;
+    display: inline-block;
+    margin: 10vh 20vw 10vh 20vw;
+}
+.login-header {
+    display: flow-root;
+}
+.login-title {
+    float: right;
+    /* display: inline-block; */
+    font-size: 38px;
+    font-weight: bold;
+    color: #000000;
+    margin-right: 2px;
+    font-family: "FbSpoiler";
+    vertical-align: bottom;
+    margin-top: 8.5vh;
+}
+
+.login-logo {
+    float: right;
+}
+
+.personal-information {
+    float: left;
+    margin-top: 8.5vh;
+}
+
+.logout {
+    display: inline;
+}
+
+.nav {
+    font-size: 12px;
+    font-family: arial;
+    color: #000;
+    direction: rtl;
+    margin: 0 auto;
+    background-color: #ff7700;
+    padding: 10px 0;
+}
+.nav-list {
     float: right;
 }

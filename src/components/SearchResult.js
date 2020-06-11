@@ -11,21 +11,31 @@ const SearchResult = (props) => {
                     <label className="search-result-header-name" >רכבים פרטיים - מכירה</label >
                     <label className="search-result-header-counter" > מציג {props.searchResult.length} מודעות </label>
                 </div>
-                <div className="sortBy-wrapper">
-                    <label className="sort-by-label">מיין לפי
-                    <div className="search-bar-input-wrapper">
-                            <li>
-                            <input className="search-bar-input" placeholder="לפי תאריך" onClick={() => onOffDropList(".sortBy")}></input>
-                            <ul className="searchBarDropDown sortBy hidden" onChange={(e) => {
-                                // updateSearchParams(e, "maker", props.carSearchParmas.maker)
-                            }}>
-                                <li><input type="radio" />‏אאודי</li>
-                                <li><input type="radio" />‏מרצדס</li>
-                            </ul>
-                            </li>
+                <div className="feed-options">
+                    <div className="sortBy-wrapper">
+                        <div className="sort-by-label">
+                          <div className="search-bar-input-wrapper">
+                                <li>
+                                    <label>מיין לפי</label>
+                                    <input className="search-bar-input" placeholder="לפי תאריך" onClick={() => onOffDropList(".sortBy")}></input>
+                                    <ul className="searchBarDropDown sortBy hidden" onChange={(e) => {
+                                        // updateSearchParams(e, "maker", props.carSearchParmas.maker)
+                                    }}>
+                                        <li><input type="radio" />לפי תאריך</li>
+                                        <li><input type="radio" />מחיר - מהזול ליקר</li>
+                                        <li><input type="radio" />מחיר - מהיקר לזול</li>
+                                        <li><input type="radio" />ק"מ - מהנמוך לגבוה</li>
+                                        <li><input type="radio" />שנתון - מהגבוה לנמוך</li>
+                                    </ul>
+                                </li>
+                            </div>
                         </div>
-
-                    </label>
+                    </div>
+                    <div className="filter-search-buttons">
+                        <button>עם תמונה</button>
+                        <button>עם מחיר ₪</button>
+                        <label>הצג מודעות</label>
+                    </div>
                 </div>
             </div >
         )
