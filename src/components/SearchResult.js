@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { onOffDropList } from '../logic/onOffDropList'
+import { onOffDropList, on, off } from '../logic/onOffDropList'
 
 const SearchResult = (props) => {
+    let counter = 0;
     console.log("fasdfasdf", props)
     if (props.searchResult && props.searchResult.length > 0)
         return (
@@ -14,7 +15,7 @@ const SearchResult = (props) => {
                 <div className="feed-options">
                     <div className="sortBy-wrapper">
                         <div className="sort-by-label">
-                          <div className="search-bar-input-wrapper">
+                            <div className="search-bar-input-wrapper">
                                 <li>
                                     <label>מיין לפי</label>
                                     <input className="search-bar-input" placeholder="לפי תאריך" onClick={() => onOffDropList(".sortBy")}></input>
@@ -36,6 +37,45 @@ const SearchResult = (props) => {
                         <button>עם מחיר ₪</button>
                         <label>הצג מודעות</label>
                     </div>
+                </div>
+
+                <div className="search-result-data">
+                    {props.searchResult.map(searchData => {
+                        return (
+                            <div className="search-result-table">
+                                <div className="search-result-left-part" onMouseEnter={(e) => on(e)}
+                                    onMouseLeave={(e) => off(e)}>
+                                    <div className="search-result-new-tab">
+                                        <span className="hover-text hidden" >פתיחה בטאב חדש</span>
+                                        <i className="new-tab"><img src="/newTabIcon.png"></img></i>
+                                    </div>
+                                    <div className="search-result-price"><label>₪{searchData.price}</label></div>
+                                    <div className="search-result-date-update"><label>{searchData.lastUpadte}</label></div>
+                                </div>
+                                <div className="search-result-middle-part">
+                                    <div className="search-result-year-wrapper" key={++counter}>
+                                        <span className="search-result-year">{searchData.year}</span>
+                                        <span className="search-result-year-desc">שנה</span>
+                                    </div>
+                                    <div className="search-result-hand-wrapper" key={++counter}>
+                                        <span className="search-result-hand">{searchData.hand}</span>
+                                        <span className="search-result-hand-desc">יד</span>
+                                    </div>
+                                    <div className="search-result-cc-wrapper" key={++counter}>
+                                    <span className="search-result-cc">{searchData.engineCc}</span>
+                                        <span className="search-result-cc-desc">סמ"ק</span>
+                                    </div>
+                                </div>
+                                <div className="search-result-right-part">
+                                    <div className="search-result-image">
+                                    </div>
+                                    <div className="search-result-car-name-and-title">
+                                    </div>
+                                </div>
+                                {/* <p>{JSON.stringify(searchData)}</p> */}
+                            </div>
+                        )
+                    })}
                 </div>
             </div >
         )

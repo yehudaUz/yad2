@@ -1,4 +1,26 @@
 
+const initialSearchResult = [{
+    maker: "מרצדס", model: "amg", price: "50000", year: "1965", hand: "3", engineCc: "2000", area: "ירושלים", freeText: "ידשה ושמורה", km: "80000",
+    engingType: "בנזין", transmitionType: "אוטומט", dateOnTheRoad: "15032015", testUntil: "180321", ownership: "פרטי", isReplaceOk: "false",
+    isFitToDisability: "false",lastUpadte:"21052020"
+},
+{
+    maker: "פורד", model: "פוקוס", price: "40000", year: "1995", hand: "3", engineCc: "1980", area: "תל אביב", freeText: "ידשה ושמורה", km: "80000",
+    engingType: "בנזין", transmitionType: "אוטומט", dateOnTheRoad: "15032015", testUntil: "180321", ownership: "פרטי", isReplaceOk: "false",
+    isFitToDisability: "false",lastUpadte:"21052020"
+},
+{
+    maker: "ניסאן", model: "amg", price: "50000", year: "1965", hand: "3", engineCc: "2000", area: "ירושלים", freeText: "ידשה ושמורה", km: "80000",
+    engingType: "בנזין", transmitionType: "אוטומט", dateOnTheRoad: "15032015", testUntil: "180321", ownership: "פרטי", isReplaceOk: "false",
+    isFitToDisability: "false",lastUpadte:"21052020"
+},
+{
+    maker: "gm", model: "amg", price: "50000", year: "1965", hand: "3", engineCc: "2000", area: "ירושלים", freeText: "ידשה ושמורה", km: "80000",
+    engingType: "בנזין", transmitionType: "אוטומט", dateOnTheRoad: "15032015", testUntil: "180321", ownership: "פרטי", isReplaceOk: "false",
+    isFitToDisability: "false",lastUpadte:"21052020"
+}]
+
+
 const getLocalStorageOrSetDefault = () => {
     // localStorage.clear()
     if (localStorage.getItem('state')) {
@@ -13,11 +35,12 @@ const getLocalStorageOrSetDefault = () => {
             fromKm: "", toKm: "", fromHand: "", toHand: "", color: "", ownership: "", engineCcFrom: "",
             engineCcTo: "", engineType: "", transmitionType: "", freeText: ""
         },
-        searchResult: [{
-            maker:"",model:"",price:"",year:"",hand:"",engineCc:"",area:"",freeText:"",km:"",
-            engingType:"",transmitionType:"",dateOnTheRoad:"",testUntil:"",ownership:"",isReplaceOk:"",
-            isFitToDisability:""
-        }]
+        searchResult: initialSearchResult
+        //  [{
+        //     maker: "", model: "", price: "", year: "", hand: "", engineCc: "", area: "", freeText: "", km: "",
+        //     engingType: "", transmitionType: "", dateOnTheRoad: "", testUntil: "", ownership: "", isReplaceOk: "",
+        //     isFitToDisability: ""
+        // }]
     }
     localStorage.setItem('state', JSON.stringify(state));
     return state
