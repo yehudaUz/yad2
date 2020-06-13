@@ -62,14 +62,17 @@ const SearchResult = (props) => {
                                         <span className="search-result-hand-desc">יד</span>
                                     </div>
                                     <div className="search-result-cc-wrapper" key={++counter}>
-                                    <span className="search-result-cc">{searchData.engineCc}</span>
+                                        <span className="search-result-cc">{searchData.engineCc}</span>
                                         <span className="search-result-cc-desc">סמ"ק</span>
                                     </div>
                                 </div>
                                 <div className="search-result-right-part">
-                                    <div className="search-result-image">
+                                    <div className="search-result-image-wrapper">
+                                        <img className="search-result-image" src={searchData.imgs[0]}></img>
                                     </div>
                                     <div className="search-result-car-name-and-title">
+                                        <label className="search-result-makerModel">{searchData.model + "  " + searchData.maker}</label>
+                                        <label className="search-result-engingTransmition">{searchData.engineType + "  " + searchData.transmitionType + "  " + searchData.engineCc}</label>
                                     </div>
                                 </div>
                                 {/* <p>{JSON.stringify(searchData)}</p> */}

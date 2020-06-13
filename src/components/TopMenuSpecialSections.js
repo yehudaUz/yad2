@@ -5,7 +5,7 @@ const TopMenuSpecial = (props) => {
     return (
         <div className="special-topBar-wrapper">
             <a href="/postNewAd"><button className="new-item-button">פרסום מודעה חדשה +</button></a>
-            <a href="/login"><li className="top-menu-special-text">אזור אישי</li>
+            <a href="/personalArea"><li className="top-menu-special-text">אזור אישי</li>
                 <img src="person.png" alt="person" className="top-menu-small-icon person-png"></img></a >
             <a href="/savedItems"><li className="top-menu-special-text">מודעות שמורות</li>
                 <img src="heart.png" alt="heart" className="top-menu-small-icon heart-png"></img></a>

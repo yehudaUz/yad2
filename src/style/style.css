@@ -305,8 +305,14 @@ a {
     text-align: -webkit-right;
 }
 
+.search-form .search-bar-input-double {
+    width: 50%;
+    max-width: max-content;
+}
+
 .search-form input {
-    max-width: 75%;
+    /* max-width: 75%; */
+    max-width: fit-content;
     text-align: center;
     border-radius: 0;
     border-width: 1px;
@@ -317,13 +323,13 @@ a {
     justify-content: space-evenly;
 }
 
-.search-bar-input-double {
-    width: 50%;
-}
-
 .search-form h3 {
     text-align: right;
     margin-right: 30px;
+}
+
+.search-result-makerModel {
+    text-align: right;
 }
 
 /* dropdown searchbar content */
@@ -379,7 +385,7 @@ a {
 }
 
 .advance-search {
-    max-width: 75%;
+    /* max-width: 75%; */
     text-align: center;
     border-radius: 0;
     border-width: 0px;
@@ -391,9 +397,10 @@ a {
     /* margin: 10vh 0 10vw 0; */
     /* text-align: center; */
     margin: 10vh 15vw 10vw 15vw;
-    width: 70vw;
+    width: 37vw;
     text-align: center;
     display: inline-block;
+    float: right;
 }
 
 .search-result-header-wrapper {
@@ -422,7 +429,7 @@ a {
 }
 
 .feed-options {
-    width: 70vw;
+    width: 37vw;
     text-align: center;
     display: inline-block;
 }
@@ -432,7 +439,8 @@ a {
 }
 
 .search-result-table {
-    width: 70vw;
+    width: 37vw;
+    float: right;
     text-align: center;
     /* display: inline-block; */
     background: #FDF9C5;
@@ -447,12 +455,13 @@ a {
 }
 
 .search-result-right-part {
-    display: table;
+    display: inline;
     overflow: hidden;
     white-space: nowrap;
     height: 85px;
     width: 100%;
     border-left: 1px solid rgba(0, 0, 0, .1);
+    margin-top: 5px;
 }
 
 .search-result-middle-part {
@@ -464,13 +473,15 @@ a {
     align-items: center;
     justify-content: space-evenly;
     border-left: 1px solid rgba(0, 0, 0, .1);
+    padding: 20px;
 }
 
 .search-result-left-part {
-    padding: 0 5px 0 0;
+    padding: 10px 20px 10px 20px;
+    /* padding: 0 5px 0 0; */
     justify-content: start;
     position: relative;
-    max-width: calc(100% - 531px);
+    /* max-width: calc(100% - 531px); */
     float: left;
     display: flex;
     align-items: flex-end;
@@ -497,8 +508,39 @@ a {
     white-space: nowrap;
     width: 100%;
 }
-.search-result-year,.search-result-hand,.search-result-cc {
+
+.search-result-year, .search-result-hand, .search-result-cc {
     float: left;
+}
+
+.search-result-image-wrapper {
+    height: inherit;
+    display: inline;
+}
+
+.search-result-image {
+    display: inline;
+    max-width: 75%;
+    max-height: 75%;
+    margin-top: 1%;
+    float: right;
+    margin-right: 10px;
+    border-radius: 3px;
+}
+
+.search-result-car-name-and-title {
+    display: inline;
+    float: right;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+.search-result-makerModel {
+    display: block;
+}
+
+.search-result-data {
+    font-family: Rubik, sans-serif;
 }
 
 /* .new-tab {} */
@@ -553,4 +595,27 @@ a {
 
 .nav-list {
     float: right;
+}
+
+/* personal area */
+
+.login-form-wrapper {
+    /* background: url("https://my.yad2.co.il/images/myYad2Secure/registration/login_corner_background.png"); */
+    max-width: 30%;
+    margin-left: 67%;
+}
+
+.login-background {
+    background: url("https://my.yad2.co.il/images/myYad2Secure/registration/login_corner_background.png");
+    padding: 30px 0px 200px;
+}
+
+.login-form {
+    background: linear-gradient(#EFAA48, #E56122);
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.login-form input {
+    display: block;
 }
