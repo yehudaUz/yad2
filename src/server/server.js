@@ -10,18 +10,12 @@ require('../database/mongoose')
 const userRouter = require('../database/models/user')
 const taskRouter = require('../database/models/task')
 
-// const app = express()
 
 app.use(express.json())
-const routers = require('./routers')
-app.use(routers)
+const routers = require('../server/routers')
+app.use('/',routers)
 app.use(userRouter)
 app.use(taskRouter)
-
-
-app.get('/ping', function (req, res) {
-  return res.send('pong');
-});
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
