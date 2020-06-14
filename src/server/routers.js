@@ -7,6 +7,8 @@ const auth = require('../database/middleware/auth')
 const Ad = require('../database/models/advertisement')
 const router = new express.Router()
 require('../database/mongoose')
+const fs = require('fs')
+const { log } = require('console')
 
 process.on('uncaughtException', (err, origin) => {
     //mail.send("me",{err,origin})
@@ -23,7 +25,8 @@ const upload = multer({
         fileSize: 1000000
     },
     fileFilter(req, file, cb) {
-        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+        if (!file.originalname.toLocaleLowerCase().match(/\.(jpg|jpeg|png|bmp)$/)) {
+            console.log(file.originalname)
             return cb(new Error('Please upload an image'))
         }
 
@@ -31,17 +34,39 @@ const upload = multer({
     }
 })
 
-router.post('/postNewAd', upload.single('img'), async (req, res) => {
+// router.post('/users/me/avatar', auth, upload.single('avatar'), async (req, res) => {
+//     const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer()
+//     req.user.avatar = buffer
+//     await req.user.save()
+//     res.send()
+// }, (error, req, res, next) => {
+//     res.status(400).send({ error: error.message })
+// })
+
+router.post('/uploadImage', upload.single('photo'), (req, res) => {
+    console.log(req.file)
+    // if(req.file) {
+    //     res.json(req.file);
+    // }
+    // else throw 'error';
+});
+
+
+router.post('/postNewAd', upload.single('photo'), async (req, res) => {
+    console.log(req.file)
     console.log(req.body)
     const ad = new Ad(req.body)
-    console.log(ad)
+    ad.img.contentType = 'image/png';
+    ad.img.data = req.file.buffer;
     await ad.save()
-    res.status(201).send('Signup complete succeefuly!!!')
+    console.log("AAAAAADDDDDDDD", ad)
+    Ad.findOne({ "_id":  ad._id  }, function (err, oneAdRecord) {
+        console.log("QQQQ",oneAdRecord)
+        res.set("Content-Type", oneAdRecord.img.contentType);
+        res.send(oneAdRecord.img.data);
+    });
+    // res.status(201).send('New ad added succeefuly!!!')
 
-    // const buffer = await sharp(req.body.buffer).resize({ width: 1024, height: 768 }).png().toBuffer()
-    // req.user.avatar = buffer
-    // await req.user.save()
-    // res.send()
 }, (error, req, res, next) => {
     res.status(400).send({ error: error.message })
 })

@@ -66,7 +66,7 @@ const PersonalArea = (props) => {
                 </div>
             </div>
 
-            <form className="personal-all-input-wrapper" action="/postNewAd" method="post">
+            <form className="personal-all-input-wrapper" action="/postNewAd" method="post" enctype="multipart/form-data">
                 <input placeholder="maker" name="maker" className="personal-area-maker" type="text"></input>
                 <input placeholder="model" name="model" className="personal-area-model" type="text"></input>
                 <input placeholder="price" name="price" className="personal-area-price" type="text"></input>
@@ -82,13 +82,19 @@ const PersonalArea = (props) => {
                 <input placeholder="testUntil" name="testUntil" className="personal-area-testUntil" type="text"></input>
                 <input placeholder="ownership" name="ownership" className="personal-area-ownership" type="text"></input>
                 <input placeholder="isFitToDisability" name="isFitToDisability" className="personal-area-isFitToDisability" type="text"></input>
-                <div>
+                {/* <div>
                     <label for="img">Select image:</label>
                     <input type="file" id="img" name="img" accept="image/*" />
-                </div>
-                <button>שלח מודעה</button>
+                </div> */}
+                {/* <form action="/uploadImage" method="post" enctype="multipart/form-data" > */}
+                <input type="file" name="photo" />
+                <button type="submit" value="upload"> שלח מודעה</button>
+                {/* </form> */}
+                {/* <input type="submit" value="upload" > < */}
+
+                {/* <button>שלח מודעה</button> */}
             </form>
-        </div>
+        </div >
     )
 }
 

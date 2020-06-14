@@ -6,10 +6,7 @@ const mongoose = require('mongoose')
 //     isFitToDisability: ""
 // }]
 const advertisementSchema = new mongoose.Schema({
-    img: {
-        type: Image,
-        required: false
-    },
+    img: { data: Buffer, contentType: String },
     maker: {
         type: String,
         required: true,
