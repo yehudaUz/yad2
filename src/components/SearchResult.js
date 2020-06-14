@@ -47,7 +47,7 @@ const SearchResult = (props) => {
                                     onMouseLeave={(e) => off(e)}>
                                     <div className="search-result-new-tab">
                                         <span className="hover-text hidden" >פתיחה בטאב חדש</span>
-                                        <i className="new-tab"><img src="/newTabIcon.png"></img></i>
+                                        <i className="new-tab"><img src="/newTabIcon.png" alt="newTabIcon"></img></i>
                                     </div>
                                     <div className="search-result-price"><label>₪{searchData.price}</label></div>
                                     <div className="search-result-date-update"><label>{searchData.lastUpadte}</label></div>
@@ -68,7 +68,7 @@ const SearchResult = (props) => {
                                 </div>
                                 <div className="search-result-right-part">
                                     <div className="search-result-image-wrapper">
-                                        <img className="search-result-image" src={searchData.imgs[0]}></img>
+                                        <img className="search-result-image" src={searchData.imgs[0]} alt="search-result"></img>
                                     </div>
                                     <div className="search-result-car-name-and-title">
                                         <label className="search-result-makerModel">{searchData.model + "  " + searchData.maker}</label>

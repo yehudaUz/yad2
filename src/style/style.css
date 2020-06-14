@@ -619,3 +619,12 @@ a {
 .login-form input {
     display: block;
 }
+
+/* personal area */
+[class^="personal-area"] {
+    display: block;
+}
+.personal-all-input-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}

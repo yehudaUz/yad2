@@ -1,9 +1,10 @@
 const express = require('express')
-const path = require('path')
+// const path = require('path')
 const multer = require('multer')
 const sharp = require('sharp')
 const User = require('../database/models/user')
 const auth = require('../database/middleware/auth')
+const Ad = require('../database/models/advertisement')
 const router = new express.Router()
 require('../database/mongoose')
 
@@ -17,18 +18,47 @@ router.get('/ping', function (req, res) {
     return res.send('pong');
 });
 
+const upload = multer({
+    limits: {
+        fileSize: 1000000
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+            return cb(new Error('Please upload an image'))
+        }
+
+        cb(undefined, true)
+    }
+})
+
+router.post('/postNewAd', upload.single('img'), async (req, res) => {
+    console.log(req.body)
+    const ad = new Ad(req.body)
+    console.log(ad)
+    await ad.save()
+    res.status(201).send('Signup complete succeefuly!!!')
+
+    // const buffer = await sharp(req.body.buffer).resize({ width: 1024, height: 768 }).png().toBuffer()
+    // req.user.avatar = buffer
+    // await req.user.save()
+    // res.send()
+}, (error, req, res, next) => {
+    res.status(400).send({ error: error.message })
+})
+
 router.post('/signup', async (req, res) => {
+    console.log(req.body)
     const user = new User(req.body)
     try {
-        const found = await User.findOne({ $or: [{ name: req.body.name }, { email: req.body.email }] })
+        const found = await User.findOne({ $or: [{ name: req.body.email }, { email: req.body.password }] })
         if (found)
-            return res.send('./transferPage.html?msg=Same user-name or email already exist!')
+            return res.send('Same user-name or email already exist!')
 
         await user.save()
         //sendWelcomeEmail(user.email, user.name)
         //const token = await user.generateAuthToken()
         //res.status(201).send({ user, token })
-        res.status(201).send('./transferPage.html?msg=Signup complete succeefuly!!!')
+        res.status(201).send('Signup complete succeefuly!!!')
 
     } catch (e) {
         console.log(e.message)
@@ -38,14 +68,15 @@ router.post('/signup', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     console.log("trying login")
+    console.log(req.body.email)
     try {
-        const user = await User.findByCredentials(req.body.username, req.body.password)
-        console.log(user)
+        const user = await User.findByCredentials(req.body.email, req.body.password)
+        console.log(JSON.stringify(user))
         const token = await user.generateAuthToken()
         res.cookie('JudaAuthToken', token)
-        res.redirect("game-lobby.html")
+        res.redirect("/personalArea")
     } catch (e) {
-        res.status(400).send('login failed!');//redirect('/')
+        res.status(400).send('login failed!' + e);//redirect('/')
     }
 })
 
@@ -97,25 +128,14 @@ router.patch('/users/me', auth, async (req, res) => {
 router.delete('/users/me', auth, async (req, res) => {
     try {
         await req.user.remove()
-        sendCancelationEmail(req.user.email, req.user.name)
+        // sendCancelationEmail(req.user.email, req.user.name)
         res.send(req.user)
     } catch (e) {
         res.status(500).send()
     }
 })
 
-const upload = multer({
-    limits: {
-        fileSize: 1000000
-    },
-    fileFilter(req, file, cb) {
-        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-            return cb(new Error('Please upload an image'))
-        }
 
-        cb(undefined, true)
-    }
-})
 
 router.post('/users/me/avatar', auth, upload.single('avatar'), async (req, res) => {
     const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer()

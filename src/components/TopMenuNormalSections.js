@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import DropDownContent from './dropDownContent'
+import DropDownContent from './DropDownContent'
 import { updateAds, updateMenu } from '../actions/actions'
 import { nadlanDropDownContentArrText, carDropDownContentArrText } from '../other/utilities'
 

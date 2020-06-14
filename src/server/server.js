@@ -8,14 +8,14 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 require('../database/mongoose')
 const userRouter = require('../database/models/user')
-const taskRouter = require('../database/models/task')
+const advertisementRouter = require('../database/models/advertisement')
 
-
-app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 const routers = require('../server/routers')
 app.use('/',routers)
 app.use(userRouter)
-app.use(taskRouter)
+app.use(advertisementRouter)
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));

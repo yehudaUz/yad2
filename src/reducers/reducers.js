@@ -18,7 +18,7 @@ const initialSearchResult = [{
 {
     maker: "gm", model: "amg", price: "50000", year: "1965", hand: "3", engineCc: "2000", area: "ירושלים", freeText: "ידשה ושמורה", km: "80000",
     engineType: "בנזין", transmitionType: "אוטומט", dateOnTheRoad: "15032015", testUntil: "180321", ownership: "פרטי", isReplaceOk: "false",
-    isFitToDisability: "false", lastUpadte: "21052020",imgs: ["https://img.yad2.co.il/Pic/202006/13/1_1/o/y2_1_03107_20200613150606.jpeg?l=7&c=6&w=1024&h=768"]
+    isFitToDisability: "false", lastUpadte: "21052020", imgs: ["https://img.yad2.co.il/Pic/202006/13/1_1/o/y2_1_03107_20200613150606.jpeg?l=7&c=6&w=1024&h=768"]
 }]
 
 
@@ -36,7 +36,8 @@ const getLocalStorageOrSetDefault = () => {
             fromKm: "", toKm: "", fromHand: "", toHand: "", color: "", ownership: "", engineCcFrom: "",
             engineCcTo: "", engineType: "", transmitionType: "", freeText: ""
         },
-        searchResult: initialSearchResult
+        searchResult: initialSearchResult,
+        user: { name: "לא ידוע" }
         //  [{
         //     maker: "", model: "", price: "", year: "", hand: "", engineCc: "", area: "", freeText: "", km: "",
         //     engingType: "", transmitionType: "", dateOnTheRoad: "", testUntil: "", ownership: "", isReplaceOk: "",
