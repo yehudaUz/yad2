@@ -7,18 +7,7 @@ const auth = require('../database/middleware/auth')
 const carAd = require('../database/models/carAdvertisment')
 const router = new express.Router()
 require('../database/mongoose')
-const fs = require('fs')
-const { log } = require('console')
-
-process.on('uncaughtException', (err, origin) => {
-    //mail.send("me",{err,origin})
-    console.log(err)
-    process.exit(1)
-});
-
-router.get('/ping', function (req, res) {
-    return res.send('pong');
-});
+// const fs = require('fs')
 
 const upload = multer({
     limits: {
@@ -34,29 +23,18 @@ const upload = multer({
     }
 })
 
-// router.post('/users/me/avatar', auth, upload.single('avatar'), async (req, res) => {
-//     const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer()
-//     req.user.avatar = buffer
-//     await req.user.save()
-//     res.send()
-// }, (error, req, res, next) => {
-//     res.status(400).send({ error: error.message })
-// })
-
-router.post('/uploadImage', upload.single('photo'), (req, res) => {
-    console.log(req.file)
-    // if(req.file) {
-    //     res.json(req.file);
-    // }
-    // else throw 'error';
+process.on('uncaughtException', (err, origin) => {
+    //mail.send("me",{err,origin})
+    console.log(err)
+    process.exit(1)
 });
-
 
 router.post('/postNewAd', auth, upload.single('photo'), async (req, res) => {
     // console.log(req.file)
     // console.log(req.body)
     console.log("User: " + req.user)
     const ad = new carAd(req.body)
+    ad.userId = req.user._id
     ad.img.contentType = 'image/png';
     ad.img.data = req.file.buffer;
     await ad.save()

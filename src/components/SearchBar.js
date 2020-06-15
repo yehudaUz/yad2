@@ -2,23 +2,25 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateCarSearchParmas } from '../actions/actions'
 import { onOffDropList } from '../logic/onOffDropList'
+import { makersAndModels } from '../other/utilities'
 
 const SearchBar = (props) => {
     console.log("Z", props)
+    let counter=0;
 
     const renderYears = () => {
         let years = []
         for (let i = 1971; i <= 2020; i++)
             years.push(i)
         return years.reverse().map(year => (
-            <li>{year}</li>
+            <li key={++counter}>{year}</li>
 
         ))
     }
 
     const updateSearchParams = (e, propName, theProp) => {
         console.log("TTTTT", e.target.parentNode.textContent, e.target.checked)
-        if (!e.target.checked) {
+        if (!(e.target.checked)) {
             const makerArrWithoutUncheckedItem = theProp.filter(maker => maker !== e.target.parentNode.textContent)
             props.dispatch(updateCarSearchParmas({ [propName]: [...makerArrWithoutUncheckedItem] }))
         } else
@@ -102,8 +104,14 @@ const SearchBar = (props) => {
                         <ul className="searchBarDropDown model hidden" onChange={(e) => {
                             updateSearchParams(e, "model", props.carSearchParmas.model)
                         }} >
-                            <li><input type="checkbox" />A6</li>
-                            <li><input type="checkbox" />MG</li>
+                            {props.carSearchParmas.maker !== "" && props.carSearchParmas.maker !== undefined &&
+                                makersAndModels.map((oneMakerModel) => {
+                                    if (oneMakerModel.maker === props.carSearchParmas.maker[0]) {
+                                        return oneMakerModel.models.map((oneModel) => (
+                                            <li key={++counter}><input key={++counter} type="checkbox" />{oneModel}</li>
+                                        ))
+                                    }
+                                })}
                         </ul>
                     </li>
                     <li>יצרן
@@ -111,8 +119,9 @@ const SearchBar = (props) => {
                         <ul className="searchBarDropDown maker hidden" onChange={(e) => {
                             updateSearchParams(e, "maker", props.carSearchParmas.maker)
                         }}>
-                            <li><input type="checkbox" />‏אאודי</li>
-                            <li><input type="checkbox" />‏מרצדס</li>
+                            {makersAndModels.map((oneMakerModel) => (
+                                <li key={++counter}><input key={++counter} type="checkbox" />{oneMakerModel.maker}</li>
+                            ))}
                         </ul>
                     </li>
                 </ul>

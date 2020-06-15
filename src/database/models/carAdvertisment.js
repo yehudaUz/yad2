@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { advertisementSchema, Advertisement } = require('./advertisement')
+const {  Advertisement } = require('./advertisement')
 // console.log(advertisementSchema)
 
 const carAdvertisementSchema = new mongoose.Schema({

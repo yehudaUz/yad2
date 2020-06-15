@@ -11,6 +11,8 @@ const advertisementSchema = new mongoose.Schema({
         type: Number,
         required: true,
         trim: true
+    }, userId: {
+        type: String
     }
 }, {
     timestamps: true
