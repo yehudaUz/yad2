@@ -52,7 +52,7 @@ router.post('/uploadImage', upload.single('photo'), (req, res) => {
 });
 
 
-router.post('/postNewAd', upload.single('photo'), async (req, res) => {
+router.post('/postNewAd', auth, upload.single('photo'), async (req, res) => {
     console.log(req.file)
     console.log(req.body)
     const ad = new Ad(req.body)
@@ -60,13 +60,13 @@ router.post('/postNewAd', upload.single('photo'), async (req, res) => {
     ad.img.data = req.file.buffer;
     await ad.save()
     console.log("AAAAAADDDDDDDD", ad)
-    Ad.findOne({ "_id":  ad._id  }, function (err, oneAdRecord) {
-        console.log("QQQQ",oneAdRecord)
+    Ad.findOne({ "_id": ad._id }, function (err, oneAdRecord) {
+        console.log("QQQQ", oneAdRecord)
         res.set("Content-Type", oneAdRecord.img.contentType);
         res.send(oneAdRecord.img.data);
     });
     // res.status(201).send('New ad added succeefuly!!!')
-
+    console.log("USER: " + req.user)
 }, (error, req, res, next) => {
     res.status(400).send({ error: error.message })
 })
@@ -96,9 +96,9 @@ router.post('/login', async (req, res) => {
     console.log(req.body.email)
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password)
-        console.log(JSON.stringify(user))
         const token = await user.generateAuthToken()
-        res.cookie('JudaAuthToken', token)
+        res.cookie('Authorization', token)
+        console.log(JSON.stringify(user))
         res.redirect("/personalArea")
     } catch (e) {
         res.status(400).send('login failed!' + e);//redirect('/')
@@ -200,7 +200,11 @@ router.get(/html$/, async (req, res) => {
     res.redirect('/')
 })
 
-
+router.get(function (req, res, next) {
+    if ((req.path.indexOf('html') >= 0)) {
+        res.redirect('/login');
+    } 
+});
 
 
 module.exports = router
