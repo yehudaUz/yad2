@@ -4,7 +4,7 @@ const multer = require('multer')
 const sharp = require('sharp')
 const User = require('../database/models/user')
 const auth = require('../database/middleware/auth')
-const Ad = require('../database/models/advertisement')
+const carAd = require('../database/models/carAdvertisment')
 const router = new express.Router()
 require('../database/mongoose')
 const fs = require('fs')
@@ -53,14 +53,17 @@ router.post('/uploadImage', upload.single('photo'), (req, res) => {
 
 
 router.post('/postNewAd', auth, upload.single('photo'), async (req, res) => {
-    console.log(req.file)
-    console.log(req.body)
-    const ad = new Ad(req.body)
+    // console.log(req.file)
+    // console.log(req.body)
+    console.log("User: " + req.user)
+    const ad = new carAd(req.body)
     ad.img.contentType = 'image/png';
     ad.img.data = req.file.buffer;
     await ad.save()
     console.log("AAAAAADDDDDDDD", ad)
-    Ad.findOne({ "_id": ad._id }, function (err, oneAdRecord) {
+    req.user.ads.push(ad._id)
+    await req.user.save()
+    carAd.findOne({ "_id": ad._id }, function (err, oneAdRecord) {
         console.log("QQQQ", oneAdRecord)
         res.set("Content-Type", oneAdRecord.img.contentType);
         res.send(oneAdRecord.img.data);
@@ -203,7 +206,7 @@ router.get(/html$/, async (req, res) => {
 router.get(function (req, res, next) {
     if ((req.path.indexOf('html') >= 0)) {
         res.redirect('/login');
-    } 
+    }
 });
 
 
