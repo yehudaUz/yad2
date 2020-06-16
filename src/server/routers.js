@@ -29,6 +29,27 @@ process.on('uncaughtException', (err, origin) => {
     process.exit(1)
 });
 
+router.post('/carSearchInitial', async (req, res) => {
+    carAd.find({}, function (err, records) {
+        if (err) {
+            console.log("errr", err, records)
+            return res.status(500).send({ body: "Sorry, internal error when searched for document in database" })
+        }
+        console.log("QQQQ", records)
+        res.send({ "body": records });
+    });
+    // carAd.findOne({ "_id": "5ee908deed44d847b0585267" }).limit(5).then((err, records) => {
+    //     if (err) {
+    //         console.log("errr", err, records)
+    //         return res.status(500).send({ body: "Sorry, internal error when searched for document in database" })
+    //     }
+    //     console.log("QQQQ", records)
+    //     res.send({ "body": records });
+    //     // res.status(200).send({ "body": "VERY COOL" })
+    // });
+
+})
+
 router.post('/postNewAd', auth, upload.single('photo'), async (req, res) => {
     // console.log(req.file)
     // console.log(req.body)
@@ -42,7 +63,7 @@ router.post('/postNewAd', auth, upload.single('photo'), async (req, res) => {
     req.user.ads.push(ad._id)
     await req.user.save()
     carAd.findOne({ "_id": ad._id }, function (err, oneAdRecord) {
-        console.log("QQQQ", oneAdRecord)
+        // console.log("QQQQ", oneAdRecord)
         res.set("Content-Type", oneAdRecord.img.contentType);
         res.send(oneAdRecord.img.data);
     });

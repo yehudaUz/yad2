@@ -2,11 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateCarSearchParmas } from '../actions/actions'
 import { onOffDropList } from '../logic/onOffDropList'
-import { makersAndModels } from '../other/utilities'
+import { makersAndModels, areas } from '../other/utilities'
 
 const SearchBar = (props) => {
-    console.log("Z", props)
-    let counter=0;
+    let counter = 0;
 
     const renderYears = () => {
         let years = []
@@ -14,7 +13,6 @@ const SearchBar = (props) => {
             years.push(i)
         return years.reverse().map(year => (
             <li key={++counter}>{year}</li>
-
         ))
     }
 
@@ -62,8 +60,13 @@ const SearchBar = (props) => {
                         <ul className="searchBarDropDown area hidden" onChange={(e) => {
                             updateSearchParams(e, "area", props.carSearchParmas.area)
                         }}>
-                            <li><input type="checkbox" />ירושלים</li>
-                            <li><input type="checkbox" />תל אביב</li>
+                            {areas.map((oneArea) => {
+                                const zonesLi = oneArea.zones.map((oneZone) => (
+                                    <li><input key={oneZone} type="checkbox" />{oneZone}</li>
+                                ))
+                                zonesLi.unshift(<li><b><input key={oneArea.region} type="checkbox" />{oneArea.region}</b></li>)
+                                return zonesLi
+                            })}
                         </ul>
                     </li>
                     <li>מחיר בש"ח
@@ -106,7 +109,7 @@ const SearchBar = (props) => {
                         }} >
                             {props.carSearchParmas.maker !== "" && props.carSearchParmas.maker !== undefined &&
                                 makersAndModels.map((oneMakerModel) => {
-                                    if (oneMakerModel.maker === props.carSearchParmas.maker[0]) {
+                                    if (props.carSearchParmas.maker.includes(oneMakerModel.maker)) {
                                         return oneMakerModel.models.map((oneModel) => (
                                             <li key={++counter}><input key={++counter} type="checkbox" />{oneModel}</li>
                                         ))

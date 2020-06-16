@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
-const {  Advertisement } = require('./advertisement')
+const { advertisement } = require('./advertisement')
 // console.log(advertisementSchema)
 
 const carAdvertisementSchema = new mongoose.Schema({
+    ...advertisement,
     maker: {
         type: String,
         required: true,
@@ -73,6 +74,9 @@ const carAdvertisementSchema = new mongoose.Schema({
 
 // const tempCarAdvertisement = mongoose.model('tempCarAdvertisement', carAdvertisementSchema)
 // const CarAdvertisement = tempCarAdvertisement.discriminator("CarAdvertisemen", advertisementSchema)
-const CarAdvertisement = Advertisement.discriminator("CarAdvertisement", carAdvertisementSchema)
+// console.log("FFFFFFFFFFFFFFFFFFFFF",Advertisement.discriminator)
+// const CarAdvertisement = Advertisement.discriminator("CarAdvertisement", carAdvertisementSchema)
+
+const CarAdvertisement = mongoose.model('CarAdvertisement', carAdvertisementSchema)
 
 module.exports = CarAdvertisement //CarAdvertisementSchema

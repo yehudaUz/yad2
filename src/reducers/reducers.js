@@ -1,3 +1,11 @@
+// const mongoose = require('mongoose')
+// require('../database/mongooseActions')
+// console.log(mongooseAction)
+fetch('http://localhost:3000/carSearchInitial', {
+    method: 'POST',
+}).then(response => response.json()).then(data => console.log(data.body)
+    // response.json().then((result) => this.setState({ results: results }))
+).catch(error => console.log("ERROR: " + error)) // Handle the error response object)
 
 const initialSearchResult = [{
     maker: "מרצדס", model: "amg", price: "50000", year: "1965", hand: "3", engineCc: "2000", area: "ירושלים", freeText: "ידשה ושמורה", km: "80000",
@@ -22,27 +30,27 @@ const initialSearchResult = [{
 }]
 
 
+const initialCarSearchParams = {
+    maker: [], model: [], fromYear: "", toYear: "", fromPrice: "", toPrice: "", area: [],
+    fromKm: "", toKm: "", fromHand: "", toHand: "", color: "", ownership: "", engineCcFrom: "",
+    engineCcTo: "", engineType: "", transmitionType: "", freeText: ""
+}
+
+
 const getLocalStorageOrSetDefault = () => {
     // localStorage.clear()
     if (localStorage.getItem('state')) {
-        console.log("parse", localStorage.getItem('state'))
-        return JSON.parse(localStorage.getItem('state'))
+        // console.log("parse", localStorage.getItem('state'))
+        let tempState = JSON.parse(localStorage.getItem('state'))
+        tempState.carSearchParmas = initialCarSearchParams
+        return tempState //JSON.parse(localStorage.getItem('state'))
     }
     const state = {
         adsPath: "/yad2Ad.png",
         menuText: ["ראשי"],
-        carSearchParmas: {
-            maker: [], model: [], fromYear: "", toYear: "", fromPrice: "", toPrice: "", area: [],
-            fromKm: "", toKm: "", fromHand: "", toHand: "", color: "", ownership: "", engineCcFrom: "",
-            engineCcTo: "", engineType: "", transmitionType: "", freeText: ""
-        },
+        carSearchParmas: initialCarSearchParams,
         searchResult: initialSearchResult,
         user: { name: "לא ידוע" }
-        //  [{
-        //     maker: "", model: "", price: "", year: "", hand: "", engineCc: "", area: "", freeText: "", km: "",
-        //     engingType: "", transmitionType: "", dateOnTheRoad: "", testUntil: "", ownership: "", isReplaceOk: "",
-        //     isFitToDisability: ""
-        // }]
     }
     localStorage.setItem('state', JSON.stringify(state));
     return state
@@ -50,7 +58,7 @@ const getLocalStorageOrSetDefault = () => {
 const initialState = getLocalStorageOrSetDefault()
 
 export default (state = initialState, action) => {
-    console.log("action: " + JSON.stringify(action) + "   state: " + JSON.stringify(state))
+    // console.log("action: " + JSON.stringify(action) + "   state: " + JSON.stringify(state))
     let newState
     switch (action.type) {
         case 'UPDATE_ADS':

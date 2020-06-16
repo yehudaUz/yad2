@@ -20,19 +20,35 @@ const makersAndModels = [
     },
     {
         maker: "סובארו",
-        models: ['121', '2', '2 דמיו', '3', '323', '323 לאנטיס', '5', '6', '626', 'mpv', 'MX-3', 'MX-5', 'MX-6', 'RX-8', 'דמיו']
+        models: ['121subaru', '2subaru', '2subaru דמיוsubaru', '3subaru', '323subaru', '323subaru לאנטיסsubaru', '5subaru', '6subaru', '626subaru', 'mpvsubaru', 'MXsubaru-3', 'MXsubaru-5', 'MXsubaru-6', 'RXsubaru-8', 'דמיוsubaru']
     },
     {
         maker: "מרצדס",
-        models: ['121', '2', '2 דמיו', '3', '323', '323 לאנטיס', '5', '6', '626', 'mpv', 'MX-3', 'MX-5', 'MX-6', 'RX-8', 'דמיו']
+        models: ['121mercedez', '2mercedez', '2mercedez דמיוmercedez', '3mercedez', '323mercedez', '323mercedez לאנטיסmercedez', '5mercedez', '6mercedez', '626mercedez', 'mpvmercedez', 'MXmercedez-3', 'MXmercedez-5', 'MXmercedez-6', 'RXmercedez-8', 'דמיוmercedez']
     },
     {
-        maker: "מאזדה",
-        models: ['121', '2', '2 דמיו', '3', '323', '323 לאנטיס', '5', '6', '626', 'mpv', 'MX-3', 'MX-5', 'MX-6', 'RX-8', 'דמיו']
+        maker: "someLie",
+        models: ['121someLie', '2someLie', '2someLie דמיוsomeLie', '3someLie', '323someLie', '323someLie לאנטיסsomeLie', '5someLie', '6someLie', '626someLie', 'mpvsomeLie', 'MXsomeLie-3', 'MXsomeLie-5', 'MXsomeLie-6', 'RXsomeLie-8', 'דמיוsomeLie']
     },
     {
         maker: "שקר כלשהוא",
-        models: ['121', '2', '2 דמיו', '3', '323', '323 לאנטיס', '5', '6', '626', 'mpv', 'MX-3', 'MX-5', 'MX-6', 'RX-8', 'דמיו']
+        models: ['121שקר כלשהוא', '2שקר כלשהוא', '2שקר כלשהוא דמיו', '3שקר כלשהוא', '323שקר כלשהוא', '323שקר כלשהוא לאנטיס', '5שקר כלשהוא', '6שקר כלשהוא', '626', 'mpvשקר כלשהוא', 'MXשקר כלשהוא-3', 'MXשקר כלשהוא-5', 'MXשקר כלשהוא-6', 'RXשקר כלשהוא-8שקר כלשהוא', 'דמיו']
     }
 ]
-export { cars, realestate, nadlanDropDownContentArrText, carDropDownContentArrText, makersAndModels } 
+
+const northAreas = ["חיפה", "עכו", "קריות"]
+const haderahArea = ["זכרון", "חדרה", "קיסריה"]
+const hasharonArea = ["נתניה", "רמת השרון", "רעננה"]
+const centerArea = ["תל-אביב", "ראשון", "חולון"]
+const jerusalemArea = ["ירושלים", "בית שמש", "הרי יהודה"]
+
+const areas = [
+    { region: "צפון", zones: northAreas }, { region: "חדרה וזכרון העמקים", zones: haderahArea },
+    { region: "השרון", zones: hasharonArea }, { region: "המרכז", zones: centerArea },
+    { region: "אזור ירושלים", zones: jerusalemArea }
+]
+
+export {
+    cars, realestate, nadlanDropDownContentArrText, carDropDownContentArrText, makersAndModels,
+    areas
+} 

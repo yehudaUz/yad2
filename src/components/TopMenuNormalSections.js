@@ -16,7 +16,6 @@ const topMenuData = [
 ]
 
 const TopMenuNormalSections = (props) => {
-    console.log("props", props)
     const renderButtons = () => {
         return topMenuData.map((menuButtonData) => (
             <li key={menuButtonData.href} className="dropbtn"><a href={menuButtonData.href}

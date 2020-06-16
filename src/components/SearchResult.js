@@ -4,7 +4,6 @@ import { onOffDropList, on, off } from '../logic/onOffDropList'
 
 const SearchResult = (props) => {
     let counter = 0;
-    console.log("fasdfasdf", props)
     if (props.searchResult && props.searchResult.length > 0)
         return (
             <div className="search-result-wrapper">

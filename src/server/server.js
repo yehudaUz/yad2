@@ -1,4 +1,4 @@
-const { Advertisement } = require('../database/models/advertisement')
+// const { Advertisement } = require('../database/models/advertisement')
 const express = require('express');
 require('dotenv').config()
 
@@ -14,10 +14,10 @@ const carAdvertisementRouter = require('../database/models/carAdvertisment')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-const routers = require('../server/routers')
-app.use('/', routers)
+const router = require('../server/routers')
+app.use('/', router)
 app.use(userRouter)
-app.use(Advertisement)
+// app.use(Advertisemadsent)
 app.use(carAdvertisementRouter)
 
 

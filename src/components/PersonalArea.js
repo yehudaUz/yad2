@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux';
 
 const PersonalArea = (props) => {
-    console.log("fasdfasdf", props)
     return (
         <div className="login-wrapper">
             <div className="login-header">
