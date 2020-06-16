@@ -120,7 +120,7 @@ const SearchBar = (props) => {
                             updateSearchParams(e, "maker", props.carSearchParmas.maker)
                         }}>
                             {makersAndModels.map((oneMakerModel) => (
-                                <li key={++counter}><input key={++counter} type="checkbox" />{oneMakerModel.maker}</li>
+                                <li><input key={oneMakerModel.maker} type="checkbox" />{oneMakerModel.maker}</li>
                             ))}
                         </ul>
                     </li>
