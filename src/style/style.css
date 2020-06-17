@@ -366,7 +366,6 @@ a {
     display: block;
 }
 
-
 .show {
     display: block;
 }
@@ -659,6 +658,28 @@ a {
     left: 0px; */
     display: flex;
     float: right;
+}
+
+.expend .search-result-year-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.expend .search-result-hand-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.expend .search-result-cc-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-result-special-middle-part {
+    width: 100%;
+    height: 100%;
+    padding-right: 0px;
+
 }
 
 .hidden {
