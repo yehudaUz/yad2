@@ -10,6 +10,15 @@ const router = new express.Router()
 require('../database/mongoose')
 // const fs = require('fs')
 
+const fs = require('fs');
+const AWS = require('aws-sdk');
+const s3 = new AWS.S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+});
+
+
+
 const upload = multer({
     limits: {
         fileSize: 1000000
@@ -36,8 +45,8 @@ router.post('/carSearchInitial', async (req, res) => {
             console.log("errr", err, records)
             return res.status(500).send({ body: "Sorry, internal error when searched for document in database" })
         }
-        console.log("QQQQ", { "body": records.slice(0, 2) })
-        res.send({ "body": records.slice(0, 2) });
+        console.log("QQQQ", { "body": records })//.slice(0, 2) })
+        res.send({ "body": records })//.slice(0, 2) });
     });
     // carAd.findOne({ "_id": "5ee908deed44d847b0585267" }).limit(5).then((err, records) => {
     //     if (err) {
@@ -51,18 +60,42 @@ router.post('/carSearchInitial', async (req, res) => {
 
 })
 
+
+const uploadFileToAwsBucket = (file, counter, userId) => {
+    //  fs.readFile(file.buffer, (err, data) => {
+    // if (err) throw err;
+    // const base64Data = new Buffer(JSON.stringify(file.buffer)).toString("base64");
+    const params = {
+        Bucket: 'yad2-pics', // pass your bucket name
+        Key: userId + "/img" + counter + "." + file.mimetype.split("/")[1], // file will be saved as testBucket/contacts.csv
+        Body: file.buffer//JSON.stringify(file.buffer, null, 2)
+    };
+    s3.upload(params, function (s3Err, data) {
+        if (s3Err) throw s3Err
+        console.log(`File uploaded successfully at ${data.Location}`)
+    });
+    // });
+};
+
+
 router.post('/postNewAd', auth, upload.any('photo'), async (req, res) => {
     // console.log(req.file)
     // console.log(req.body)
     // console.log("User: " + req.user)
     const ad = new carAd(req.body)
     // console.log("AD",ad)
-    ad.userId = req.user._id
+    // ad.userId = req.user._id
+    const userId = req.user._id
     const files = req.files;
     if (files) {
-        ad.imgs = []
+        // ad.imgs = []
+        counter = 0
         files.forEach((file) => {
-            ad.imgs.push({ contentType: 'image/png', data: file.buffer })
+            console.log(file)
+            uploadFileToAwsBucket(file, counter, userId)
+            counter++
+            // const base64Data = new Buffer(JSON.stringify(file.buffer)).toString("base64");
+            // ad.imgs.push({ contentType: file.mimetype, data: file.buffer, encoding: file.encoding })//"base64"})//file.encoding })
         })
     }
 
@@ -70,11 +103,11 @@ router.post('/postNewAd', auth, upload.any('photo'), async (req, res) => {
     // console.log("AAAAAADDDDDDDD", ad)
     req.user.ads.push(ad._id)
     await req.user.save()
-    carAd.findOne({ "_id": ad._id }, function (err, oneAdRecord) {
-        // console.log("QQQQ", oneAdRecord)
-        res.set("Content-Type", oneAdRecord.imgs[0].contentType);
-        res.send(oneAdRecord.imgs[0].data);
-    });
+    // carAd.findOne({ "_id": ad._id }, function (err, oneAdRecord) {
+    //     // console.log("QQQQ", oneAdRecord)
+    //     res.set("Content-Type", oneAdRecord.imgs[0].contentType);
+    //     res.send(oneAdRecord.imgs[0].data);
+    // });
     // res.status(201).send('New ad added succeefuly!!!')
     // console.log("USER: " + req.user)
 }, (error, req, res, next) => {

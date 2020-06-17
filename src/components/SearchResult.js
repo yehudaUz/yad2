@@ -87,7 +87,8 @@ const SearchResult = (props) => {
                                 <div className="search-result-right-part">
                                     <div className="search-result-image-wrapper">
                                         {searchData.imgs && searchData.imgs[0] && searchData.imgs[0].data &&
-                                            < img className="search-result-image" src={"data:" + searchData.imgs[0].contentType + ";base64," + searchData.imgs[0].data.data} alt="search-result"></img>
+                                            < img className="search-result-image" src={"data:" + searchData.imgs[0].contentType + ";" +
+                                                searchData.imgs[0].encoding + "," + searchData.imgs[0].data.data} alt="search-result"></img>
                                         }
                                     </div>
                                     <div className="search-result-car-name-and-title">
