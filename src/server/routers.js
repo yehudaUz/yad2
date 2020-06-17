@@ -10,7 +10,7 @@ const router = new express.Router()
 require('../database/mongoose')
 // const fs = require('fs')
 
-const fs = require('fs');
+// const fs = require('fs');
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3({
     accessKeyId: process.env.AWS_ACCESS_KEY,
@@ -61,55 +61,47 @@ router.post('/carSearchInitial', async (req, res) => {
 })
 
 
-const uploadFileToAwsBucket = (file, counter, userId) => {
-    //  fs.readFile(file.buffer, (err, data) => {
-    // if (err) throw err;
-    // const base64Data = new Buffer(JSON.stringify(file.buffer)).toString("base64");
-    const params = {
-        Bucket: 'yad2-pics', // pass your bucket name
-        Key: userId + "/img" + counter + "." + file.mimetype.split("/")[1], // file will be saved as testBucket/contacts.csv
-        Body: file.buffer//JSON.stringify(file.buffer, null, 2)
-    };
-    s3.upload(params, function (s3Err, data) {
-        if (s3Err) throw s3Err
-        console.log(`File uploaded successfully at ${data.Location}`)
+let counter = 0;
+const uploadFileToAwsBucket = async (file, userId) => {
+    counter++;
+    return new Promise((resolve, reject) => {
+        const params = {
+            Bucket: 'yad2-pics', // pass your bucket name
+            Key: userId + "/img" + counter + "." + file.mimetype.split("/")[1], // file will be saved as testBucket/contacts.csv
+            Body: file.buffer//JSON.stringify(file.buffer, null, 2)
+        };
+        s3.upload(params, function (s3Err, data) {
+            if (s3Err) throw s3Err
+            console.log(`File uploaded successfully at ${data.Location}`)
+            resolve(data.Location)
+        });
     });
-    // });
 };
 
 
 router.post('/postNewAd', auth, upload.any('photo'), async (req, res) => {
-    // console.log(req.file)
-    // console.log(req.body)
-    // console.log("User: " + req.user)
     const ad = new carAd(req.body)
-    // console.log("AD",ad)
-    // ad.userId = req.user._id
     const userId = req.user._id
+    ad.userId = userId
     const files = req.files;
     if (files) {
-        // ad.imgs = []
-        counter = 0
-        files.forEach((file) => {
-            console.log(file)
-            uploadFileToAwsBucket(file, counter, userId)
-            counter++
-            // const base64Data = new Buffer(JSON.stringify(file.buffer)).toString("base64");
-            // ad.imgs.push({ contentType: file.mimetype, data: file.buffer, encoding: file.encoding })//"base64"})//file.encoding })
-        })
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i]
+            uploadFileToAwsBucket(file, userId).then(async imgLink => {
+                ad.imgsLinks.push(imgLink)
+                if (i === files.length - 1) {
+                    await ad.save()
+                    req.user.ads.push(ad._id)
+                    await req.user.save()
+                    res.status(200).send("Upload success!")
+                }
+            })
+        }
+    } else {
+        req.user.ads.push(ad._id)
+        await req.user.save()
+        res.status(200).send("Upload success! *U should upload pics to make your ad better.")
     }
-
-    await ad.save()
-    // console.log("AAAAAADDDDDDDD", ad)
-    req.user.ads.push(ad._id)
-    await req.user.save()
-    // carAd.findOne({ "_id": ad._id }, function (err, oneAdRecord) {
-    //     // console.log("QQQQ", oneAdRecord)
-    //     res.set("Content-Type", oneAdRecord.imgs[0].contentType);
-    //     res.send(oneAdRecord.imgs[0].data);
-    // });
-    // res.status(201).send('New ad added succeefuly!!!')
-    // console.log("USER: " + req.user)
 }, (error, req, res, next) => {
     res.status(400).send({ error: error.message })
 })

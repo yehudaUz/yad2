@@ -366,9 +366,6 @@ a {
     display: block;
 }
 
-.hidden {
-    display: none;
-}
 
 .show {
     display: block;
@@ -621,10 +618,49 @@ a {
 }
 
 /* personal area */
+
 [class^="personal-area"] {
     display: block;
 }
+
 .personal-all-input-wrapper {
     display: flex;
     flex-wrap: wrap;
+}
+
+/* expend searchResult tab */
+
+.expend .search-result-middle-part, .expend .search-result-right-part {
+    border-width: 0px;
+}
+
+.expend {
+    height: 10vw;
+    max-height: 138px;
+}
+
+.expend .search-result-right-part {
+    height: unset;
+    position: relative;
+}
+
+.expend .search-result-image {
+    max-height: 93%;
+}
+
+.search-result-special-middle-part {
+    display: none;
+}
+
+.expend .search-result-special-middle-part {
+    /* display: unset;
+    position: absolute;
+    bottom: 0px;
+    left: 0px; */
+    display: flex;
+    float: right;
+}
+
+.hidden {
+    display: none;
 }

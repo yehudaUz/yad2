@@ -2,11 +2,36 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { onOffDropList, on, off } from '../logic/onOffDropList'
 import { updateCarSearchResult } from '../actions/actions'
-
+import SearchResultMiddlePart from './SearchResultMiddlePart'
 
 
 const SearchResult = (props) => {
     let counter = 0;
+
+    const onOffResult = (e) => {
+        try {
+            console.log(e);
+            console.log(e.target)
+            if (e.target && e.target.parentNode) {
+                let element = e.target.parentNode
+                while (element && element.classList &&
+                    !element.classList.contains("search-result-table") && element.parentNode)
+                    element = element.parentNode
+                if (element.classList.contains("search-result-table")) {
+                    if (element.classList.contains("expend")) {
+                        element.classList.remove("expend")
+                        if (element.childNodes[1].classList.contains("search-result-middle-part"))
+                            element.childNodes[1].classList.remove("hidden")
+                    }
+                    else {
+                        element.classList.add("expend")
+                        if (element.childNodes[1].classList.contains("search-result-middle-part"))
+                            element.childNodes[1].classList.add("hidden")
+                    }
+                }
+            }
+        } catch (e) { console.log("onoffresult error", e) }
+    }
 
     const UpdateInitialSearchResult = async () => {
         fetch('http://localhost:3000/carSearchInitial', {
@@ -20,7 +45,7 @@ const SearchResult = (props) => {
         ).catch(error => console.log("ERROR: " + error)) // Handle the error response object)
     }
 
-    if (props.searchResult.length == 0)
+    if (props.searchResult.length === 0)
         UpdateInitialSearchResult()
 
     if (props.searchResult && props.searchResult.length > 0)
@@ -60,7 +85,7 @@ const SearchResult = (props) => {
                 <div className="search-result-data">
                     {props.searchResult.map(searchData => {
                         return (
-                            <div className="search-result-table">
+                            <div className="search-result-table" onClick={(e) => onOffResult(e)}>
                                 <div className="search-result-left-part" onMouseEnter={(e) => on(e)}
                                     onMouseLeave={(e) => off(e)}>
                                     <div className="search-result-new-tab">
@@ -70,31 +95,23 @@ const SearchResult = (props) => {
                                     <div className="search-result-price"><label>₪{searchData.price}</label></div>
                                     <div className="search-result-date-update"><label>{searchData.lastUpadte}</label></div>
                                 </div>
-                                <div className="search-result-middle-part">
-                                    <div className="search-result-year-wrapper" key={++counter}>
-                                        <span className="search-result-year">{searchData.year}</span>
-                                        <span className="search-result-year-desc">שנה</span>
-                                    </div>
-                                    <div className="search-result-hand-wrapper" key={++counter}>
-                                        <span className="search-result-hand">{searchData.hand}</span>
-                                        <span className="search-result-hand-desc">יד</span>
-                                    </div>
-                                    <div className="search-result-cc-wrapper" key={++counter}>
-                                        <span className="search-result-cc">{searchData.engineCc}</span>
-                                        <span className="search-result-cc-desc">סמ"ק</span>
-                                    </div>
-                                </div>
+
+                                <SearchResultMiddlePart searchData={searchData} />
+
                                 <div className="search-result-right-part">
                                     <div className="search-result-image-wrapper">
-                                        {searchData.imgs && searchData.imgs[0] && searchData.imgs[0].data &&
-                                            < img className="search-result-image" src={"data:" + searchData.imgs[0].contentType + ";" +
-                                                searchData.imgs[0].encoding + "," + searchData.imgs[0].data.data} alt="search-result"></img>
+                                        {searchData.imgsLinks && searchData.imgsLinks.length > 0 &&
+                                            < img className="search-result-image" src={searchData.imgsLinks[0]} alt="search-result"></img>
                                         }
                                     </div>
                                     <div className="search-result-car-name-and-title">
                                         <label className="search-result-makerModel">{searchData.model + "  " + searchData.maker}</label>
-                                        <label className="search-result-engingTransmition">{searchData.engineType + "  " + searchData.transmitionType + "  " + searchData.engineCc}</label>
+                                        <label className="search-result-engingTransmition">{
+                                            (searchData.engineType ? searchData.engineType : "") + "  " +
+                                            (searchData.transmitionType ? searchData.transmitionType : "") + "  " +
+                                            (searchData.engineCc ? searchData.engineCc : "")}</label>
                                     </div>
+                                    <SearchResultMiddlePart className={"search-result-special-middle-part"} searchData={searchData} />
                                 </div>
                                 {/* <p>{JSON.stringify(searchData)}</p> */}
                             </div>
@@ -111,3 +128,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(SearchResult);
+
+

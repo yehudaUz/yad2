@@ -20,6 +20,10 @@ const carAdvertisementSchema = new mongoose.Schema({
         type: Number,
         required: false,
         trim: true
+    }, engineType: {
+        type: String,
+        required: false,
+        trim: true
     }, area: {
         type: String,
         required: true,
@@ -62,7 +66,7 @@ const carAdvertisementSchema = new mongoose.Schema({
         type: Boolean,
         required: false,
         trim: true
-    }, imgs: [{ data: Buffer, contentType: String, encoding: String }],
+    }, imgsLinks: [{ type: String }],
     price: {
         type: Number,
         required: true,
