@@ -5,6 +5,7 @@ const sharp = require('sharp')
 const User = require('../database/models/user')
 const auth = require('../database/middleware/auth')
 const carAd = require('../database/models/carAdvertisment')
+// console.log("carad",carAd)
 const router = new express.Router()
 require('../database/mongoose')
 // const fs = require('fs')
@@ -35,8 +36,8 @@ router.post('/carSearchInitial', async (req, res) => {
             console.log("errr", err, records)
             return res.status(500).send({ body: "Sorry, internal error when searched for document in database" })
         }
-        console.log("QQQQ", records)
-        res.send({ "body": records });
+        console.log("QQQQ", { "body": records.slice(0, 2) })
+        res.send({ "body": records.slice(0, 2) });
     });
     // carAd.findOne({ "_id": "5ee908deed44d847b0585267" }).limit(5).then((err, records) => {
     //     if (err) {
@@ -50,31 +51,38 @@ router.post('/carSearchInitial', async (req, res) => {
 
 })
 
-router.post('/postNewAd', auth, upload.single('photo'), async (req, res) => {
+router.post('/postNewAd', auth, upload.any('photo'), async (req, res) => {
     // console.log(req.file)
     // console.log(req.body)
-    console.log("User: " + req.user)
+    // console.log("User: " + req.user)
     const ad = new carAd(req.body)
+    // console.log("AD",ad)
     ad.userId = req.user._id
-    ad.img.contentType = 'image/png';
-    ad.img.data = req.file.buffer;
+    const files = req.files;
+    if (files) {
+        ad.imgs = []
+        files.forEach((file) => {
+            ad.imgs.push({ contentType: 'image/png', data: file.buffer })
+        })
+    }
+
     await ad.save()
-    console.log("AAAAAADDDDDDDD", ad)
+    // console.log("AAAAAADDDDDDDD", ad)
     req.user.ads.push(ad._id)
     await req.user.save()
     carAd.findOne({ "_id": ad._id }, function (err, oneAdRecord) {
         // console.log("QQQQ", oneAdRecord)
-        res.set("Content-Type", oneAdRecord.img.contentType);
-        res.send(oneAdRecord.img.data);
+        res.set("Content-Type", oneAdRecord.imgs[0].contentType);
+        res.send(oneAdRecord.imgs[0].data);
     });
     // res.status(201).send('New ad added succeefuly!!!')
-    console.log("USER: " + req.user)
+    // console.log("USER: " + req.user)
 }, (error, req, res, next) => {
     res.status(400).send({ error: error.message })
 })
 
 router.post('/signup', async (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     const user = new User(req.body)
     try {
         const found = await User.findOne({ $or: [{ name: req.body.email }, { email: req.body.password }] })

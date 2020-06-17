@@ -86,7 +86,7 @@ const PersonalArea = (props) => {
                     <input type="file" id="img" name="img" accept="image/*" />
                 </div> */}
                 {/* <form action="/uploadImage" method="post" enctype="multipart/form-data" > */}
-                <input type="file" name="photo" />
+                <input type="file" name="photo" multiple />
                 <button type="submit" value="upload"> שלח מודעה</button>
                 {/* </form> */}
                 {/* <input type="submit" value="upload" > < */}

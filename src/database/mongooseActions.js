@@ -7,9 +7,9 @@ const carFindById = (id) => {
 }
 
 const carFindAndPrintById = (id) => {
-    console.log(CarAdvertisement)
+    // console.log(CarAdvertisement)
     CarAdvertisement.findOne({ "_id": "5ee7c7ffe8f15e48cca4fa6a" }, function (err, oneAdRecord) {
-        console.log("QQQQ", oneAdRecord)
+        // console.log("QQQQ", oneAdRecord)
  
     });
 

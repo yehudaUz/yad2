@@ -17,7 +17,7 @@ const SearchBar = (props) => {
     }
 
     const updateSearchParams = (e, propName, theProp) => {
-        console.log("TTTTT", e.target.parentNode.textContent, e.target.checked)
+        // console.log("TTTTT", e.target.parentNode.textContent, e.target.checked)
         if (!(e.target.checked)) {
             const makerArrWithoutUncheckedItem = theProp.filter(maker => maker !== e.target.parentNode.textContent)
             props.dispatch(updateCarSearchParmas({ [propName]: [...makerArrWithoutUncheckedItem] }))

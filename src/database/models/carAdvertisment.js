@@ -1,9 +1,5 @@
 const mongoose = require('mongoose')
-const { advertisement } = require('./advertisement')
-// console.log(advertisementSchema)
-
 const carAdvertisementSchema = new mongoose.Schema({
-    ...advertisement,
     maker: {
         type: String,
         required: true,
@@ -66,8 +62,17 @@ const carAdvertisementSchema = new mongoose.Schema({
         type: Boolean,
         required: false,
         trim: true
+    }, imgs: [{ data: Buffer, contentType: String }],
+    price: {
+        type: Number,
+        required: true,
+        trim: true
+    }, userId: {
+        type: String
     }
-})
+}, { timestamps: true },
+    { "versionKey": false }
+)
 
 // var Original = mongoose.model('Original', OriginalSchema);
 // var NewSch = Original.discriminator('NewSch', NewSchema);

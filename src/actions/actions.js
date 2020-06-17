@@ -12,3 +12,8 @@ export const updateCarSearchParmas = (carSearchParams) => ({
     type:"UPDATE_CAR_SEARCH_PARAMS",
     carSearchParams
 })
+
+export const updateCarSearchResult= (searchResult) => ({
+    type:"UPDATE_CAR_SEARCH_RESULT",
+    searchResult
+})

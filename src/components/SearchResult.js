@@ -1,9 +1,28 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { onOffDropList, on, off } from '../logic/onOffDropList'
+import { updateCarSearchResult } from '../actions/actions'
+
+
 
 const SearchResult = (props) => {
     let counter = 0;
+
+    const UpdateInitialSearchResult = async () => {
+        fetch('http://localhost:3000/carSearchInitial', {
+            method: 'POST',
+        }).then(response => response.json()).then(data => {
+            console.log(data)
+            props.dispatch(updateCarSearchResult(data.body))
+            return (data.body)
+        }
+            // response.json().then((result) => this.setState({ results: results }))
+        ).catch(error => console.log("ERROR: " + error)) // Handle the error response object)
+    }
+
+    if (props.searchResult.length == 0)
+        UpdateInitialSearchResult()
+
     if (props.searchResult && props.searchResult.length > 0)
         return (
             <div className="search-result-wrapper">
@@ -67,7 +86,9 @@ const SearchResult = (props) => {
                                 </div>
                                 <div className="search-result-right-part">
                                     <div className="search-result-image-wrapper">
-                                        <img className="search-result-image" src={searchData.imgs[0]} alt="search-result"></img>
+                                        {searchData.imgs && searchData.imgs[0] && searchData.imgs[0].data &&
+                                            < img className="search-result-image" src={"data:" + searchData.imgs[0].contentType + ";base64," + searchData.imgs[0].data.data} alt="search-result"></img>
+                                        }
                                     </div>
                                     <div className="search-result-car-name-and-title">
                                         <label className="search-result-makerModel">{searchData.model + "  " + searchData.maker}</label>
