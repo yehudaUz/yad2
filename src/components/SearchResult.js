@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { onOffDropList, on, off } from '../logic/onOffDropList'
 // import { updateCarSearchResult } from '../actions/actions'
-import {sendSearchRequest} from './SearchBar'
+import { sendSearchRequest } from './SearchBar'
 import SearchResultMiddlePart from './SearchResultMiddlePart'
 
 
@@ -51,8 +51,8 @@ const SearchResult = (props) => {
         } catch (e) { console.log("onoffresult error", e) }
     }
 
-    if (props.searchResult.length === 0)
-        sendSearchRequest(props)
+    // if (props.searchResult.length === 0)
+        // sendSearchRequest(props)
 
     if (props.searchResult && props.searchResult.length > 0)
         return (
@@ -89,55 +89,56 @@ const SearchResult = (props) => {
                 </div>
 
                 <div className="search-result-data">
-                    {props.searchResult.map(searchData => {
-                        return (
-                            <>
-                                <div className="search-result-table" onClick={(e) => onOffResult(e)}>
-                                    <div className="search-result-left-part" onMouseEnter={(e) => on(e)}
-                                        onMouseLeave={(e) => off(e)}>
-                                        <div className="search-result-new-tab">
-                                            <span className="hover-text hidden" >פתיחה בטאב חדש</span>
-                                            <i className="new-tab"><img src="/newTabIcon.png" alt="newTabIcon"></img></i>
+                    {
+                        props.searchResult.map(searchData => {
+                            return (
+                                <>
+                                    <div className="search-result-table" onClick={(e) => onOffResult(e)}>
+                                        <div className="search-result-left-part" onMouseEnter={(e) => on(e)}
+                                            onMouseLeave={(e) => off(e)}>
+                                            <div className="search-result-new-tab">
+                                                <span className="hover-text hidden" >פתיחה בטאב חדש</span>
+                                                <i className="new-tab"><img src="/newTabIcon.png" alt="newTabIcon"></img></i>
+                                            </div>
+                                            <div className="search-result-price"><label>₪{searchData.price}</label></div>
+                                            <div className="search-result-date-update"><label>{searchData.lastUpadte}</label></div>
+                                            <button type="button" className="search-result-contact-seller-button hidden">
+                                                <span className="search-result-button-text">הצגת מספר טלפון</span>
+                                                <i className="fi fi-phone"></i>
+                                            </button>
                                         </div>
-                                        <div className="search-result-price"><label>₪{searchData.price}</label></div>
-                                        <div className="search-result-date-update"><label>{searchData.lastUpadte}</label></div>
-                                        <button type="button" className="search-result-contact-seller-button hidden">
-                                            <span className="search-result-button-text">הצגת מספר טלפון</span>
-                                            <i className="fi fi-phone"></i>
-                                        </button>
+
+                                        <SearchResultMiddlePart searchData={searchData} />
+
+                                        <div className="search-result-right-part">
+                                            <div className="search-result-image-wrapper">
+                                                {searchData.imgsLinks && searchData.imgsLinks.length > 0 &&
+                                                    < img className="search-result-image" src={searchData.imgsLinks[0]} alt="search-result"></img>
+                                                }
+                                            </div>
+                                            <div className="search-result-car-name-and-title">
+                                                <label className="search-result-makerModel">{searchData.model + "  " + searchData.maker}</label>
+                                                <label className="search-result-engingTransmition">{
+                                                    (searchData.engineType ? searchData.engineType : "") + "  " +
+                                                    (searchData.transmitionType ? searchData.transmitionType : "") + "  " +
+                                                    (searchData.engineCc ? searchData.engineCc : "")}</label>
+                                            </div>
+                                            <SearchResultMiddlePart className={"search-result-special-middle-part"} searchData={searchData} />
+                                        </div>
+                                        {/* <p>{JSON.stringify(searchData)}</p> */}
                                     </div>
 
-                                    <SearchResultMiddlePart searchData={searchData} />
-
-                                    <div className="search-result-right-part">
-                                        <div className="search-result-image-wrapper">
-                                            {searchData.imgsLinks && searchData.imgsLinks.length > 0 &&
-                                                < img className="search-result-image" src={searchData.imgsLinks[0]} alt="search-result"></img>
-                                            }
-                                        </div>
-                                        <div className="search-result-car-name-and-title">
-                                            <label className="search-result-makerModel">{searchData.model + "  " + searchData.maker}</label>
-                                            <label className="search-result-engingTransmition">{
-                                                (searchData.engineType ? searchData.engineType : "") + "  " +
-                                                (searchData.transmitionType ? searchData.transmitionType : "") + "  " +
-                                                (searchData.engineCc ? searchData.engineCc : "")}</label>
-                                        </div>
-                                        <SearchResultMiddlePart className={"search-result-special-middle-part"} searchData={searchData} />
+                                    <div className="search-result-table expendable-table hidden">
+                                        {Object.entries(searchData).map(keyValue => (
+                                            <div className="search-result-key-value">
+                                                <p><label>{keyValue[0]}  -   </label>
+                                                    <label>{keyValue[1]}</label></p>
+                                            </div>
+                                        ))}
                                     </div>
-                                    {/* <p>{JSON.stringify(searchData)}</p> */}
-                                </div>
-
-                                <div className="search-result-table expendable-table hidden">
-                                    {Object.entries(searchData).map(keyValue => (
-                                        <div className="search-result-key-value">
-                                            <p><label>{keyValue[0]}  -   </label>
-                                                <label>{keyValue[1]}</label></p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </>
-                        )
-                    })}
+                                </>
+                            )
+                        })}
                 </div>
             </div >
         )

@@ -47,17 +47,24 @@ process.on('uncaughtException', (err, origin) => {
 router.post('/carSearch', async (req, res) => {
     console.log("RRRRRRRRRRRRRRRR", req.body)
     // const searchParams = JSON.parse(req.body)
-    Object.entries(req.body).map(keyValue => (
-        console.log(keyValue[1] == "" || keyValue[1] == [] || keyValue[1]==undefined)
-    ))
-
-    carAd.find({}, function (err, records) {
+    let mongooseSearchObj = req.body
+    Object.entries(mongooseSearchObj).forEach(keyValue => {
+        if (keyValue[1] == "" || keyValue[1] == [] || keyValue[1] == undefined){
+            delete mongooseSearchObj[keyValue[0]]
+            console.log(mongooseSearchObj)
+        }
+    })
+    console.log("MMM", mongooseSearchObj)
+    if (mongooseSearchObj == undefined || Object.keys(mongooseSearchObj).length == 0)
+        mongooseSearchObj = {}
+    console.log("mongooseSearchObj", mongooseSearchObj)
+    carAd.find(mongooseSearchObj, function (err, records) {
         if (err) {
             console.log("errr", err, records)
             return res.status(500).send({ body: "Sorry, internal error when searched for document in database" })
         }
-        records.pop()
-        // console.log("QQQQ", { "body": records })//.slice(0, 2) })
+        // records.pop()
+        console.log("SEND RECORD", records)//.slice(0, 2) })
         res.send({ "body": records })//.slice(0, 2) });
     });
 })
