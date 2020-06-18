@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { updateCarSearchParmas } from '../actions/actions'
+import { updateCarSearchParams } from '../actions/actions'
 
 
 const UpdateInitialSearchResult = async (props) => {
@@ -8,7 +8,7 @@ const UpdateInitialSearchResult = async (props) => {
         method: 'POST',
     }).then(response => response.json()).then(data => {
         console.log(data)
-        props.dispatch(updateCarSearchParmas())
+        props.dispatch(updateCarSearchParams())
         return (data.body)
     }
         // response.json().then((result) => this.setState({ results: results }))

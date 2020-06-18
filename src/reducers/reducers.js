@@ -28,7 +28,7 @@ import { resolve } from "path"
 //     isFitToDisability: "false", lastUpadte: "21052020", imgs: ["https://img.yad2.co.il/Pic/202006/13/1_1/o/y2_1_03107_20200613150606.jpeg?l=7&c=6&w=1024&h=768"]
 // }]
 // console.log("initialSearchResult", initialSearchResult)
-const UpdateInitialSearchResult = require('../components/UpdateInitialSearchResult')
+// const UpdateInitialSearchResult = require('../components/UpdateInitialSearchResult')
 const initialCarSearchParams = {
     maker: [], model: [], fromYear: "", toYear: "", fromPrice: "", toPrice: "", area: [],
     fromKm: "", toKm: "", fromHand: "", toHand: "", color: "", ownership: "", engineCcFrom: "",
@@ -41,7 +41,7 @@ const getLocalStorageOrSetDefault = () => {
     if (localStorage.getItem('state')) {
         // console.log("parse", localStorage.getItem('state'))
         let tempState = JSON.parse(localStorage.getItem('state'))
-        tempState.carSearchParmas = initialCarSearchParams
+        tempState.carSearchParams = initialCarSearchParams
         return tempState //JSON.parse(localStorage.getItem('state'))
     }
     // UpdateInitialSearchResult.default()
@@ -49,7 +49,7 @@ const getLocalStorageOrSetDefault = () => {
     const state = {
         adsPath: "/yad2Ad.png",
         menuText: ["ראשי"],
-        carSearchParmas: initialCarSearchParams,
+        carSearchParams: initialCarSearchParams,
         searchResult: [],
         user: { name: "לא ידוע" }
     }
@@ -71,7 +71,7 @@ export default (state = initialState, action) => {
             localStorage.setItem('state', JSON.stringify(newState));
             return newState
         case 'UPDATE_CAR_SEARCH_PARAMS':
-            newState = { ...state, carSearchParmas: { ...state.carSearchParmas, ...action.carSearchParams } }
+            newState = { ...state, carSearchParams: { ...state.carSearchParams, ...action.carSearchParams } }
             localStorage.setItem('state', JSON.stringify(newState));
             return newState
         case 'UPDATE_CAR_SEARCH_RESULT':

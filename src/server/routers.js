@@ -1,4 +1,6 @@
 const express = require('express')
+const bodyParser = require('body-parser')
+
 // const path = require('path')
 const multer = require('multer')
 const sharp = require('sharp')
@@ -7,11 +9,14 @@ const auth = require('../database/middleware/auth')
 const carAd = require('../database/models/carAdvertisment')
 // console.log("carad",carAd)
 const router = new express.Router()
+router.use(bodyParser.urlencoded({ extended: true }))
+router.use(bodyParser.json())
 require('../database/mongoose')
 // const fs = require('fs')
 
 // const fs = require('fs');
 const AWS = require('aws-sdk');
+const { json } = require('body-parser')
 const s3 = new AWS.S3({
     accessKeyId: process.env.AWS_ACCESS_KEY,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
@@ -39,13 +44,31 @@ process.on('uncaughtException', (err, origin) => {
     process.exit(1)
 });
 
+router.post('/carSearch', async (req, res) => {
+    console.log("RRRRRRRRRRRRRRRR", req.body)
+    // const searchParams = JSON.parse(req.body)
+    Object.entries(req.body).map(keyValue => (
+        console.log(keyValue[1] == "" || keyValue[1] == [] || keyValue[1]==undefined)
+    ))
+
+    carAd.find({}, function (err, records) {
+        if (err) {
+            console.log("errr", err, records)
+            return res.status(500).send({ body: "Sorry, internal error when searched for document in database" })
+        }
+        records.pop()
+        // console.log("QQQQ", { "body": records })//.slice(0, 2) })
+        res.send({ "body": records })//.slice(0, 2) });
+    });
+})
+
 router.post('/carSearchInitial', async (req, res) => {
     carAd.find({}, function (err, records) {
         if (err) {
             console.log("errr", err, records)
             return res.status(500).send({ body: "Sorry, internal error when searched for document in database" })
         }
-        console.log("QQQQ", { "body": records })//.slice(0, 2) })
+        // console.log("QQQQ", { "body": records })//.slice(0, 2) })
         res.send({ "body": records })//.slice(0, 2) });
     });
     // carAd.findOne({ "_id": "5ee908deed44d847b0585267" }).limit(5).then((err, records) => {

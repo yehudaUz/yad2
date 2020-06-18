@@ -12,7 +12,7 @@ const userRouter = require('../database/models/user')
 const carAdvertisementRouter = require('../database/models/carAdvertisment')
 
 
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 const router = require('../server/routers')
 app.use('/', router)

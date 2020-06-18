@@ -8,7 +8,7 @@ export const updateMenu = (menuText) => ({
     menuText
 })
 
-export const updateCarSearchParmas = (carSearchParams) => ({
+export const updateCarSearchParams = (carSearchParams) => ({
     type:"UPDATE_CAR_SEARCH_PARAMS",
     carSearchParams
 })
