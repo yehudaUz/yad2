@@ -1,28 +1,20 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-
-// const path = require('path')
 const multer = require('multer')
 const sharp = require('sharp')
 const User = require('../database/models/user')
 const auth = require('../database/middleware/auth')
 const carAd = require('../database/models/carAdvertisment')
-// console.log("carad",carAd)
 const router = new express.Router()
 router.use(bodyParser.urlencoded({ extended: true }))
 router.use(bodyParser.json())
 require('../database/mongoose')
-// const fs = require('fs')
-
-// const fs = require('fs');
 const AWS = require('aws-sdk');
 const { json } = require('body-parser')
 const s3 = new AWS.S3({
     accessKeyId: process.env.AWS_ACCESS_KEY,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
-
-
 
 const upload = multer({
     limits: {
@@ -46,26 +38,45 @@ process.on('uncaughtException', (err, origin) => {
 
 router.post('/carSearch', async (req, res) => {
     console.log("RRRRRRRRRRRRRRRR", req.body)
-    // const searchParams = JSON.parse(req.body)
     let mongooseSearchObj = req.body
     Object.entries(mongooseSearchObj).forEach(keyValue => {
-        if (keyValue[1] == "" || keyValue[1] == [] || keyValue[1] == undefined){
+        if (keyValue[1] == "" || keyValue[1] == [] || keyValue[1] == undefined)
             delete mongooseSearchObj[keyValue[0]]
-            console.log(mongooseSearchObj)
-        }
     })
     console.log("MMM", mongooseSearchObj)
     if (mongooseSearchObj == undefined || Object.keys(mongooseSearchObj).length == 0)
-        mongooseSearchObj = {}
+        mongooseSearchObj = {};
+    else {
+        const keys = Object.keys(mongooseSearchObj);
+        if (keys.includes("fromPrice"))
+            mongooseSearchObj.price = { "$gte": mongooseSearchObj["fromPrice"] }
+        if (keys.includes("toPrice")) {
+            if (!Object.keys(mongooseSearchObj).includes("price"))
+                mongooseSearchObj.price = { "$lte": mongooseSearchObj["toPrice"] }
+            else
+                mongooseSearchObj.price = { "$gte": mongooseSearchObj["fromPrice"], "$lte": mongooseSearchObj["toPrice"] }
+        }
+        delete mongooseSearchObj["fromPrice"];    delete mongooseSearchObj["toPrice"]
+
+        if (keys.includes("fromYear"))
+            mongooseSearchObj.year = { "$gte": mongooseSearchObj["fromYear"] }
+        if (keys.includes("toYear")) {
+            if (!Object.keys(mongooseSearchObj).includes("year"))
+                mongooseSearchObj.year = { "$lte": mongooseSearchObj["toYear"] }
+            else
+                mongooseSearchObj.year = { "$gte": mongooseSearchObj["fromYear"], "$lte": mongooseSearchObj["toYear"] }
+        }
+        delete mongooseSearchObj["fromYear"];    delete mongooseSearchObj["toYear"]
+
+    }
     console.log("mongooseSearchObj", mongooseSearchObj)
     carAd.find(mongooseSearchObj, function (err, records) {
         if (err) {
             console.log("errr", err, records)
             return res.status(500).send({ body: "Sorry, internal error when searched for document in database" })
         }
-        // records.pop()
-        console.log("SEND RECORD", records)//.slice(0, 2) })
-        res.send({ "body": records })//.slice(0, 2) });
+        console.log("SEND RECORD", records)
+        res.send({ "body": records })
     });
 })
 
@@ -75,19 +86,8 @@ router.post('/carSearchInitial', async (req, res) => {
             console.log("errr", err, records)
             return res.status(500).send({ body: "Sorry, internal error when searched for document in database" })
         }
-        // console.log("QQQQ", { "body": records })//.slice(0, 2) })
-        res.send({ "body": records })//.slice(0, 2) });
+        res.send({ "body": records })
     });
-    // carAd.findOne({ "_id": "5ee908deed44d847b0585267" }).limit(5).then((err, records) => {
-    //     if (err) {
-    //         console.log("errr", err, records)
-    //         return res.status(500).send({ body: "Sorry, internal error when searched for document in database" })
-    //     }
-    //     console.log("QQQQ", records)
-    //     res.send({ "body": records });
-    //     // res.status(200).send({ "body": "VERY COOL" })
-    // });
-
 })
 
 
@@ -96,9 +96,9 @@ const uploadFileToAwsBucket = async (file, userId) => {
     counter++;
     return new Promise((resolve, reject) => {
         const params = {
-            Bucket: 'yad2-pics', // pass your bucket name
-            Key: userId + "/img" + counter + "." + file.mimetype.split("/")[1], // file will be saved as testBucket/contacts.csv
-            Body: file.buffer//JSON.stringify(file.buffer, null, 2)
+            Bucket: 'yad2-pics', 
+            Key: userId + "/img" + counter + "." + file.mimetype.split("/")[1], 
+            Body: file.buffer
         };
         s3.upload(params, function (s3Err, data) {
             if (s3Err) throw s3Err

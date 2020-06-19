@@ -9,7 +9,6 @@ import SearchResultMiddlePart from './SearchResultMiddlePart'
 const SearchResult = (props) => {
     // let counter = 0;
 
-
     const onOffResult = (e) => {
         try {
             console.log(e);
@@ -125,7 +124,6 @@ const SearchResult = (props) => {
                                             </div>
                                             <SearchResultMiddlePart className={"search-result-special-middle-part"} searchData={searchData} />
                                         </div>
-                                        {/* <p>{JSON.stringify(searchData)}</p> */}
                                     </div>
 
                                     <div className="search-result-table expendable-table hidden">

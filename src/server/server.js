@@ -1,23 +1,19 @@
-// const { Advertisement } = require('../database/models/advertisement')
 const express = require('express');
 require('dotenv').config()
-
 const bodyParser = require('body-parser')
 const path = require('path');
 const app = express();
-app.use(express.static(path.join(__dirname, 'build')));
 
 require('../database/mongoose')
 const userRouter = require('../database/models/user')
 const carAdvertisementRouter = require('../database/models/carAdvertisment')
 
-
+app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 const router = require('../server/routers')
 app.use('/', router)
 app.use(userRouter)
-// app.use(Advertisemadsent)
 app.use(carAdvertisementRouter)
 
 
