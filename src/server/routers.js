@@ -56,7 +56,7 @@ router.post('/carSearch', async (req, res) => {
             else
                 mongooseSearchObj.price = { "$gte": mongooseSearchObj["fromPrice"], "$lte": mongooseSearchObj["toPrice"] }
         }
-        delete mongooseSearchObj["fromPrice"];    delete mongooseSearchObj["toPrice"]
+        delete mongooseSearchObj["fromPrice"]; delete mongooseSearchObj["toPrice"]
 
         if (keys.includes("fromYear"))
             mongooseSearchObj.year = { "$gte": mongooseSearchObj["fromYear"] }
@@ -66,7 +66,7 @@ router.post('/carSearch', async (req, res) => {
             else
                 mongooseSearchObj.year = { "$gte": mongooseSearchObj["fromYear"], "$lte": mongooseSearchObj["toYear"] }
         }
-        delete mongooseSearchObj["fromYear"];    delete mongooseSearchObj["toYear"]
+        delete mongooseSearchObj["fromYear"]; delete mongooseSearchObj["toYear"]
 
     }
     console.log("mongooseSearchObj", mongooseSearchObj)
@@ -96,8 +96,8 @@ const uploadFileToAwsBucket = async (file, userId) => {
     counter++;
     return new Promise((resolve, reject) => {
         const params = {
-            Bucket: 'yad2-pics', 
-            Key: userId + "/img" + counter + "." + file.mimetype.split("/")[1], 
+            Bucket: 'yad2-pics',
+            Key: userId + "/img" + counter + "." + file.mimetype.split("/")[1],
             Body: file.buffer
         };
         s3.upload(params, function (s3Err, data) {
@@ -108,6 +108,9 @@ const uploadFileToAwsBucket = async (file, userId) => {
     });
 };
 
+router.post('/getUserData', auth, async (req, res) => {
+    res.status(200).send({ body: req.user })
+})
 
 router.post('/postNewAd', auth, upload.any('photo'), async (req, res) => {
     const ad = new carAd(req.body)

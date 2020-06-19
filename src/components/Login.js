@@ -8,6 +8,7 @@ const Login = (props) => {
                 <div className="login-form-wrapper">
                     <form className="login-form" action="/login" method="post">
                         <label className="login-form-header">כניסה לרשומים</label>
+                        <input type="text" name="name" placeholder="שם" className="login-name"></input>
                         <input type="text" name="email" placeholder="אימייל" className="login-input-email"></input>
                         <input type="text" name="password" placeholder="ססמא" className="login-password"></input>
                         <button className="login-form-submit-button">כניסה</button>

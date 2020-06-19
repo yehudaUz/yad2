@@ -1,7 +1,32 @@
 import React from 'react'
 import { connect } from 'react-redux';
+import { updateUser } from '../actions/actions'
 
 const PersonalArea = (props) => {
+
+    const updateUserData = async () => {
+        let urlPath = "http://localhost:3000/getUserData"
+        fetch(urlPath, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            // body: JSON.stringify(props.carSearchParams)
+        }).then(response => response.json()).then(data => {
+            console.log(data)
+            // throw new Error()
+            if (Object.keys(Response).includes("error"))
+                props.dispatch(updateUser({ name: "לא ידוע" }))
+
+            props.dispatch(updateUser(data.body))
+            return (data.body)
+        }).catch((error) => {
+            console.log("ERROR: " + error)
+        })
+    }
+    if (!props.user)// || (props.user && props.user.name == "לא ידוע"))
+        updateUserData()
+    console.log("gadsg")
     return (
         <div className="login-wrapper">
             <div className="login-header">
@@ -13,7 +38,8 @@ const PersonalArea = (props) => {
                     האזור האישי שלי
                     </div>
                 <div className="personal-information">
-                    שלום, יהודה עוזיאל! יש לך (1) מודעות פעילות |
+                    שלום, {(props.user && props.user.name) ? props.user.name : "לא ידוע"}! יש לך
+                    ({(props.user && props.user.ads) ? props.user.ads.length : "0"}) מודעות פעילות |
                     <img src="//my.yad2.co.il/images/myYad2Secure/logout_small.jpg"
                         border="0" alt="logout">
                     </img>
@@ -65,7 +91,7 @@ const PersonalArea = (props) => {
                 </div>
             </div>
 
-            <form className="personal-all-input-wrapper" action="/postNewAd" method="post" enctype="multipart/form-data">
+            <form className="personal-all-input-wrapper" action="/postNewAd" method="post" encType="multipart/form-data">
                 <input placeholder="maker" name="maker" className="personal-area-maker" type="text"></input>
                 <input placeholder="model" name="model" className="personal-area-model" type="text"></input>
                 <input placeholder="price" name="price" className="personal-area-price" type="text"></input>
@@ -77,21 +103,29 @@ const PersonalArea = (props) => {
                 <input placeholder="km" name="km" className="personal-area-km" type="text"></input>
                 <input placeholder="engineType" name="engineType" className="personal-area-engineType" type="text"></input>
                 <input placeholder="transmitionType" name="transmitionType" className="personal-area-transmitionType" type="text"></input>
-                <input placeholder="dateOnTheRoad" name="dateOnTheRoad" className="personal-area-dateOnTheRoad" type="text"></input>
-                <input placeholder="testUntil" name="testUntil" className="personal-area-testUntil" type="text"></input>
+                <input placeholder="dateOnTheRoad" name="dateOnTheRoad" className="personal-area-dateOnTheRoad" type="date"></input>
+                <input placeholder="testUntil" name="testUntil" className="personal-area-testUntil" type="date"></input>
                 <input placeholder="ownership" name="ownership" className="personal-area-ownership" type="text"></input>
-                <input placeholder="isFitToDisability" name="isFitToDisability" className="personal-area-isFitToDisability" type="text"></input>
-                {/* <div>
-                    <label for="img">Select image:</label>
-                    <input type="file" id="img" name="img" accept="image/*" />
-                </div> */}
-                {/* <form action="/uploadImage" method="post" enctype="multipart/form-data" > */}
-                <input type="file" name="photo" multiple />
+                <input placeholder="lastOwnership" name="lastOwnership" className="personal-area-lastOwnership" type="text"></input>
+                <input placeholder="color" name="color" className="personal-area-color" type="text"></input>
+                <div className="disability">
+                    <p>is replace ok?</p>
+                    <input name="isReplaceOk" className="personal-area-isReplaceOk" type="radio" value="true"></input>
+                    <label>yes</label>
+                    <input name="isFitToDisability" className="personal-area-isFitToDisability" type="radio" value="false"></input>
+                    <label>no</label>
+                </div>
+                <div className="disability">
+                    <p>fit disability?</p>
+                    <input name="isFitToDisability" className="personal-area-isFitToDisability" type="radio" value="true"></input>
+                    <label>yes</label>
+                    <input name="isFitToDisability" className="personal-area-isFitToDisability" type="radio" value="false"></input>
+                    <label>no</label>
+                </div>
+                <div className="disability">
+                    <input type="file" name="photo" multiple />
+                </div>
                 <button type="submit" value="upload"> שלח מודעה</button>
-                {/* </form> */}
-                {/* <input type="submit" value="upload" > < */}
-
-                {/* <button>שלח מודעה</button> */}
             </form>
         </div >
     )

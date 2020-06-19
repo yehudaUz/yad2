@@ -54,12 +54,20 @@ const carAdvertisementSchema = new mongoose.Schema({
         type: Date,
         required: false,
         trim: true
+    }, lastOwnership: {
+        type: String,
+        required: false,
+        trim: true
     }, ownership: {
         type: String,
         required: false,
         trim: true
     }, isReplaceOk: {
         type: Boolean,
+        required: false,
+        trim: true
+    }, color: {
+        type: String,
         required: false,
         trim: true
     }, isFitToDisability: {

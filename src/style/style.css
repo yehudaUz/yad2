@@ -498,8 +498,28 @@ a {
 .search-result-key-value {
     display: table;
 }
-.expendable-table{
-    display:table;
+
+.expendable-table {
+    display: table;
+}
+
+.search-result-table, .expendable-table {
+    background: white;
+}
+
+.search-result-table-expendable-table-size_1_3 {
+    /* background-color: #eee;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 16.6vw; */
+    background-color: #eee;
+    position: relative;
+    overflow: hidden;
+    display: table-cell;
+    width: 16.6vw;
+    /* width: 200px;
+    padding: 0 5px 10px; */
 }
 
 .search-result-new-tab {
@@ -639,6 +659,10 @@ a {
 
 /* expend searchResult tab */
 
+.search-result-table.expend {
+    margin-bottom: 0px;
+}
+
 .expend .search-result-middle-part, .expend .search-result-right-part {
     border-width: 0px;
 }
@@ -670,17 +694,17 @@ a {
     float: right;
 }
 
-.expend .search-result-year-wrapper {
+.search-result-year-wrapper {
     display: flex;
     flex-direction: column;
 }
 
-.expend .search-result-hand-wrapper {
+.search-result-hand-wrapper {
     display: flex;
     flex-direction: column;
 }
 
-.expend .search-result-cc-wrapper {
+.search-result-cc-wrapper {
     display: flex;
     flex-direction: column;
 }
@@ -704,14 +728,13 @@ a {
 
 .search-result-contact-seller-button {
     padding: 0;
-    height: 100%;
+    height: 25%;
     /* width: 100%; */
     background-color: #0fca80;
     color: #fff;
     font-size: 14px;
     font-weight: 500;
     border-radius: 2px;
-    margin-top: 35px;
     padding: 0px 30px 0px 30px;
     border-width: 0px;
     font-family: Rubik, Arial, sans-serif;
@@ -720,6 +743,61 @@ a {
     font-weight: 500;
     font-stretch: 100%; */
     white-space: nowrap;
+    margin: 35px 0 15px 30px;
+    /* margin-left: 30px; */
+    /* margin-bottom: 15px; */
+}
+
+.search-result-table-expendable-table-size_2_3 {
+    background: #FFFFFF;
+    font-family: Rubik, sans-serif;
+    font-size: 14px;
+    font-stretch: 100%;
+    font-weight: 400;
+    /* height: auto; */
+    line-height: 35px;
+}
+
+.search-result-field {
+    font-weight: 500;
+    color: #363636;
+    font-size: .875rem;
+    line-height: 1.0625rem;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+.search-result-sellArea {
+    border-bottom: 1px solid;
+    border-color: #C6C6B7;
+    margin-left: 25px;
+    margin-right: 25px;
+    text-align: right;
+}
+
+.search-result-free-text {
+    display: block;
+    text-align: right;
+    margin-right: 50px;
+}
+
+.search-result-free-text-header {
+    display: block;
+    font-weight: bold;
+}
+
+.search-result-other-detils {
+    text-align: right;
+}
+
+.search-result-other-detils tr {
+    float: right;
+    background: white;
+    margin-right: 50px;
+}
+
+.search-result-other-detils-right-colunm {
+    margin-right: 70px;
 }
 
 .fi-phone {
@@ -728,4 +806,16 @@ a {
 
 .hidden {
     display: none;
+}
+
+/* login */
+
+.disability {
+    display: inline-grid;
+    background: white;
+    border: 1px solid;
+}
+
+[class^="personal-area"] {
+    flex: 1 1 25%;
 }

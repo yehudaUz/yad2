@@ -17,3 +17,8 @@ export const updateCarSearchResult= (searchResult) => ({
     type:"UPDATE_CAR_SEARCH_RESULT",
     searchResult
 })
+
+export const updateUser= (user) => ({
+    type:"UPDATE_USER",
+    user
+})

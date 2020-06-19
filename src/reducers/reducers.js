@@ -51,7 +51,7 @@ const getLocalStorageOrSetDefault = () => {
         menuText: ["ראשי"],
         carSearchParams: initialCarSearchParams,
         searchResult: [],
-        user: { name: "לא ידוע" }
+        user: { name: "לא ידוע",ads:[] }
     }
     localStorage.setItem('state', JSON.stringify(state));
     return state
@@ -75,7 +75,11 @@ export default (state = initialState, action) => {
             localStorage.setItem('state', JSON.stringify(newState));
             return newState
         case 'UPDATE_CAR_SEARCH_RESULT':
-            newState = { ...state, searchResult:  action.searchResult  }
+            newState = { ...state, searchResult: action.searchResult }
+            localStorage.setItem('state', JSON.stringify(newState));
+            return newState
+        case 'UPDATE_USER':
+            newState = { ...state, user: action.user }
             localStorage.setItem('state', JSON.stringify(newState));
             return newState
         default:
