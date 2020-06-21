@@ -5,7 +5,7 @@ import { onOffDropList, on, off } from '../logic/onOffDropList'
 import { sendSearchRequest } from './SearchBar'
 import SearchResultMiddlePart from './SearchResultMiddlePart'
 
-function formatDate(date) {
+function formatDate(date, isResultWithDay) {
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),
         day = '' + d.getDate(),
@@ -16,6 +16,8 @@ function formatDate(date) {
     if (day.length < 2)
         day = '0' + day;
 
+    if (isResultWithDay)
+        return [day, month, year].join('/');
     return [year, month].join('/');
 }
 
@@ -111,11 +113,11 @@ const SearchResult = (props) => {
                                         <div className="search-result-left-part" onMouseEnter={(e) => on(e)}
                                             onMouseLeave={(e) => off(e)}>
                                             <div className="search-result-new-tab">
+                                                <i className="new-tab"><img className="new-tab-icon" src="/newTabIcon.png" alt="newTabIcon"></img></i>
                                                 <span className="hover-text hidden" >פתיחה בטאב חדש</span>
-                                                <i className="new-tab"><img src="/newTabIcon.png" alt="newTabIcon"></img></i>
                                             </div>
                                             <div className="search-result-price"><label>₪{searchData.price}</label></div>
-                                            <div className="search-result-date-update"><label>{searchData.lastUpadte}</label></div>
+                                            <div className="search-result-date-update"><label>{formatDate(searchData.updatedAt, true)}</label></div>
                                             <button type="button" className="search-result-contact-seller-button hidden">
                                                 <span className="search-result-button-text">הצגת מספר טלפון</span>
                                                 <i className="fi fi-phone"></i>

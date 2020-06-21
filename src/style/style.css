@@ -546,6 +546,7 @@ a {
     overflow: hidden;
     box-shadow: 0 3px 10px 0 rgba(0, 0, 0, .2);
     max-width: fit-content;
+    z-index: 10;
 }
 
 .sortByLi {
@@ -587,6 +588,19 @@ a {
     border-width: 1px;
 }
 
+.search-result-price, .search-result-date-update {
+    align-self: flex-start;
+}
+
+.search-result-date-update {
+    font-size: 13px;
+    color: rgba(0, 0, 0, .5);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+}
+
 .search-result-right-part {
     display: inline;
     overflow: hidden;
@@ -599,6 +613,7 @@ a {
 }
 
 .search-result-middle-part {
+    width: -webkit-fill-available;
     justify-content: space-around;
     height: 85px;
     max-width: 186px;
@@ -613,6 +628,8 @@ a {
 .search-result-left-part {
     /* padding: 10px 20px 10px 20px; */
     /* padding: 0 5px 0 0; */
+    justify-content: space-evenly;
+    width: -webkit-fill-available;
     justify-content: start;
     position: relative;
     /* max-width: calc(100% - 531px); */
@@ -660,6 +677,11 @@ a {
 
 .search-result-new-tab {
     width: 100%;
+}
+
+.new-tab-icon {
+    max-width: 14px;
+    max-height: 14px;
 }
 
 .search-result-year-desc, .search-result-hand-desc, .search-result-cc-desc {
@@ -828,6 +850,11 @@ a {
     left: 0px; */
     display: flex;
     float: right;
+    bottom: 0;
+    right: 168px;
+    position: absolute;
+    /* max-width: 195px; */
+    height: 60px;
 }
 
 .search-result-year-wrapper {
@@ -863,7 +890,9 @@ a {
 /* button call */
 
 .search-result-contact-seller-button {
-    padding: 0;
+    min-width: fit-content;
+    /* padding: 0; */
+    padding: 0 20px 0 20px;
     height: 25%;
     width: 80%;
     background-color: #0fca80;
@@ -871,7 +900,7 @@ a {
     font-size: 14px;
     font-weight: 500;
     border-radius: 2px;
-    padding: 0px 30px 0px 30px;
+    /* padding: 0px 30px 0px 30px; */
     border-width: 0px;
     font-family: Rubik, Arial, sans-serif;
     font-weight: bold;
