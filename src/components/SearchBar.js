@@ -75,7 +75,7 @@ const SearchBar = (props) => {
                 <h3><span>?איזה רכב תרצו לחפש</span></h3>
                 <ul className="search-columns">
                     <li className="search-button-li" onClick={(e) => { e.preventDefault(); sendSearchRequest(props, true) }}><button type="submit" className="search-button">
-                        <span className="button_content"><i className="y2i_search"></i> <span className="button_text">חיפוש</span>
+                        <span className="button_content"><i className="y2i_search"></i> <span className="search-button">חיפוש</span>
                         </span></button>
                     </li>
                     <li><div className="dropdown_btn"><button type="button" className="advance-search">

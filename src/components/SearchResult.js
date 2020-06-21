@@ -32,6 +32,8 @@ const SearchResult = (props) => {
                     !element.classList.contains("search-result-table") && element.parentNode)
                     element = element.parentNode
                 if (element.classList.contains("search-result-table")) {
+                    if (element.classList.contains("search-result-button-text"))
+                        return;
                     if (element.classList.contains("expend")) {
                         element.classList.remove("expend") //table
                         if (element.childNodes[1].classList.contains("search-result-middle-part"))
@@ -70,16 +72,21 @@ const SearchResult = (props) => {
         return (
             <div className="search-result-wrapper">
                 <div className="search-result-header-wrapper">
-                    <label className="search-result-header-name" >רכבים פרטיים - מכירה</label >
+                    <h1 className="search-result-header-name" >רכבים פרטיים - מכירה</h1 >
                     <label className="search-result-header-counter" > מציג {props.searchResult.length} מודעות </label>
                 </div>
                 <div className="feed-options">
+                    <div className="filter-search-buttons">
+                        <button className="search-result-with-picture">עם תמונה</button>
+                        <button className="search-result-with-picture">עם מחיר ₪</button>
+                        <label className="search-result-display-ads-label">הצג מודעות</label>
+                    </div>
                     <div className="sortBy-wrapper">
                         <div className="sort-by-label">
                             <div className="search-bar-input-wrapper">
-                                <li>
-                                    <label>מיין לפי</label>
+                                <li className="sortByLi">
                                     <input className="search-bar-input" placeholder="לפי תאריך" onClick={() => onOffDropList(".sortBy")}></input>
+                                    <label className="search-result-sortby-label">מיין לפי</label>
                                     <ul className="searchBarDropDown sortBy hidden" onChange={(e) => {
                                         // updateSearchParams(e, "maker", props.carSearchparams.maker)
                                     }}>
@@ -92,11 +99,6 @@ const SearchResult = (props) => {
                                 </li>
                             </div>
                         </div>
-                    </div>
-                    <div className="filter-search-buttons">
-                        <button>עם תמונה</button>
-                        <button>עם מחיר ₪</button>
-                        <label>הצג מודעות</label>
                     </div>
                 </div>
 
