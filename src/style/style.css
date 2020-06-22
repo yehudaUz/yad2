@@ -709,14 +709,28 @@ a {
 }
 
 .search-result-image {
-    display: inline;
+    /* display: inline; */
     /* max-width: 75%; */
     /* max-height: 75%; */
-    width: 33%;
+    /* width: 33%;
     margin-top: 1%;
     float: right;
     margin-right: 10px;
     border-radius: 3px;
+    max-width: fit-content;
+    max-height: fit-content; */
+    display: inline;
+    margin-top: 1%;
+    float: right;
+    margin-right: 10px;
+    border-radius: 3px;
+    max-width: -moz-fit-content;
+    max-width: fit-content;
+    max-height: -moz-fit-content;
+    max-height: fit-content;
+    max-width: 15;
+    max-height: 85%;
+    max-width: 85%;
 }
 
 .search-result-car-name-and-title {

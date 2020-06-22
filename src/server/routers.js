@@ -38,7 +38,7 @@ process.on('uncaughtException', (err, origin) => {
 
 router.post('/carSearch', async (req, res) => {
     console.log("RRRRRRRRRRRRRRRR", req.body)
-    let mongooseSearchObj = req.body
+    let mongooseSearchObj = req.body.carSearchParams
     Object.entries(mongooseSearchObj).forEach(keyValue => {
         if (keyValue[1] == "" || keyValue[1] == [] || keyValue[1] == undefined)
             delete mongooseSearchObj[keyValue[0]]
@@ -83,12 +83,38 @@ router.post('/carSearch', async (req, res) => {
         delete mongooseSearchObj["withPhoto"];
     }
 
+    let sortBy = req.body.sortBy ? req.body.sortBy : undefined
+    if (sortBy && sortBy !== undefined && sortBy !== "" && sortBy != null) {
+        switch (sortBy) {
+            case "byDate":
+                sortBy = "updatedAt"
+                break;
+            case "byPriceLowToHigh":
+                sortBy = "price"
+                break;
+            case "ByPriceHighToLow":
+                sortBy = "-price"
+                break;
+            case "byKmLowToHigh":
+                sortBy = "km"
+                break;
+            case "byYearHighToLow":
+                sortBy = "-year"
+                break;
+            default:
+                console.log("UNKNOWN SORTBY OPTION!!!!!")
+        }
+    }
+    console.log("sortBy", sortBy)
     console.log("mongooseSearchObj", mongooseSearchObj)
     carAd.find(mongooseSearchObj, function (err, records) {
         if (err) {
-            console.log("errr", err, records)
+            // console.log("errr", err, records)
             return res.status(500).send({ body: "Sorry, internal error when searched for document in database" })
         }
+    }).sort(sortBy).then((records) => {
+        console.log("in")
+
         // console.log("SEND RECORD", records)
         res.send({ "body": records })
     });

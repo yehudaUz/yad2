@@ -4,7 +4,7 @@ import { onOffDropList, on, off } from '../logic/onOffDropList'
 // import { updateCarSearchResult } from '../actions/actions'
 import { sendSearchRequest } from './SearchBar'
 import SearchResultMiddlePart from './SearchResultMiddlePart'
-import { updateCarSearchParams } from '../actions/actions';
+import { updateCarSearchParams, filterUpdated, updateSortBy } from '../actions/actions';
 
 function formatDate(date, isResultWithDay) {
     var d = new Date(date),
@@ -26,7 +26,7 @@ const SearchResult = (props) => {
     // let counter = 0;
     // return function (dispatch) {
     //     return filterPressed
-        
+
     // }
 
     // const filterPressed = (filterType, e) => {
@@ -45,10 +45,10 @@ const SearchResult = (props) => {
     // }
 
     // function makeASandwichWithSecretSauce(forPerson) {
-        // We can invert control here by returning a function - the "thunk".
-        // When this function is passed to `dispatch`, the thunk middleware will intercept it,
-        // and call it with `dispatch` and `getState` as arguments.
-        // This gives the thunk function the ability to run some logic, and still interact with the store.
+    // We can invert control here by returning a function - the "thunk".
+    // When this function is passed to `dispatch`, the thunk middleware will intercept it,
+    // and call it with `dispatch` and `getState` as arguments.
+    // This gives the thunk function the ability to run some logic, and still interact with the store.
     //     return function (dispatch) {
     //         return fetchSecretSauce().then(
     //             (sauce) => dispatch(makeASandwich(forPerson, sauce)),
@@ -58,26 +58,17 @@ const SearchResult = (props) => {
     // }
 
     const filterPressed = async (filterType, e) => {
-        console.log(filterType)
+        console.log(props)
         if (e.target.classList.contains("filter-button-clicked")) {
             e.target.classList.remove("filter-button-clicked")
-            if (filterType === "price") {
-                 props.dispatch(updateCarSearchParams({ withPrice: false }))
-                 sendSearchRequest(props, true)
-            } else {
-                 props.dispatch(updateCarSearchParams({ withPhoto: false }))
-                 sendSearchRequest(props, true)
-            }
+            filterType === "price" ? props.dispatch(updateCarSearchParams({ withPrice: false })) :
+                props.dispatch(updateCarSearchParams({ withPhoto: false }))
         } else {
             e.target.classList.add("filter-button-clicked")
-            if (filterType === "price") {
-                 props.dispatch(updateCarSearchParams({ withPrice: true }))
-                 sendSearchRequest(props, true)
-            } else {
-                 props.dispatch(updateCarSearchParams({ withPhoto: true }))
-                 sendSearchRequest(props, true)
-            }
+            filterType === "price" ? props.dispatch(updateCarSearchParams({ withPrice: true })) :
+                props.dispatch(updateCarSearchParams({ withPhoto: true }))
         }
+        props.dispatch(filterUpdated(true))
     }
 
     const onOffResult = (e) => {
@@ -125,6 +116,10 @@ const SearchResult = (props) => {
 
     // if (props.searchResult.length === 0)
     // sendSearchRequest(props)
+    if (props.carSearchFiltersUpdated) {
+        sendSearchRequest(props, true)
+        props.dispatch(filterUpdated(false))
+    }
 
     if (props.searchResult && props.searchResult.length > 0)
         return (
@@ -146,13 +141,23 @@ const SearchResult = (props) => {
                                     <input className="search-bar-input" placeholder="לפי תאריך" onClick={() => onOffDropList(".sortBy")}></input>
                                     <label className="search-result-sortby-label">מיין לפי</label>
                                     <ul className="searchBarDropDown sortBy hidden" onChange={(e) => {
+                                        console.log(e.target)
+                                        if (e && e.target && e.target.name && e.target.name === "filter-radio" &&
+                                            e.target.checked)
+                                            props.dispatch(updateSortBy(e.target.className))
+
                                         // updateSearchParams(e, "maker", props.carSearchparams.maker)
                                     }}>
-                                        <li><input type="radio" />לפי תאריך</li>
-                                        <li><input type="radio" />מחיר - מהזול ליקר</li>
-                                        <li><input type="radio" />מחיר - מהיקר לזול</li>
-                                        <li><input type="radio" />ק"מ - מהנמוך לגבוה</li>
-                                        <li><input type="radio" />שנתון - מהגבוה לנמוך</li>
+                                        <li><input type="radio" name="filter-radio"
+                                            className="byDate" />לפי תאריך</li>
+                                        <li><input type="radio" name="filter-radio"
+                                            className="byPriceLowToHigh" />מחיר - מהזול ליקר</li>
+                                        <li><input type="radio" name="filter-radio"
+                                            className="ByPriceHighToLow" />מחיר - מהיקר לזול</li>
+                                        <li><input type="radio" name="filter-radio"
+                                            className="byKmLowToHigh" />ק"מ - מהנמוך לגבוה</li>
+                                        <li><input type="radio" name="filter-radio"
+                                            className="byYearHighToLow" />שנתון - מהגבוה לנמוך</li>
                                     </ul>
                                 </li>
                             </div>

@@ -18,7 +18,7 @@ const sendSearchRequest = async (props, isSearchWithParams) => {
             //  'Content-Type': 'application/x-www-form-urlencoded',
             // redirect: 'follow'
         },
-        body: JSON.stringify(props.carSearchParams)
+        body: JSON.stringify({ carSearchParams: props.carSearchParams, sortBy: props.sortBy })
     }).then(response => response.json()).then(data => {
         console.log(data)
         // throw new Error()

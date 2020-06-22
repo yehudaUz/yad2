@@ -9,16 +9,26 @@ export const updateMenu = (menuText) => ({
 })
 
 export const updateCarSearchParams = (carSearchParams) => ({
-    type:"UPDATE_CAR_SEARCH_PARAMS",
+    type: "UPDATE_CAR_SEARCH_PARAMS",
     carSearchParams
 })
 
-export const updateCarSearchResult= (searchResult) => ({
-    type:"UPDATE_CAR_SEARCH_RESULT",
+export const updateCarSearchResult = (searchResult) => ({
+    type: "UPDATE_CAR_SEARCH_RESULT",
     searchResult
 })
 
-export const updateUser= (user) => ({
-    type:"UPDATE_USER",
+export const updateUser = (user) => ({
+    type: "UPDATE_USER",
     user
+})
+
+export const filterUpdated = (isFilterUpdate) => ({
+    type: "FILTER_UPDATE",
+    isFilterUpdate
+})
+
+export const updateSortBy =(sortBy) => ({
+    type:"SORT_BY",
+    sortBy
 })

@@ -50,6 +50,8 @@ const getLocalStorageOrSetDefault = () => {
         adsPath: "/yad2Ad.png",
         menuText: ["ראשי"],
         carSearchParams: initialCarSearchParams,
+        carSearchFiltersUpdated: false,
+        sortBy: "",
         searchResult: [],
         user: { name: "לא ידוע", ads: [] }
     }
@@ -80,6 +82,14 @@ export default (state = initialState, action) => {
             return newState
         case 'UPDATE_USER':
             newState = { ...state, user: action.user }
+            localStorage.setItem('state', JSON.stringify(newState));
+            return newState
+        case 'FILTER_UPDATE':
+            newState = { ...state, carSearchFiltersUpdated: action.isFilterUpdate }
+            localStorage.setItem('state', JSON.stringify(newState));
+            return newState
+        case 'SORT_BY':
+            newState = { ...state, sortBy: action.sortBy }
             localStorage.setItem('state', JSON.stringify(newState));
             return newState
         default:
