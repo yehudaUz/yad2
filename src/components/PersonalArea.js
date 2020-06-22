@@ -123,9 +123,16 @@ const PersonalArea = (props) => {
                     <label>no</label>
                 </div>
                 <div className="disability">
-                    <input type="file" name="photo" multiple />
+                    <input className="files-upload-input" type="file" name="photo" multiple />
                 </div>
-                <button type="submit" value="upload"> שלח מודעה</button>
+                <button type="submit" value="upload" onClick={(e) => {
+                    e.preventDefault()
+                    // console.log(document.getElementsByClassName("files-upload-input")[0].files)
+                    if (document.getElementsByClassName("files-upload-input")[0].files.length < 1)
+                        document.getElementsByClassName("personal-all-input-wrapper")[0].removeAttribute("encType")
+                    document.getElementsByClassName("personal-all-input-wrapper")[0].submit()
+                }
+                }> שלח מודעה</button>
             </form>
         </div >
     )

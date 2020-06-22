@@ -24,6 +24,10 @@ function formatDate(date, isResultWithDay) {
 
 const SearchResult = (props) => {
     // let counter = 0;
+    // return function (dispatch) {
+    //     return filterPressed
+        
+    // }
 
     // const filterPressed = (filterType, e) => {
     //     console.log(filterType)
@@ -40,25 +44,38 @@ const SearchResult = (props) => {
     //     }
     // }
 
+    // function makeASandwichWithSecretSauce(forPerson) {
+        // We can invert control here by returning a function - the "thunk".
+        // When this function is passed to `dispatch`, the thunk middleware will intercept it,
+        // and call it with `dispatch` and `getState` as arguments.
+        // This gives the thunk function the ability to run some logic, and still interact with the store.
+    //     return function (dispatch) {
+    //         return fetchSecretSauce().then(
+    //             (sauce) => dispatch(makeASandwich(forPerson, sauce)),
+    //             (error) => dispatch(apologize('The Sandwich Shop', forPerson, error)),
+    //         );
+    //     };
+    // }
+
     const filterPressed = async (filterType, e) => {
         console.log(filterType)
         if (e.target.classList.contains("filter-button-clicked")) {
             e.target.classList.remove("filter-button-clicked")
             if (filterType === "price") {
-                await props.dispatch(updateCarSearchParams({ withPrice: false }))
-                await sendSearchRequest(props, true)
+                 props.dispatch(updateCarSearchParams({ withPrice: false }))
+                 sendSearchRequest(props, true)
             } else {
-                await props.dispatch(updateCarSearchParams({ withPhoto: false }))
-                await sendSearchRequest(props, true)
+                 props.dispatch(updateCarSearchParams({ withPhoto: false }))
+                 sendSearchRequest(props, true)
             }
         } else {
             e.target.classList.add("filter-button-clicked")
             if (filterType === "price") {
-                await props.dispatch(updateCarSearchParams({ withPrice: true }))
-                await sendSearchRequest(props, true)
+                 props.dispatch(updateCarSearchParams({ withPrice: true }))
+                 sendSearchRequest(props, true)
             } else {
-                await props.dispatch(updateCarSearchParams({ withPhoto: true }))
-                await sendSearchRequest(props, true)
+                 props.dispatch(updateCarSearchParams({ withPhoto: true }))
+                 sendSearchRequest(props, true)
             }
         }
     }

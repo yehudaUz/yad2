@@ -167,4 +167,4 @@ const mapStateToProps = (state) => {
 };
 
 const SearchBarConnected = (connect(mapStateToProps)(SearchBar))
-export { SearchBarConnected as default, sendSearchRequest }
+export { SearchBarConnected as default, sendSearchRequest }	

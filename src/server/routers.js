@@ -89,7 +89,7 @@ router.post('/carSearch', async (req, res) => {
             console.log("errr", err, records)
             return res.status(500).send({ body: "Sorry, internal error when searched for document in database" })
         }
-        console.log("SEND RECORD", records)
+        // console.log("SEND RECORD", records)
         res.send({ "body": records })
     });
 })
@@ -146,6 +146,7 @@ router.post('/postNewAd', auth, upload.any('photo'), async (req, res) => {
                 })
             }
         } else {
+            await ad.save()
             req.user.ads.push(ad._id)
             await req.user.save()
             res.status(200).send("Upload success! *U should upload pics to make your ad better.")
