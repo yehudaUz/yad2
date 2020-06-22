@@ -571,6 +571,12 @@ a {
     align-self: flex-end;
 }
 
+.filter-button-clicked {
+    color: #ff7100;
+    font-weight: 500;
+    border-color: #ff7100;
+}
+
 .search-result-table {
     /* width: 37vw; */
     width: 50vw;
@@ -704,8 +710,9 @@ a {
 
 .search-result-image {
     display: inline;
-    max-width: 75%;
-    max-height: 75%;
+    /* max-width: 75%; */
+    /* max-height: 75%; */
+    width: 33%;
     margin-top: 1%;
     float: right;
     margin-right: 10px;

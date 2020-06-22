@@ -68,7 +68,21 @@ router.post('/carSearch', async (req, res) => {
         }
         delete mongooseSearchObj["fromYear"]; delete mongooseSearchObj["toYear"]
 
+        if (keys.includes("withPrice") && mongooseSearchObj["withPrice"]) {
+            if (!Object.keys(mongooseSearchObj).includes("price"))
+                mongooseSearchObj.price = { $ne: null } // { "$nin": [null, ""] } // { "$lte": mongooseSearchObj["toYear"] }
+            else
+                mongooseSearchObj.price = { ...mongooseSearchObj.price, "$nin": [null, ""] }
+        }
+        delete mongooseSearchObj["withPrice"];
+
+
+        if (keys.includes("withPhoto") && mongooseSearchObj["withPhoto"]) {
+            mongooseSearchObj["imgsLinks.0"] = { "$exists": true }
+        }
+        delete mongooseSearchObj["withPhoto"];
     }
+
     console.log("mongooseSearchObj", mongooseSearchObj)
     carAd.find(mongooseSearchObj, function (err, records) {
         if (err) {
@@ -113,27 +127,32 @@ router.post('/getUserData', auth, async (req, res) => {
 })
 
 router.post('/postNewAd', auth, upload.any('photo'), async (req, res) => {
-    const ad = new carAd(req.body)
-    const userId = req.user._id
-    ad.userId = userId
-    const files = req.files;
-    if (files) {
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i]
-            uploadFileToAwsBucket(file, userId).then(async imgLink => {
-                ad.imgsLinks.push(imgLink)
-                if (i === files.length - 1) {
-                    await ad.save()
-                    req.user.ads.push(ad._id)
-                    await req.user.save()
-                    res.status(200).send("Upload success!")
-                }
-            })
+    try {
+        const ad = new carAd(req.body)
+        const userId = req.user._id
+        ad.userId = userId
+        const files = req.files;
+        if (files) {
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i]
+                uploadFileToAwsBucket(file, userId).then(async imgLink => {
+                    ad.imgsLinks.push(imgLink)
+                    if (i === files.length - 1) {
+                        await ad.save()
+                        req.user.ads.push(ad._id)
+                        await req.user.save()
+                        res.status(200).send("Upload success!")
+                    }
+                })
+            }
+        } else {
+            req.user.ads.push(ad._id)
+            await req.user.save()
+            res.status(200).send("Upload success! *U should upload pics to make your ad better.")
         }
-    } else {
-        req.user.ads.push(ad._id)
-        await req.user.save()
-        res.status(200).send("Upload success! *U should upload pics to make your ad better.")
+    } catch (e) {
+        res.status(400).send({ error: e.message })
+
     }
 }, (error, req, res, next) => {
     res.status(400).send({ error: error.message })

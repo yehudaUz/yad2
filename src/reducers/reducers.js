@@ -32,7 +32,7 @@ import { resolve } from "path"
 const initialCarSearchParams = {
     maker: [], model: [], fromYear: "", toYear: "", fromPrice: "", toPrice: "", area: [],
     fromKm: "", toKm: "", fromHand: "", toHand: "", color: "", ownership: "", engineCcFrom: "",
-    engineCcTo: "", engineType: "", transmitionType: "", freeText: ""
+    engineCcTo: "", engineType: "", transmitionType: "", freeText: "", withPrice: false, withPhoto: false
 }
 
 
@@ -51,7 +51,7 @@ const getLocalStorageOrSetDefault = () => {
         menuText: ["ראשי"],
         carSearchParams: initialCarSearchParams,
         searchResult: [],
-        user: { name: "לא ידוע",ads:[] }
+        user: { name: "לא ידוע", ads: [] }
     }
     localStorage.setItem('state', JSON.stringify(state));
     return state

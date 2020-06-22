@@ -4,6 +4,7 @@ import { onOffDropList, on, off } from '../logic/onOffDropList'
 // import { updateCarSearchResult } from '../actions/actions'
 import { sendSearchRequest } from './SearchBar'
 import SearchResultMiddlePart from './SearchResultMiddlePart'
+import { updateCarSearchParams } from '../actions/actions';
 
 function formatDate(date, isResultWithDay) {
     var d = new Date(date),
@@ -23,6 +24,44 @@ function formatDate(date, isResultWithDay) {
 
 const SearchResult = (props) => {
     // let counter = 0;
+
+    // const filterPressed = (filterType, e) => {
+    //     console.log(filterType)
+    //     if (e.target.classList.contains("filter-button-clicked")) {
+    //         e.target.classList.remove("filter-button-clicked")
+    //         filterType === "price" ?
+    //             props.dispatch(updateCarSearchParams({ withPrice: false })).then((sendSearchRequest(props, true))) :
+    //             props.dispatch(updateCarSearchParams({ withPhoto: false })).then(sendSearchRequest(props, true))
+    //     } else {
+    //         e.target.classList.add("filter-button-clicked")
+    //         filterType === "price" ?
+    //             props.dispatch(updateCarSearchParams({ withPrice: true })).then(sendSearchRequest(props, true)) :
+    //             props.dispatch(updateCarSearchParams({ withPhoto: true })).then(sendSearchRequest(props, true))
+    //     }
+    // }
+
+    const filterPressed = async (filterType, e) => {
+        console.log(filterType)
+        if (e.target.classList.contains("filter-button-clicked")) {
+            e.target.classList.remove("filter-button-clicked")
+            if (filterType === "price") {
+                await props.dispatch(updateCarSearchParams({ withPrice: false }))
+                await sendSearchRequest(props, true)
+            } else {
+                await props.dispatch(updateCarSearchParams({ withPhoto: false }))
+                await sendSearchRequest(props, true)
+            }
+        } else {
+            e.target.classList.add("filter-button-clicked")
+            if (filterType === "price") {
+                await props.dispatch(updateCarSearchParams({ withPrice: true }))
+                await sendSearchRequest(props, true)
+            } else {
+                await props.dispatch(updateCarSearchParams({ withPhoto: true }))
+                await sendSearchRequest(props, true)
+            }
+        }
+    }
 
     const onOffResult = (e) => {
         try {
@@ -79,8 +118,8 @@ const SearchResult = (props) => {
                 </div>
                 <div className="feed-options">
                     <div className="filter-search-buttons">
-                        <button className="search-result-with-picture">עם תמונה</button>
-                        <button className="search-result-with-picture">עם מחיר ₪</button>
+                        <button className="search-result-with-picture" onClick={(e) => filterPressed("picture", e)}>עם תמונה</button>
+                        <button className="search-result-with-price" onClick={(e) => filterPressed("price", e)}>עם מחיר ₪</button>
                         <label className="search-result-display-ads-label">הצג מודעות</label>
                     </div>
                     <div className="sortBy-wrapper">
