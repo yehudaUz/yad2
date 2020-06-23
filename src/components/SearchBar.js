@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateCarSearchParams } from '../actions/actions'
-import { onOffDropList } from '../logic/onOffDropList'
-import { makersAndModels, areas } from '../other/utilities'
+import { onOffDropList } from '../logic/elementsmManipulation '
+import { makersAndModels, areas } from '../other/textData'
 import { updateCarSearchResult } from '../actions/actions'
 
 
@@ -72,7 +72,7 @@ const SearchBar = (props) => {
         <div className="search-bar-div">
             <form className="search-form">
                 {/* onSubmit={submitForm}> */}
-                <h3><span>?איזה רכב תרצו לחפש</span></h3>
+                <h3><span className="search-bar-header">?איזה רכב תרצו לחפש</span></h3>
                 <ul className="search-columns">
                     <li className="search-button-li" onClick={(e) => { e.preventDefault(); sendSearchRequest(props, true) }}><button type="submit" className="search-button">
                         <span className="button_content"><i className="y2i_search"></i> <span className="search-button">חיפוש</span>

@@ -1,64 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { onOffDropList, on, off } from '../logic/onOffDropList'
-// import { updateCarSearchResult } from '../actions/actions'
+import { onOffDropList, on, off, onOffResult } from '../logic/elementsmManipulation '
 import { sendSearchRequest } from './SearchBar'
 import SearchResultMiddlePart from './SearchResultMiddlePart'
 import { updateCarSearchParams, filterUpdated, updateSortBy } from '../actions/actions';
-
-function formatDate(date, isResultWithDay) {
-    var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-
-    if (month.length < 2)
-        month = '0' + month;
-    if (day.length < 2)
-        day = '0' + day;
-
-    if (isResultWithDay)
-        return [day, month, year].join('/');
-    return [year, month].join('/');
-}
+import { formatDate } from '../other/uti'
 
 const SearchResult = (props) => {
-    // let counter = 0;
-    // return function (dispatch) {
-    //     return filterPressed
-
-    // }
-
-    // const filterPressed = (filterType, e) => {
-    //     console.log(filterType)
-    //     if (e.target.classList.contains("filter-button-clicked")) {
-    //         e.target.classList.remove("filter-button-clicked")
-    //         filterType === "price" ?
-    //             props.dispatch(updateCarSearchParams({ withPrice: false })).then((sendSearchRequest(props, true))) :
-    //             props.dispatch(updateCarSearchParams({ withPhoto: false })).then(sendSearchRequest(props, true))
-    //     } else {
-    //         e.target.classList.add("filter-button-clicked")
-    //         filterType === "price" ?
-    //             props.dispatch(updateCarSearchParams({ withPrice: true })).then(sendSearchRequest(props, true)) :
-    //             props.dispatch(updateCarSearchParams({ withPhoto: true })).then(sendSearchRequest(props, true))
-    //     }
-    // }
-
-    // function makeASandwichWithSecretSauce(forPerson) {
-    // We can invert control here by returning a function - the "thunk".
-    // When this function is passed to `dispatch`, the thunk middleware will intercept it,
-    // and call it with `dispatch` and `getState` as arguments.
-    // This gives the thunk function the ability to run some logic, and still interact with the store.
-    //     return function (dispatch) {
-    //         return fetchSecretSauce().then(
-    //             (sauce) => dispatch(makeASandwich(forPerson, sauce)),
-    //             (error) => dispatch(apologize('The Sandwich Shop', forPerson, error)),
-    //         );
-    //     };
-    // }
-
     const filterPressed = async (filterType, e) => {
         console.log(props)
+        if (e.target && e.target.tagName && e.target.tagName !== "BUTTON" &&
+            e.target.parentElement && e.target.parentElement.tagName && e.target.parentElement.tagName === "BUTTON")
+            e.target = e.target.parentElement
         if (e.target.classList.contains("filter-button-clicked")) {
             e.target.classList.remove("filter-button-clicked")
             filterType === "price" ? props.dispatch(updateCarSearchParams({ withPrice: false })) :
@@ -71,51 +24,7 @@ const SearchResult = (props) => {
         props.dispatch(filterUpdated(true))
     }
 
-    const onOffResult = (e) => {
-        try {
-            console.log(e);
-            console.log(e.target)
-            if (e.target && e.target.parentNode) {
-                let element = e.target//.parentNode
-                while (element && element.classList &&
-                    !element.classList.contains("search-result-table") && element.parentNode)
-                    element = element.parentNode
-                if (element.classList.contains("search-result-table")) {
-                    if (element.classList.contains("search-result-button-text"))
-                        return;
-                    if (element.classList.contains("expend")) {
-                        element.classList.remove("expend") //table
-                        if (element.childNodes[1].classList.contains("search-result-middle-part"))
-                            element.childNodes[1].classList.remove("hidden")
-                        if (element.nextElementSibling.classList.contains("expendable-table"))
-                            element.nextElementSibling.classList.add("hidden")
-                        if (element.childNodes[0].childNodes[3])
-                            element.childNodes[0].childNodes[3].classList.add("hidden")
-                        if (element.childNodes[2]) //right part
-                            element.childNodes[2].classList.remove("expend")
-                        if (element.childNodes[0]) //left part
-                            element.childNodes[0].classList.remove("expend")
-                    }
-                    else {
-                        element.classList.add("expend")//table
-                        if (element.childNodes[1].classList.contains("search-result-middle-part"))
-                            element.childNodes[1].classList.add("hidden")
-                        if (element.nextElementSibling.classList.contains("expendable-table"))
-                            element.nextElementSibling.classList.remove("hidden")
-                        if (element.childNodes[0].childNodes[3])
-                            element.childNodes[0].childNodes[3].classList.remove("hidden")
-                        if (element.childNodes[2]) //right part
-                            element.childNodes[2].classList.add("expend")
-                        if (element.childNodes[0]) //left part
-                            element.childNodes[0].classList.add("expend")
-                    }
-                }
-            }
-        } catch (e) { console.log("onoffresult error", e) }
-    }
 
-    // if (props.searchResult.length === 0)
-    // sendSearchRequest(props)
     if (props.carSearchFiltersUpdated) {
         sendSearchRequest(props, true)
         props.dispatch(filterUpdated(false))
@@ -154,7 +63,10 @@ const SearchResult = (props) => {
                 </div>
                 <div className="feed-options">
                     <div className="filter-search-buttons">
-                        <button className="search-result-with-picture" onClick={(e) => filterPressed("picture", e)}>עם תמונה</button>
+                        <button className="search-result-with-picture" onClick={(e) => filterPressed("picture", e)}>
+                            <label>עם תמונה  </label>
+                            <i class="fi fi-picture"></i>
+                        </button>
                         <button className="search-result-with-price" onClick={(e) => filterPressed("price", e)}>עם מחיר ₪</button>
                         <label className="search-result-display-ads-label">הצג מודעות</label>
                     </div>
@@ -163,10 +75,6 @@ const SearchResult = (props) => {
                             <div className="search-bar-input-wrapper">
                                 <li className="sortByLi">
                                     {DropDownButton(true, "לפי תאריך", ".sortBy")}
-                                    {/* <button className="search-bar-input search-bar-input-radio-text" placeholder="לפי תאריך" onClick={() => onOffDropList(".sortBy")} >
-                                        <i class="fi fi-angle-down"></i>
-                                   לפי תאריך
-                                    </button> */}
                                     <label className="search-result-sortby-label">מיין לפי</label>
                                     <ul className="searchBarDropDown sortBy hidden" onChange={(e) => {
                                         console.log(e.target)
@@ -175,24 +83,12 @@ const SearchResult = (props) => {
                                             props.dispatch(updateSortBy(e.target.className))
                                             props.dispatch(filterUpdated(true))
                                         }
-                                        // updateSearchParams(e, "maker", props.carSearchparams.maker)
                                     }}>
                                         {FilterRadioLi("byDate", "לפי תאריך")}
                                         {FilterRadioLi("byPriceLowToHigh", "מחיר - מהזול ליקר")}
                                         {FilterRadioLi("ByPriceHighToLow", "מחיר - מהיקר לזול")}
                                         {FilterRadioLi("byDabyKmLowToHighte", `ק"מ - מהנמוך לגבוה`)}
                                         {FilterRadioLi("byYearHighToLow", "שנתון - מהגבוה לנמוך")}
-
-                                        {/* <li><input type="radio" name="filter-radio" onClick={() => onOffDropList(".sortBy")}
-                                            className="byDate" />לפי תאריך</li> */}
-                                        {/* <li><input type="radio" name="filter-radio" onClick={() => onOffDropList(".sortBy")}
-                                            className="byPriceLowToHigh" />מחיר - מהזול ליקר</li>
-                                        <li><input type="radio" name="filter-radio" onClick={() => onOffDropList(".sortBy")}
-                                            className="ByPriceHighToLow" />מחיר - מהיקר לזול</li>
-                                        <li><input type="radio" name="filter-radio" onClick={() => onOffDropList(".sortBy")}
-                                            className="byKmLowToHigh" />ק"מ - מהנמוך לגבוה</li>
-                                        <li><input type="radio" name="filter-radio" onClick={() => onOffDropList(".sortBy")}
-                                            className="byYearHighToLow" />שנתון - מהגבוה לנמוך</li> */}
                                     </ul>
                                 </li>
                             </div>
@@ -295,14 +191,23 @@ const SearchResult = (props) => {
                                                     </td>
                                                 </tr>
                                             </div>
-                                            {/* {Object.entries(searchData).map(keyValue => (
-                                                <div className="search-result-key-value">
-                                                    <p><label>{keyValue[0]}  -   </label>
-                                                        <label>{keyValue[1]}</label></p>
-                                                </div>
-                                            ))} */}
                                         </div>
-                                        <div data-v-67abe2bf="" className="search-result-table-expendable-table-size_1_3"></div>
+                                        <div className="search-result-table-expendable-table-size_1_3"></div>
+
+
+                                    </div>
+                                    <div className="search-result-table hidden expendable-table footer">
+                                        <div className="footer-text">
+                                            <a href="/foundError">מצאתי טעות</a>
+                                            <label>מספר מודעה {searchData._id}</label>
+                                        </div>
+                                        <div className="footer-social-network-icons">
+                                            <i class="fi fi-whatsapp"></i>
+                                            <i class="fi fi-facebook"></i>
+                                            <i class="fi fi-email"></i>
+                                            <i class="fi fi-link2"></i>
+                                            <i class="fi fi-print"></i>
+                                        </div>
                                     </div>
                                 </>
                             )

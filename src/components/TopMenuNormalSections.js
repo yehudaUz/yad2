@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux';
 import DropDownContent from './DropDownContent'
 import { updateAds, updateMenu } from '../actions/actions'
-import { nadlanDropDownContentArrText, carDropDownContentArrText } from '../other/utilities'
+import { nadlanDropDownContentArrText, carDropDownContentArrText } from '../other/textData'
 
 const topMenuData = [
     { text: "...עוד", href: "/more", comp: <DropDownContent dropDownContentArrText={nadlanDropDownContentArrText} /> },

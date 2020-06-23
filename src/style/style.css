@@ -9,6 +9,10 @@ body {
     /* background-color: #F9F9F9; #F5F5F5 */
 }
 
+button:focus {
+    outline: none;
+}
+
 a {
     color: #363636!important;
     font-size: 1rem;
@@ -311,6 +315,14 @@ a {
     -webkit-appearance: none;
 }
 
+.search-bar-header {
+    font-size: 1.125rem;
+    line-height: 1.375rem;
+    font-weight: 550;
+    font-family: Rubik, sans-serif;
+    color: #363636;
+}
+
 .search-result-with-picture, .search-result-with-price {
     position: relative;
     margin-right: 5px;
@@ -590,6 +602,7 @@ a {
 /* body i {
     font-family: 'FontAwesome'!important;
 } */
+
 .fi-angle-down {
     font-size: 0.75em;
     margin-right: 50px;
@@ -678,6 +691,7 @@ a {
 
 .expendable-table {
     display: table;
+    margin-bottom: 0px;
 }
 
 .search-result-table, .expendable-table {
@@ -1009,9 +1023,7 @@ a {
     padding-left: 10px;
 }
 
-.hidden {
-    display: none;
-}
+
 
 /* login */
 
@@ -1023,4 +1035,25 @@ a {
 
 [class^="personal-area"] {
     flex: 1 1 25%;
+}
+
+/* footer */
+
+.search-result-table.expendable-table.footer {
+    display: flex;
+}
+
+.footer-social-network-icons {
+    display: inline-flex;
+    width: 25%;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.footer {
+    margin-bottom: 5px;
+}
+
+.hidden {
+    display: none;
 }
