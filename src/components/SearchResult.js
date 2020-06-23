@@ -121,6 +121,30 @@ const SearchResult = (props) => {
         props.dispatch(filterUpdated(false))
     }
 
+    const FilterRadioLi = (clss, text) => {
+        return (
+            <li>
+                <input type="radio" name="filter-radio"
+                    onClick={() => {
+                        onOffDropList(".sortBy")
+                        document.getElementsByClassName("search-bar-input-radio-text")[0].placeholder = text
+                        document.getElementsByClassName("dropDown-button-text")[0].innerText = text
+                    }}
+                    className={clss} />
+                <label className="filter-radio-label">{text}</label>
+            </li>
+        )
+    }
+
+    const DropDownButton = (isWithArrowIcon, buttonText, dropDownClassName) => {
+        return (
+            <button className="search-bar-input search-bar-input-radio-text" onClick={() => onOffDropList(dropDownClassName)} >
+                {isWithArrowIcon && <i class="fi fi-angle-down"></i>}
+                <label className="dropDown-button-text">{buttonText}</label>
+            </button>
+        )
+    }
+
     if (props.searchResult && props.searchResult.length > 0)
         return (
             <div className="search-result-wrapper">
@@ -138,26 +162,37 @@ const SearchResult = (props) => {
                         <div className="sort-by-label">
                             <div className="search-bar-input-wrapper">
                                 <li className="sortByLi">
-                                    <input className="search-bar-input" placeholder="לפי תאריך" onClick={() => onOffDropList(".sortBy")}></input>
+                                    {DropDownButton(true, "לפי תאריך", ".sortBy")}
+                                    {/* <button className="search-bar-input search-bar-input-radio-text" placeholder="לפי תאריך" onClick={() => onOffDropList(".sortBy")} >
+                                        <i class="fi fi-angle-down"></i>
+                                   לפי תאריך
+                                    </button> */}
                                     <label className="search-result-sortby-label">מיין לפי</label>
                                     <ul className="searchBarDropDown sortBy hidden" onChange={(e) => {
                                         console.log(e.target)
                                         if (e && e.target && e.target.name && e.target.name === "filter-radio" &&
-                                            e.target.checked)
+                                            e.target.checked) {
                                             props.dispatch(updateSortBy(e.target.className))
-
+                                            props.dispatch(filterUpdated(true))
+                                        }
                                         // updateSearchParams(e, "maker", props.carSearchparams.maker)
                                     }}>
-                                        <li><input type="radio" name="filter-radio"
-                                            className="byDate" />לפי תאריך</li>
-                                        <li><input type="radio" name="filter-radio"
+                                        {FilterRadioLi("byDate", "לפי תאריך")}
+                                        {FilterRadioLi("byPriceLowToHigh", "מחיר - מהזול ליקר")}
+                                        {FilterRadioLi("ByPriceHighToLow", "מחיר - מהיקר לזול")}
+                                        {FilterRadioLi("byDabyKmLowToHighte", `ק"מ - מהנמוך לגבוה`)}
+                                        {FilterRadioLi("byYearHighToLow", "שנתון - מהגבוה לנמוך")}
+
+                                        {/* <li><input type="radio" name="filter-radio" onClick={() => onOffDropList(".sortBy")}
+                                            className="byDate" />לפי תאריך</li> */}
+                                        {/* <li><input type="radio" name="filter-radio" onClick={() => onOffDropList(".sortBy")}
                                             className="byPriceLowToHigh" />מחיר - מהזול ליקר</li>
-                                        <li><input type="radio" name="filter-radio"
+                                        <li><input type="radio" name="filter-radio" onClick={() => onOffDropList(".sortBy")}
                                             className="ByPriceHighToLow" />מחיר - מהיקר לזול</li>
-                                        <li><input type="radio" name="filter-radio"
+                                        <li><input type="radio" name="filter-radio" onClick={() => onOffDropList(".sortBy")}
                                             className="byKmLowToHigh" />ק"מ - מהנמוך לגבוה</li>
-                                        <li><input type="radio" name="filter-radio"
-                                            className="byYearHighToLow" />שנתון - מהגבוה לנמוך</li>
+                                        <li><input type="radio" name="filter-radio" onClick={() => onOffDropList(".sortBy")}
+                                            className="byYearHighToLow" />שנתון - מהגבוה לנמוך</li> */}
                                     </ul>
                                 </li>
                             </div>
@@ -205,7 +240,7 @@ const SearchResult = (props) => {
                                     </div>
 
                                     <div className="search-result-table expendable-table hidden">
-                                        <div data-v-67abe2bf="" class="search-result-table-expendable-table-size_2_3">
+                                        <div data-v-67abe2bf="" className="search-result-table-expendable-table-size_2_3">
                                             <div className="search-result-sellArea">
                                                 <label>אזור המכירה: {searchData.area}</label>
                                             </div>
@@ -267,7 +302,7 @@ const SearchResult = (props) => {
                                                 </div>
                                             ))} */}
                                         </div>
-                                        <div data-v-67abe2bf="" class="search-result-table-expendable-table-size_1_3"></div>
+                                        <div data-v-67abe2bf="" className="search-result-table-expendable-table-size_1_3"></div>
                                     </div>
                                 </>
                             )

@@ -577,6 +577,24 @@ a {
     border-color: #ff7100;
 }
 
+.filter-radio-label, .search-bar-input-radio-text, ::placeholder {
+    font-size: .875rem;
+    line-height: 1.0625rem;
+    color: #363636;
+}
+
+.y2i_dropdown:before {
+    content: "\e940";
+}
+
+/* body i {
+    font-family: 'FontAwesome'!important;
+} */
+.fi-angle-down {
+    font-size: 0.75em;
+    margin-right: 50px;
+}
+
 .search-result-table {
     /* width: 37vw; */
     width: 50vw;

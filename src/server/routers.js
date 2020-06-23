@@ -10,7 +10,7 @@ router.use(bodyParser.urlencoded({ extended: true }))
 router.use(bodyParser.json())
 require('../database/mongoose')
 const AWS = require('aws-sdk');
-const { json } = require('body-parser')
+// const { json } = require('body-parser')
 const s3 = new AWS.S3({
     accessKeyId: process.env.AWS_ACCESS_KEY,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
@@ -40,11 +40,11 @@ router.post('/carSearch', async (req, res) => {
     console.log("RRRRRRRRRRRRRRRR", req.body)
     let mongooseSearchObj = req.body.carSearchParams
     Object.entries(mongooseSearchObj).forEach(keyValue => {
-        if (keyValue[1] == "" || keyValue[1] == [] || keyValue[1] == undefined)
+        if (keyValue[1] === "" || keyValue[1] === [] || keyValue[1] === undefined)
             delete mongooseSearchObj[keyValue[0]]
     })
     console.log("MMM", mongooseSearchObj)
-    if (mongooseSearchObj == undefined || Object.keys(mongooseSearchObj).length == 0)
+    if (mongooseSearchObj === undefined || Object.keys(mongooseSearchObj).length === 0)
         mongooseSearchObj = {};
     else {
         const keys = Object.keys(mongooseSearchObj);
@@ -81,13 +81,20 @@ router.post('/carSearch', async (req, res) => {
             mongooseSearchObj["imgsLinks.0"] = { "$exists": true }
         }
         delete mongooseSearchObj["withPhoto"];
+
+        console.log("Aaa")
+        Object.entries(mongooseSearchObj).map(keyValue => {
+            if (keyValue[0] && Array.isArray(keyValue[1]))
+                delete mongooseSearchObj[keyValue[0]]
+        })
     }
+
 
     let sortBy = req.body.sortBy ? req.body.sortBy : undefined
     if (sortBy && sortBy !== undefined && sortBy !== "" && sortBy != null) {
         switch (sortBy) {
             case "byDate":
-                sortBy = "updatedAt"
+                sortBy = "-updatedAt"
                 break;
             case "byPriceLowToHigh":
                 sortBy = "price"
