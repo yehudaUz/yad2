@@ -147,51 +147,53 @@ const SearchResult = (props) => {
                                                 <label>{searchData.freeText}</label>
                                             </div>
                                             <div className="search-result-other-detils">
-                                                <tr>
-                                                    <td>
-                                                        <div className="search-result-other-detils-right-colunm">
-                                                            <div className="search-result-pair-fields">
-                                                                <label className="search-result-field-descrp">טסט עד</label>
-                                                                <label className="search-result-field">{formatDate(searchData.testUntil)}</label>
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <div className="search-result-other-detils-right-colunm">
+                                                                <div className="search-result-pair-fields">
+                                                                    <label className="search-result-field-descrp">טסט עד</label>
+                                                                    <label className="search-result-field">{formatDate(searchData.testUntil)}</label>
+                                                                </div>
+                                                                <div className="search-result-pair-fields">
+                                                                    <label className="search-result-field-descrp">בעלות נוכחית</label>
+                                                                    {searchData.ownership && <label className="search-result-field">{searchData.ownership}</label>}
+                                                                </div><div className="search-result-pair-fields">
+                                                                    <label className="search-result-field-descrp">בעלות קודמת</label>
+                                                                    {searchData.lastOwnership && <label className="search-result-field">{searchData.lastOwnership}</label>}
+                                                                </div><div className="search-result-pair-fields">
+                                                                    <label className="search-result-field-descrp">מוכן להחלפה</label>
+                                                                    {typeof searchData.isReplaceOk !== 'undefined' && <label className="search-result-field">{searchData.isReplaceOk ? "כן" : "לא"}</label>}
+                                                                </div><div className="search-result-pair-fields">
+                                                                    <label className="search-result-field-descrp">מותאם לנכים</label>
+                                                                    {typeof searchData.isFitToDisability !== 'undefined' && <label className="search-result-field">{searchData.isFitToDisability ? "כן" : "לא"}</label>}
+                                                                </div>
                                                             </div>
-                                                            <div className="search-result-pair-fields">
-                                                                <label className="search-result-field-descrp">בעלות נוכחית</label>
-                                                                {searchData.ownership && <label className="search-result-field">{searchData.ownership}</label>}
-                                                            </div><div className="search-result-pair-fields">
-                                                                <label className="search-result-field-descrp">בעלות קודמת</label>
-                                                                {searchData.lastOwnership && <label className="search-result-field">{searchData.lastOwnership}</label>}
-                                                            </div><div className="search-result-pair-fields">
-                                                                <label className="search-result-field-descrp">מוכן להחלפה</label>
-                                                                {typeof searchData.isReplaceOk !== 'undefined' && <label className="search-result-field">{searchData.isReplaceOk ? "כן" : "לא"}</label>}
-                                                            </div><div className="search-result-pair-fields">
-                                                                <label className="search-result-field-descrp">מותאם לנכים</label>
-                                                                {typeof searchData.isFitToDisability !== 'undefined' && <label className="search-result-field">{searchData.isFitToDisability ? "כן" : "לא"}</label>}
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className="search-result-other-detils-left-colunm">
+                                                        </td>
+                                                        <td>
+                                                            <div className="search-result-other-detils-left-colunm">
 
-                                                            <div className="search-result-pair-fields">
-                                                                <label className="search-result-field-descrp">קילומטראז'</label>
-                                                                {searchData.km && <label className="search-result-field">{searchData.km}</label>}
+                                                                <div className="search-result-pair-fields">
+                                                                    <label className="search-result-field-descrp">קילומטראז'</label>
+                                                                    {searchData.km && <label className="search-result-field">{searchData.km}</label>}
+                                                                </div>
+                                                                <div className="search-result-pair-fields">
+                                                                    <label className="search-result-field-descrp">סוג מנוע</label>
+                                                                    {searchData.engineType && <label className="search-result-field">{searchData.engineType}</label>}
+                                                                </div><div className="search-result-pair-fields">
+                                                                    <label className="search-result-field-descrp">תיבת הילוכים</label>
+                                                                    {searchData.transmitionType && <label className="search-result-field">{searchData.transmitionType}</label>}
+                                                                </div><div className="search-result-pair-fields">
+                                                                    <label className="search-result-field-descrp">צבע</label>
+                                                                    {searchData.color && <label className="search-result-field">{searchData.color}</label>}
+                                                                </div><div className="search-result-pair-fields">
+                                                                    <label className="search-result-field-descrp">תאריך עלייה לכביש</label>
+                                                                    {searchData.dateOnTheRoad && <label className="search-result-field">{formatDate(searchData.dateOnTheRoad)}</label>}
+                                                                </div>
                                                             </div>
-                                                            <div className="search-result-pair-fields">
-                                                                <label className="search-result-field-descrp">סוג מנוע</label>
-                                                                {searchData.engineType && <label className="search-result-field">{searchData.engineType}</label>}
-                                                            </div><div className="search-result-pair-fields">
-                                                                <label className="search-result-field-descrp">תיבת הילוכים</label>
-                                                                {searchData.transmitionType && <label className="search-result-field">{searchData.transmitionType}</label>}
-                                                            </div><div className="search-result-pair-fields">
-                                                                <label className="search-result-field-descrp">צבע</label>
-                                                                {searchData.color && <label className="search-result-field">{searchData.color}</label>}
-                                                            </div><div className="search-result-pair-fields">
-                                                                <label className="search-result-field-descrp">תאריך עלייה לכביש</label>
-                                                                {searchData.dateOnTheRoad && <label className="search-result-field">{formatDate(searchData.dateOnTheRoad)}</label>}
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                        </td>
+                                                    </tr>
+                                                </table>
                                             </div>
                                         </div>
                                         <div className="search-result-table-expendable-table-size_1_3"></div>

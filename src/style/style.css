@@ -364,8 +364,24 @@ a {
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .1);
 }
 
+.td {
+    /* padding: 10px 0; */
+}
+
+table {
+    /* border-collapse: separate;
+    border-spacing: 25px 0; */
+    border-collapse: separate;
+    /* border-spacing: 25px 0; */
+    /* position: relative; */
+    /* left: 10%; */
+    display: block;
+    text-align: right;
+    margin-right: 50px;
+}
+
 .search-form li {
-    max-width: 10vw;
+    max-width: 9vw;
     margin: 0px;
     text-align: -webkit-right;
 }
@@ -475,6 +491,9 @@ a {
 .button-text {
     color: white;
 }
+.search-result-button-text {
+    font-size: 0.75rem;
+}
 
 .search-button-li {
     background: #ff7100;
@@ -513,6 +532,7 @@ a {
     display: inline-block;
     float: right;
     margin-top: 100px;
+    max-width: 700px;
 }
 
 .search-result-header-wrapper {
@@ -580,6 +600,7 @@ a {
     justify-content: space-between;
     margin-bottom: 20px;
     margin-top: 40px;
+    max-width: 700px;
 }
 
 .filter-search-buttons {
@@ -627,6 +648,7 @@ a {
     border-color: rgb(226, 224, 177, 0.5);
     border-style: groove;
     border-width: 1px;
+    width: -webkit-fill-available;
 }
 
 .search-result-price, .search-result-date-update {
@@ -680,6 +702,7 @@ a {
     text-align: left;
     flex-direction: column;
     max-width: calc(100% - 531px);
+    min-width: 20%;
 }
 
 .hover-text {
@@ -716,9 +739,10 @@ a {
     position: relative;
     overflow: hidden;
     display: table-cell;
-    width: 16.6vw;
+    width: 10vw;
     /* width: 200px;
     padding: 0 5px 10px; */
+    max-width: 200 px;
 }
 
 .search-result-new-tab {
@@ -940,6 +964,7 @@ a {
 
 .search-result-left-part.expend {
     max-width: calc(100% - 500px)!important;
+    min-width: 34%;
 }
 
 .search-result-special-middle-part {
@@ -1021,11 +1046,12 @@ a {
 .search-result-other-detils tr {
     float: right;
     background: white;
-    margin-right: 50px;
+    /* margin-right: 50px; */
 }
 
 .search-result-other-detils-right-colunm {
-    margin-right: 70px;
+    /* margin-right: 70px; */
+    margin-right: 2.5vw;
 }
 
 .fi-phone {
