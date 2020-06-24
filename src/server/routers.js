@@ -84,7 +84,7 @@ router.post('/carSearch', async (req, res) => {
 
         console.log("Aaa")
         Object.entries(mongooseSearchObj).map(keyValue => {
-            if (keyValue[0] && Array.isArray(keyValue[1]))
+            if (keyValue[0] && Array.isArray(keyValue[1]) && keyValue[1].length === 0)
                 delete mongooseSearchObj[keyValue[0]]
         })
     }

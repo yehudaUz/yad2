@@ -32,47 +32,99 @@ export const onOffDropList = (className) => {
 }
 
 export const offNewTab = (e) => {
-    // let element = e.target//.parentNode
-    // while (element && element.classList &&
-    //     !element.classList.contains("search-result-left-part") && element.parentNode)
-    //     element = element.parentNode
+    let element = e.target//.parentNode
+    while ((element && element.classList && !element.classList.contains("master")) ||
+        (element && !element.classList && element.parentNode))
+        element = element.parentNode
 
-    // if (element.firstElementChild && element.firstElementChild.lastElementChild &&
-    //     element.firstElementChild.lastElementChild.tagName &&
-    //     element.firstElementChild.lastElementChild.tagName.toLowerCase() === "span" &&
-    //     !element.firstElementChild.lastElementChild.classList.contains("hidden"))
-    //     element.firstElementChild.lastElementChild.classList.add("hidden")
-    let iconImage = document.getElementsByClassName("new-tab-icon")[0]
-    if (iconImage && iconImage.classList && !iconImage.classList.contains("hidden"))
-        iconImage.classList.add("hidden")
-    let newTabText = document.getElementsByClassName("hover-text")[0]
-    if (newTabText && newTabText.classList && !newTabText.classList.contains("hidden"))
-        newTabText.classList.add("hidden")
+    if (element && element.firstElementChild && element.firstElementChild.firstElementChild &&
+        element.firstElementChild.firstElementChild.firstElementChild &&
+        element.firstElementChild.firstElementChild.firstElementChild.tagName &&
+        element.firstElementChild.firstElementChild.firstElementChild.tagName === "I") {
+        let iconImage = element.firstElementChild.firstElementChild.firstElementChild
+        if (iconImage && iconImage.classList && !iconImage.classList.contains("hidden"))
+            iconImage.classList.add("hidden")
+    }
+
+    if (element && element.firstElementChild && element.firstElementChild.firstElementChild &&
+        element.firstElementChild.firstElementChild.children.length > 1 &&
+        element.firstElementChild.firstElementChild.children[1].tagName &&
+        element.firstElementChild.firstElementChild.children[1].tagName === "SPAN") {
+        let newTabText = element.firstElementChild.firstElementChild.children[1]
+        if (newTabText && newTabText.classList && !newTabText.classList.contains("hidden"))
+            newTabText.classList.add("hidden")
+    }
 }
 
 export const onNewTab = (e) => {
     let element = e.target//.parentNode
-    while (element && element.classList &&
-        !element.classList.contains("master") && element.parentNode)
+    while ((element && element.classList && !element.classList.contains("master")) ||
+        (element && !element.classList && element.parentNode))
         element = element.parentNode
 
-    // if (element.firstElementChild && element.firstElementChild.lastElementChild &&
-    //     element.firstElementChild.lastElementChild.tagName &&
-    //     element.firstElementChild.lastElementChild.tagName.toLowerCase() === "span" &&
-    //     element.firstElementChild.lastElementChild.classList.contains("hidden"))
-    //     element.firstElementChild.lastElementChild.classList.remove("hidden")
-    let iconImage = document.getElementsByClassName("new-tab-icon")[0]
-    if (iconImage && iconImage.classList && iconImage.classList.contains("hidden"))
-        iconImage.classList.remove("hidden")
-    let newTabText = document.getElementsByClassName("hover-text")[0]
-    if (newTabText && newTabText.classList && newTabText.classList.contains("hidden"))
-        newTabText.classList.remove("hidden")
+    if (element.classList.contains("expend"))
+        return;
+
+    if (element && element.firstElementChild && element.firstElementChild.firstElementChild &&
+        element.firstElementChild.firstElementChild.firstElementChild &&
+        element.firstElementChild.firstElementChild.firstElementChild.tagName &&
+        element.firstElementChild.firstElementChild.firstElementChild.tagName === "I") {
+        let iconImage = element.firstElementChild.firstElementChild.firstElementChild
+        if (iconImage && iconImage.classList && iconImage.classList.contains("hidden"))
+            iconImage.classList.remove("hidden")
+    }
+
+    if (element && element.firstElementChild && element.firstElementChild.firstElementChild &&
+        element.firstElementChild.firstElementChild.children.length > 1 &&
+        element.firstElementChild.firstElementChild.children[1].tagName &&
+        element.firstElementChild.firstElementChild.children[1].tagName === "SPAN") {
+        let newTabText = element.firstElementChild.firstElementChild.children[1]
+        if (newTabText && newTabText.classList && newTabText.classList.contains("hidden"))
+            newTabText.classList.remove("hidden")
+    }
 }
 
 export const onOffResult = (e) => {
     try {
         console.log(e);
         console.log(e.target)
+        if (e.target && e.target.classList && (
+            e.target.classList.contains("search-result-contact-seller-button") ||
+            e.target.classList.contains("search-result-button-text") ||
+            e.target.classList.contains("search-result-icon")
+        )) {
+            if (e.target.classList.contains("search-result-contact-seller-button")) {
+                if (e.target.nextElementSibling && e.target.nextElementSibling.classList &&
+                    e.target.nextElementSibling.classList.contains("show-phone-number-wrapper"))
+                    if (e.target.nextElementSibling.classList.contains("hidden"))
+                        e.target.nextElementSibling.classList.remove("hidden")
+                    else
+                        e.target.nextElementSibling.classList.add("hidden")
+            }
+            else if (e.target.classList.contains("search-result-button-text") ||
+                e.target.classList.contains("search-result-icon")) {
+                if (e.target.parentElement && e.target.parentElement.nextElementSibling &&
+                    e.target.parentElement.nextElementSibling.classList &&
+                    e.target.parentElement.nextElementSibling.classList.contains("show-phone-number-wrapper"))
+                    if (e.target.parentElement.nextElementSibling.classList.contains("hidden"))
+                        e.target.parentElement.nextElementSibling.classList.remove("hidden")
+                    else
+                        e.target.parentElement.nextElementSibling.classList.add("hidden")
+            }
+            // else if (e.target.classList.contains("search-result-icon")) {
+            //     if (e.target.nextElementSibling && e.target.nextElementSibling.classList &&
+            //         e.target.nextElementSibling.classList.contains("show-phone-number-wrapper"))
+            //         if (e.target.nextElementSibling.classList.contains("hidden"))
+            //             e.target.nextElementSibling.classList.remove("hidden")
+            //         else
+            //             e.target.nextElementSibling.classList.addF("hidden")
+            // }
+
+            console.log("button cliced")
+            e.target.click()
+            return
+        }
+
         if (e.target && e.target.parentNode) {
             let element = e.target//.parentNode
             while (element && element.classList &&

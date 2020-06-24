@@ -6,6 +6,7 @@ import SearchResultMiddlePart from './SearchResultMiddlePart'
 import { updateCarSearchParams, filterUpdated, updateSortBy } from '../actions/actions';
 import { formatDate } from '../other/uti'
 import DropDownButton from './DropDownButton'
+import { formatPriceWhitCommas } from '../other/uti'
 
 
 const SearchResult = (props) => {
@@ -97,22 +98,42 @@ const SearchResult = (props) => {
                             return (
                                 <>
                                     <div className="search-result-table master"
-                                        onClick={(e) => onOffResult(e)}
+                                        onClick={(e) => { onOffResult(e); offNewTab(e) }}
                                         onMouseEnter={(e) => onNewTab(e)}
                                         onMouseLeave={(e) => offNewTab(e)}
                                     >
                                         <div className="search-result-left-part">
                                             <div className="search-result-new-tab">
-                                                <i className="new-tab"><img className="new-tab-icon" src="/newTabIcon.png" alt="newTabIcon"></img></i>
+                                                <i className="new-tab hidden"><img className="new-tab-icon" src="/newTabIcon.png" alt="newTabIcon"></img></i>
                                                 <span className="hover-text hidden" >פתיחה בטאב חדש</span>
                                             </div>
-                                            <div className="search-result-price"><label>₪{searchData.price}</label></div>
+                                            <div className="search-result-price"><label>{
+                                                searchData.price ? ("₪ " + formatPriceWhitCommas(searchData.price)) : "לא צוין מחיר"
+
+                                            }</label></div>
                                             <div className="search-result-date-update"><label>{formatDate(searchData.updatedAt, true)}</label></div>
-                                            <button type="button" className="search-result-contact-seller-button hidden">
+                                            <button type="button" className="search-result-contact-seller-button hidden" oncClick={(e) => {
+                                                    console.log(e)
+                                            }}>
                                                 <span className="search-result-button-text">הצגת מספר טלפון</span>
-                                                <i className="fi fi-phone"></i>
+                                                <i className="fi fi-phone search-result-icon"></i>
                                             </button>
+                                            <div className="show-phone-number-wrapper hidden">
+                                                <div className="show-phone-number-name">
+                                                    <label>0544374765</label>
+                                                </div>
+                                                <div className="show-phone-number-theNumber">
+                                                    <label>ploni almoni</label>
+                                                </div>
+                                                <div className="show-phone-number-send-email">
+                                                    <a href="/sendMailTo">שליחת דוא"ל למפרסם</a>
+                                                </div>
+                                                <div className="show-phone-number-check-financing">
+                                                    <a href="/checkFinanceOffer">בדקו מימון לרכב</a>
+                                                </div>
+                                            </div>
                                         </div>
+                                        {/* </div> */}
 
                                         <SearchResultMiddlePart searchData={searchData} />
 

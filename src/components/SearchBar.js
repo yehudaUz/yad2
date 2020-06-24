@@ -50,23 +50,16 @@ const SearchBar = (props) => {
             props.dispatch(updateCarSearchParams({ [propName]: [...theProp, e.target.parentNode.textContent] }))
     }
 
-
-
-    const submitForm = (e) => {
-        // e.preventDefault()
-        // const formValues = {
-        //     maker: e.target[24].value,
-        //     model: e.target[23].value,
-        //     fromYear: e.target[14].value,
-        //     toYear: e.target[5].value,
-        //     fromPrice: e.target[4].value,
-        //     toPrice: e.target[3].value,
-        //     area: e.target[2].value
-        // }
-        // console.log(JSON.stringify(formValues))
-        // throw new Error()
+    window.onclick = (e) => { //close dropDown menu when click on window frame
+        console.log("clciked", e.target.tagName)
+        if (e.target && e.target.tagName && e.target.tagName !== "INPUT") {
+            let allDropDownsMenus = [...document.getElementsByClassName("searchBarDropDown")]
+            allDropDownsMenus.forEach(dropDown => {
+                if (dropDown.classList && !dropDown.classList.contains("hidden"))
+                    dropDown.classList.add("hidden")
+            })
+        }
     }
-
 
     return (
         <div className="search-bar-div">
@@ -152,9 +145,9 @@ const SearchBar = (props) => {
                         <ul className="searchBarDropDown maker hidden" onChange={(e) => {
                             updateSearchParams(e, "maker", props.carSearchParams.maker)
                         }}>
-                        {makersAndModels.map((oneMakerModel) => (
-                            <li><input key={oneMakerModel.maker} type="checkbox" />{oneMakerModel.maker}</li>
-                        ))}
+                            {makersAndModels.map((oneMakerModel) => (
+                                <li><input key={oneMakerModel.maker} type="checkbox" />{oneMakerModel.maker}</li>
+                            ))}
                         </ul>
                     </li>
                 </ul>

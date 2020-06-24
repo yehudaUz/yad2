@@ -444,6 +444,8 @@ table {
     text-align: right;
 }
 
+
+
 /* dropdown searchbar content */
 
 .searchBarDropDown {
@@ -540,6 +542,43 @@ table {
 }
 
 /* search result */
+.show-phone-number-wrapper {
+    max-height: 250px; 
+    position: absolute;
+    z-index: 10;
+    overflow: hidden;
+    transition: max-height .3s;
+    -moz-transition: max-height .3s;
+    -webkit-transition: max-height .3s;
+    -o-transition: max-height .3s;
+    width: 100%;
+    max-width: 180px;
+    background: #fff;
+    color: #000;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.3);
+    /* max-height: 0; */
+    max-height: 250px;
+
+}
+.show-phone-number-name{
+    padding: 15px;
+    cursor: auto;
+    border-bottom: 1px solid #d6d6d6;
+    text-align: center;
+}
+.show-phone-number-theNumber{
+    padding: 15px;
+    cursor: default;
+}
+.show-phone-number-send-email {
+    padding: 15px;
+    border-top: 1px solid #d6d6d6;
+    text-align: center;
+}
+.show-phone-number-check-financing{
+    padding: 15px;
+    border-top: 1px solid #d6d6d6;
+}
 
 .search-result-wrapper {
     /* margin: 10vh 0 10vw 0; */
@@ -670,8 +709,12 @@ table {
     width: -webkit-fill-available;
 }
 
+/* .search-result-price {
+} */
 .search-result-price, .search-result-date-update {
     align-self: flex-start;
+    margin-top:10px;
+    margin-left: 10px;
 }
 
 .search-result-date-update {
