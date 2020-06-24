@@ -4,7 +4,7 @@ import { updateCarSearchParams } from '../actions/actions'
 import { onOffDropList } from '../logic/elementsmManipulation '
 import { makersAndModels, areas } from '../other/textData'
 import { updateCarSearchResult } from '../actions/actions'
-
+import DropDownButton from './DropDownButton'
 
 const sendSearchRequest = async (props, isSearchWithParams) => {
     let urlPath = "http://localhost:3000/carSearchInitial"
@@ -107,7 +107,7 @@ const SearchBar = (props) => {
                     </li>
                     <li>שנה
                     <div className="search-bar-input-wrapper">
-                            <li>
+                            <li className="from-year-to-year-li">
                                 <input className="search-bar-input-double" type="text" name="" autoComplete="off" placeholder="עד שנה"
                                     onClick={() => onOffDropList(".toYear")}></input>
                                 <ul className="searchBarDropDown toYear hidden" onClick={(e) => {
@@ -145,14 +145,16 @@ const SearchBar = (props) => {
                                 })}
                         </ul>
                     </li>
-                    <li>יצרן
+                    <li>
+                        יצרן
+                        {/* {DropDownButton(true, "יצרן", ".maker")} */}
                         <input className="search-bar-input" placeholder="בחרו יצרן" onClick={() => onOffDropList(".maker")}></input>
                         <ul className="searchBarDropDown maker hidden" onChange={(e) => {
                             updateSearchParams(e, "maker", props.carSearchParams.maker)
                         }}>
-                            {makersAndModels.map((oneMakerModel) => (
-                                <li><input key={oneMakerModel.maker} type="checkbox" />{oneMakerModel.maker}</li>
-                            ))}
+                        {makersAndModels.map((oneMakerModel) => (
+                            <li><input key={oneMakerModel.maker} type="checkbox" />{oneMakerModel.maker}</li>
+                        ))}
                         </ul>
                     </li>
                 </ul>

@@ -1,10 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { onOffDropList, on, off, onOffResult } from '../logic/elementsmManipulation '
+import { onOffDropList, onNewTab, offNewTab, onOffResult } from '../logic/elementsmManipulation '
 import { sendSearchRequest } from './SearchBar'
 import SearchResultMiddlePart from './SearchResultMiddlePart'
 import { updateCarSearchParams, filterUpdated, updateSortBy } from '../actions/actions';
 import { formatDate } from '../other/uti'
+import DropDownButton from './DropDownButton'
+
 
 const SearchResult = (props) => {
     const filterPressed = async (filterType, e) => {
@@ -45,14 +47,7 @@ const SearchResult = (props) => {
         )
     }
 
-    const DropDownButton = (isWithArrowIcon, buttonText, dropDownClassName) => {
-        return (
-            <button className="search-bar-input search-bar-input-radio-text" onClick={() => onOffDropList(dropDownClassName)} >
-                {isWithArrowIcon && <i class="fi fi-angle-down"></i>}
-                <label className="dropDown-button-text">{buttonText}</label>
-            </button>
-        )
-    }
+
 
     if (props.searchResult && props.searchResult.length > 0)
         return (
@@ -101,9 +96,12 @@ const SearchResult = (props) => {
                         props.searchResult.map(searchData => {
                             return (
                                 <>
-                                    <div className="search-result-table" onClick={(e) => onOffResult(e)}>
-                                        <div className="search-result-left-part" onMouseEnter={(e) => on(e)}
-                                            onMouseLeave={(e) => off(e)}>
+                                    <div className="search-result-table master"
+                                        onClick={(e) => onOffResult(e)}
+                                        onMouseEnter={(e) => onNewTab(e)}
+                                        onMouseLeave={(e) => offNewTab(e)}
+                                    >
+                                        <div className="search-result-left-part">
                                             <div className="search-result-new-tab">
                                                 <i className="new-tab"><img className="new-tab-icon" src="/newTabIcon.png" alt="newTabIcon"></img></i>
                                                 <span className="hover-text hidden" >פתיחה בטאב חדש</span>
@@ -149,6 +147,7 @@ const SearchResult = (props) => {
                                             <div className="search-result-other-detils">
                                                 <table>
                                                     <tr>
+                                                        <label className="search-resultother-detils-header">פרטים נוספים</label>
                                                         <td>
                                                             <div className="search-result-other-detils-right-colunm">
                                                                 <div className="search-result-pair-fields">

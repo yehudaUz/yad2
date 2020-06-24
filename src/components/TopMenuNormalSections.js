@@ -18,7 +18,7 @@ const topMenuData = [
 const TopMenuNormalSections = (props) => {
     const renderButtons = () => {
         return topMenuData.map((menuButtonData) => (
-            <li key={menuButtonData.href} className="dropbtn"><a href={menuButtonData.href}
+            <li key={menuButtonData.href} className="dropbtn"><a  href={menuButtonData.href}
                 onClick={(e) => {
                     props.dispatch(updateAds(menuButtonData.adsPath))
                     props.dispatch(updateMenu(["ראשי",menuButtonData.text,menuButtonData.comp.props.dropDownContentArrText[0]]))

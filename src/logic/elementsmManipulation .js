@@ -22,33 +22,51 @@ export const onOffDropList = (className) => {
                 console.log("unknown " + className + "  for dropList onOff!")
                 break;
         }
+        const menus = document.getElementsByClassName("searchBarDropDown")
+        for (let i = 0; i < menus.length; i++) {
+            let oneMenu = menus[i]
+            if (!oneMenu.classList.contains("hidden") && !oneMenu.classList.contains(className.substring(1)))
+                oneMenu.classList.add("hidden")
+        }
     }
 }
 
-export const off = (e) => {
-    let element = e.target//.parentNode
-    while (element && element.classList &&
-        !element.classList.contains("search-result-left-part") && element.parentNode)
-        element = element.parentNode
+export const offNewTab = (e) => {
+    // let element = e.target//.parentNode
+    // while (element && element.classList &&
+    //     !element.classList.contains("search-result-left-part") && element.parentNode)
+    //     element = element.parentNode
 
-    if (element.firstElementChild && element.firstElementChild.lastElementChild &&
-        element.firstElementChild.lastElementChild.tagName &&
-        element.firstElementChild.lastElementChild.tagName.toLowerCase() === "span" &&
-        !element.firstElementChild.lastElementChild.classList.contains("hidden"))
-        element.firstElementChild.lastElementChild.classList.add("hidden")
+    // if (element.firstElementChild && element.firstElementChild.lastElementChild &&
+    //     element.firstElementChild.lastElementChild.tagName &&
+    //     element.firstElementChild.lastElementChild.tagName.toLowerCase() === "span" &&
+    //     !element.firstElementChild.lastElementChild.classList.contains("hidden"))
+    //     element.firstElementChild.lastElementChild.classList.add("hidden")
+    let iconImage = document.getElementsByClassName("new-tab-icon")[0]
+    if (iconImage && iconImage.classList && !iconImage.classList.contains("hidden"))
+        iconImage.classList.add("hidden")
+    let newTabText = document.getElementsByClassName("hover-text")[0]
+    if (newTabText && newTabText.classList && !newTabText.classList.contains("hidden"))
+        newTabText.classList.add("hidden")
 }
 
-export const on = (e) => {
+export const onNewTab = (e) => {
     let element = e.target//.parentNode
     while (element && element.classList &&
-        !element.classList.contains("search-result-left-part") && element.parentNode)
+        !element.classList.contains("master") && element.parentNode)
         element = element.parentNode
 
-    if (element.firstElementChild && element.firstElementChild.lastElementChild &&
-        element.firstElementChild.lastElementChild.tagName &&
-        element.firstElementChild.lastElementChild.tagName.toLowerCase() === "span" &&
-        element.firstElementChild.lastElementChild.classList.contains("hidden"))
-        element.firstElementChild.lastElementChild.classList.remove("hidden")
+    // if (element.firstElementChild && element.firstElementChild.lastElementChild &&
+    //     element.firstElementChild.lastElementChild.tagName &&
+    //     element.firstElementChild.lastElementChild.tagName.toLowerCase() === "span" &&
+    //     element.firstElementChild.lastElementChild.classList.contains("hidden"))
+    //     element.firstElementChild.lastElementChild.classList.remove("hidden")
+    let iconImage = document.getElementsByClassName("new-tab-icon")[0]
+    if (iconImage && iconImage.classList && iconImage.classList.contains("hidden"))
+        iconImage.classList.remove("hidden")
+    let newTabText = document.getElementsByClassName("hover-text")[0]
+    if (newTabText && newTabText.classList && newTabText.classList.contains("hidden"))
+        newTabText.classList.remove("hidden")
 }
 
 export const onOffResult = (e) => {

@@ -14,7 +14,7 @@ button:focus {
 }
 
 a {
-    color: #363636!important;
+    color: #363636;
     font-size: 1rem;
 }
 
@@ -92,7 +92,10 @@ a {
     border-top: 5px solid #ff7100;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, .2);
 }
-
+.normal-top-menu-a {
+    text-align: right;
+    margin-right: 15px;
+}
 .normal-topBar-wrapper.sub-menu {
     margin-right: 5vw;
 }
@@ -169,14 +172,24 @@ li {
     border-bottom: 1px solid #eee;
 }
 
-li:hover {
-    background-color: grey;
+.normal-topBar-wrapper .dropbtn:hover, .normal-topBar-wrapper.sub-menu li:hover {
+    background-color: rgba(211, 211, 211, 0.3);
     cursor: pointer;
 }
 
 /* dropmenu class="dropdown*/
 
 ul li ul {
+    position: absolute;
+    /* right: -480px; */
+    transition: all 0.5s ease;
+    margin-top: 1rem;
+    /* background-color: #F5F5F5; */
+    background-color: #FFFFFF;
+    background-size: initial;
+}
+
+ul li ul.dropdown {
     visibility: hidden;
     opacity: 0;
     position: absolute;
@@ -188,6 +201,10 @@ ul li ul {
     background-size: initial;
     /* right: 50px; */
     /* display: none; */
+}
+
+.from-year-to-year-li {
+    padding: 0px;
 }
 
 /* every li in dropmenu */
@@ -203,7 +220,7 @@ ul li:hover>ul, ul li ul:hover {
 
 ul li ul li {
     clear: both;
-    width: 75%;
+    /* width: 75%; */
 }
 
 ul li ul li:hover {
@@ -238,7 +255,7 @@ a {
     text-decoration: none;
     display: block;
     text-align: left;
-    color: rgba(0, 0, 0, 0.6);
+    /* color: rgba(0, 0, 0, 0.6); */
 }
 
 /* .dropbtn {} */
@@ -415,7 +432,7 @@ table {
 }
 
 .search-bar-input-wrapper li {
-    padding: 0px;
+    /* padding: 0px; */
 }
 
 .search-form h3 {
@@ -491,6 +508,7 @@ table {
 .button-text {
     color: white;
 }
+
 .search-result-button-text {
     font-size: 0.75rem;
 }
@@ -618,6 +636,7 @@ table {
     font-size: .875rem;
     line-height: 1.0625rem;
     color: #363636;
+    margin-right: 10px;
 }
 
 .y2i_dropdown:before {
@@ -1032,11 +1051,25 @@ table {
     display: block;
     text-align: right;
     margin-right: 50px;
+    line-height: 22px;
 }
 
 .search-result-free-text-header {
+    line-height: 200%;
+    margin-top: 5px;
+}
+
+.search-resultother-detils-header {
+    font-size: 1.15em;
+    margin-top: 10px;
+    line-height: 1em;
+    margin-top: 20px;
+}
+
+.search-result-free-text-header, .search-resultother-detils-header {
     display: block;
     font-weight: bold;
+    color: #363636;
 }
 
 .search-result-other-detils {
