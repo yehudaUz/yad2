@@ -398,6 +398,10 @@ a {
     justify-content: space-evenly;
 }
 
+.search-bar-input-wrapper li {
+    padding: 0px;
+}
+
 .search-form h3 {
     text-align: right;
     margin-right: 30px;
@@ -645,7 +649,7 @@ a {
     height: 85px;
     width: 100%;
     border-left: 1px solid rgba(0, 0, 0, .1);
-    margin-top: 5px;
+    /* margin-top: 5px; */
     max-width: 358px;
 }
 
@@ -696,6 +700,10 @@ a {
 
 .search-result-table, .expendable-table {
     background: white;
+}
+
+.search-result-table.expendable-table:not(.footer) {
+    border-bottom-width: 0px;
 }
 
 .search-result-table-expendable-table-size_1_3 {
@@ -763,6 +771,7 @@ a {
     max-width: 15;
     max-height: 85%;
     max-width: 85%;
+    width: 120px;
 }
 
 .search-result-car-name-and-title {
@@ -904,7 +913,7 @@ a {
     display: flex;
     float: right;
     bottom: 0;
-    right: 168px;
+    right: 130px;
     position: absolute;
     /* max-width: 195px; */
     height: 60px;
@@ -1023,8 +1032,6 @@ a {
     padding-left: 10px;
 }
 
-
-
 /* login */
 
 .disability {
@@ -1039,8 +1046,9 @@ a {
 
 /* footer */
 
-.search-result-table.expendable-table.footer {
+.search-result-table.expendable-table.footer:not(.hidden) {
     display: flex;
+    padding: 10px 0 10px 17px;
 }
 
 .footer-social-network-icons {
@@ -1052,6 +1060,24 @@ a {
 
 .footer {
     margin-bottom: 5px;
+}
+
+.footer-mistake-herf {
+    display: inline-block;
+    padding-left: 5px;
+    font-size: 13.33px;
+    font-family: Arial;
+    font-stretch: 100%;
+    font-weight: 600;
+}
+
+.footer-ad-number {
+    display: inline-block;
+    /* margin-left: 30px; */
+    font-size: .75rem;
+    line-height: 1.25rem;
+    padding: 0 5px;
+    color: #363636;
 }
 
 .hidden {

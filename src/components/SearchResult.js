@@ -120,8 +120,10 @@ const SearchResult = (props) => {
 
                                         <div className="search-result-right-part">
                                             <div className="search-result-image-wrapper">
-                                                {searchData.imgsLinks && searchData.imgsLinks.length > 0 &&
-                                                    < img className="search-result-image" src={searchData.imgsLinks[0]} alt="search-result"></img>
+                                                {((searchData.imgsLinks && searchData.imgsLinks.length > 0) &&
+                                                    < img className="search-result-image" src={searchData.imgsLinks[0]} alt="search-result" />)
+                                                    ||
+                                                    < img className="search-result-image" src="https://yad2-pics.s3.amazonaws.com/public/empty.jpg" alt="search-result" />
                                                 }
                                             </div>
                                             <div className="search-result-car-name-and-title">
@@ -198,15 +200,15 @@ const SearchResult = (props) => {
                                     </div>
                                     <div className="search-result-table hidden expendable-table footer">
                                         <div className="footer-text">
-                                            <a href="/foundError">מצאתי טעות</a>
-                                            <label>מספר מודעה {searchData._id}</label>
+                                            <label className="footer-ad-number">{searchData._id} :מספר מודעה</label>
+                                            <a href="/foundError" className="footer-mistake-herf">מצאתי טעות</a>
                                         </div>
                                         <div className="footer-social-network-icons">
-                                            <i class="fi fi-whatsapp"></i>
-                                            <i class="fi fi-facebook"></i>
-                                            <i class="fi fi-email"></i>
-                                            <i class="fi fi-link2"></i>
-                                            <i class="fi fi-print"></i>
+                                            <a href="/whatsAppLink" /*className=""*/> <i class="fi fi-whatsapp"></i></a>
+                                            <a href="/facebookLink" /*className=""*/><i class="fi fi-facebook"></i></a>
+                                            <a href="/emailLink" /*className=""*/><i class="fi fi-email"></i></a>
+                                            <a href="/linkToAd" /*className=""*/><i class="fi fi-link2"></i></a>
+                                            <a href="/printTheAd" /*className=""*/><i class="fi fi-print"></i></a>
                                         </div>
                                     </div>
                                 </>
