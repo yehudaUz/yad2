@@ -117,6 +117,7 @@ const SearchResult = (props) => {
                                             }}>
                                                 <span className="search-result-button-text">הצגת מספר טלפון</span>
                                                 <i className="fi fi-phone search-result-icon"></i>
+                                                <label className="hidden" >{searchData.userId}</label>
                                             </button>
                                             <div className="show-phone-number-wrapper hidden">
                                                 <div className="show-phone-number-name">
@@ -222,7 +223,7 @@ const SearchResult = (props) => {
                                     </div>
                                     <div className="search-result-table hidden expendable-table footer">
                                         <div className="footer-text">
-                                            <label className="footer-ad-number">{searchData._id} :מספר מודעה</label>
+                                            <label className="footer-ad-number">{searchData.userId} :מספר מודעה</label>
                                             <a href="/foundError" className="footer-mistake-herf">מצאתי טעות</a>
                                         </div>
                                         <div className="footer-social-network-icons">

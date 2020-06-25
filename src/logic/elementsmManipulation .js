@@ -84,6 +84,27 @@ export const onNewTab = (e) => {
     }
 }
 
+const fetchSellerData = async (userId) => {
+    let urlPath = "http://localhost:3000/fetchSellerData"
+    fetch(urlPath, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+         body: JSON.stringify({userId})
+    }).then(response => response.json()).then(data => {
+        console.log("ddddddddddd",data)
+        // throw new Error()
+        // if (Object.keys(Response).includes("error"))
+        // props.dispatch(updateUser({ name: "לא ידוע" }))
+
+        // props.dispatch(updateUser(data.body))
+        return (data.body)
+    }).catch((error) => {
+        console.log("ERROR: " + error)
+    })
+}
+
 export const onOffResult = (e) => {
     try {
         console.log(e);
@@ -97,8 +118,9 @@ export const onOffResult = (e) => {
             if (e.target.classList.contains("search-result-contact-seller-button")) {
                 if (e.target.nextElementSibling && e.target.nextElementSibling.classList &&
                     e.target.nextElementSibling.classList.contains("show-phone-number-wrapper"))
-                    if (e.target.nextElementSibling.classList.contains("hidden"))
-                        e.target.nextElementSibling.classList.remove("hidden")
+                    if (e.target.nextElementSibling.classList.contains("hidden")) {
+                        fetchSellerData().then()//() => e.target.nextElementSibling.classList.remove("hidden"))
+                    }
                     else
                         e.target.nextElementSibling.classList.add("hidden")
             }
@@ -107,8 +129,12 @@ export const onOffResult = (e) => {
                 if (e.target.parentElement && e.target.parentElement.nextElementSibling &&
                     e.target.parentElement.nextElementSibling.classList &&
                     e.target.parentElement.nextElementSibling.classList.contains("show-phone-number-wrapper"))
-                    if (e.target.parentElement.nextElementSibling.classList.contains("hidden"))
-                        e.target.parentElement.nextElementSibling.classList.remove("hidden")
+                    if (e.target.parentElement.nextElementSibling.classList.contains("hidden")) {
+                        if (e.target.parentElement && e.target.parentElement.lastElementChild &&
+                            e.target.parentElement.lastElementChild.outerText && e.target.parentElement.lastElementChild.tagName &&
+                            e.target.parentElement.lastElementChild.tagName === "LABEL")
+                            fetchSellerData(e.target.parentElement.lastElementChild.outerText).then()//() => e.target.parentElement.nextElementSibling.classList.remove("hidden"))
+                    }
                     else
                         e.target.parentElement.nextElementSibling.classList.add("hidden")
             }

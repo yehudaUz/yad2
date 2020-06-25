@@ -9,6 +9,11 @@ const userSchema = new mongoose.Schema({
         required: false,
         trim: true
     },
+    phoneNumber: {
+        type: String,
+        required: true,
+        trim: true
+    },
     email: {
         type: String,
         unique: true,
@@ -32,8 +37,8 @@ const userSchema = new mongoose.Schema({
             }
         }
     }, ads: {
-        type:Array,
-        required:false
+        type: Array,
+        required: false
     },
     age: {
         type: Number,

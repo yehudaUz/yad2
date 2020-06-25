@@ -68,10 +68,10 @@ router.post('/carSearch', async (req, res) => {
         }
         delete mongooseSearchObj["fromYear"]; delete mongooseSearchObj["toYear"]
 
-        if (keys.includes("withPrice") && mongooseSearchObj["withPrice"]) 
+        if (keys.includes("withPrice") && mongooseSearchObj["withPrice"])
             if (!Object.keys(mongooseSearchObj).includes("price"))
-            mongooseSearchObj.price = { $ne: null } 
-        
+                mongooseSearchObj.price = { $ne: null }
+
         delete mongooseSearchObj["withPrice"];
 
 
@@ -157,6 +157,15 @@ router.post('/getUserData', auth, async (req, res) => {
     res.status(200).send({ body: req.user })
 })
 
+router.post('/fetchSellerData', async (req, res) => {
+    console.log(req.body.userId)
+    User.findById(req.body.userId, (err, user) => {
+        if (err)
+            res.status(500).send({ error: err })
+        res.status(200).send(JSON.stringify({ name: user.name, email: user.email, phone: user.phoneNumber }))
+    })
+})
+
 router.post('/postNewAd', auth, upload.any('photo'), async (req, res) => {
     try {
         const ad = new carAd(req.body)
@@ -191,7 +200,7 @@ router.post('/postNewAd', auth, upload.any('photo'), async (req, res) => {
 })
 
 router.post('/signup', async (req, res) => {
-    // console.log(req.body)
+    console.log(req.body)
     const user = new User(req.body)
     try {
         const found = await User.findOne({ $or: [{ name: req.body.email }, { email: req.body.password }] })
