@@ -88,6 +88,7 @@ export const onOffResult = (e) => {
     try {
         console.log(e);
         console.log(e.target)
+        //this is for showNumber buttons
         if (e.target && e.target.classList && (
             e.target.classList.contains("search-result-contact-seller-button") ||
             e.target.classList.contains("search-result-button-text") ||
@@ -120,17 +121,19 @@ export const onOffResult = (e) => {
             //             e.target.nextElementSibling.classList.addF("hidden")
             // }
 
-            console.log("button cliced")
-            e.target.click()
+            // console.log("button cliced")
+            // e.target.click()
             return
         }
 
+        //this is for normal ads expend when clicked
         if (e.target && e.target.parentNode) {
             let element = e.target//.parentNode
             while (element && element.classList &&
                 !element.classList.contains("search-result-table") && element.parentNode)
                 element = element.parentNode
-            if (element.classList.contains("search-result-table")) {
+
+            if (element.classList.contains("search-result-table")) {//closing open ad
                 if (element.classList.contains("search-result-button-text"))
                     return;
                 if (element.classList.contains("expend")) {
@@ -148,9 +151,15 @@ export const onOffResult = (e) => {
                     if (element.nextElementSibling && element.nextElementSibling.nextElementSibling &&
                         element.nextElementSibling.nextElementSibling.classList.contains("footer"))
                         element.nextElementSibling.nextElementSibling.classList.add("hidden")
-
+                    //this is to close showNumber  when closing ad
+                    if (element.firstElementChild && element.firstElementChild.children &&
+                        element.firstElementChild.children && element.firstElementChild.children[4] &&
+                        element.firstElementChild.children[4].classList &&
+                        element.firstElementChild.children[4].classList.contains("show-phone-number-wrapper") &&
+                        !element.firstElementChild.children[4].classList.contains("hidden"))
+                        element.firstElementChild.children[4].classList.add("hidden")
                 }
-                else {
+                else { //expending the ads/table
                     element.classList.add("expend")//table
                     if (element.childNodes[1].classList.contains("search-result-middle-part"))
                         element.childNodes[1].classList.add("hidden")

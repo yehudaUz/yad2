@@ -113,17 +113,17 @@ const SearchResult = (props) => {
                                             }</label></div>
                                             <div className="search-result-date-update"><label>{formatDate(searchData.updatedAt, true)}</label></div>
                                             <button type="button" className="search-result-contact-seller-button hidden" oncClick={(e) => {
-                                                    console.log(e)
+                                                console.log(e)
                                             }}>
                                                 <span className="search-result-button-text">הצגת מספר טלפון</span>
                                                 <i className="fi fi-phone search-result-icon"></i>
                                             </button>
                                             <div className="show-phone-number-wrapper hidden">
                                                 <div className="show-phone-number-name">
-                                                    <label>0544374765</label>
+                                                    <label>ploni almoni</label>
                                                 </div>
                                                 <div className="show-phone-number-theNumber">
-                                                    <label>ploni almoni</label>
+                                                    <label>0544374765</label>
                                                 </div>
                                                 <div className="show-phone-number-send-email">
                                                     <a href="/sendMailTo">שליחת דוא"ל למפרסם</a>

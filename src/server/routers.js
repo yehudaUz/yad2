@@ -68,12 +68,10 @@ router.post('/carSearch', async (req, res) => {
         }
         delete mongooseSearchObj["fromYear"]; delete mongooseSearchObj["toYear"]
 
-        if (keys.includes("withPrice") && mongooseSearchObj["withPrice"]) {
+        if (keys.includes("withPrice") && mongooseSearchObj["withPrice"]) 
             if (!Object.keys(mongooseSearchObj).includes("price"))
-                mongooseSearchObj.price = { $ne: null } // { "$nin": [null, ""] } // { "$lte": mongooseSearchObj["toYear"] }
-            else
-                mongooseSearchObj.price = { ...mongooseSearchObj.price, "$nin": [null, ""] }
-        }
+            mongooseSearchObj.price = { $ne: null } 
+        
         delete mongooseSearchObj["withPrice"];
 
 

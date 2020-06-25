@@ -55,8 +55,12 @@ const SearchBar = (props) => {
         if (e.target && e.target.tagName && e.target.tagName !== "INPUT") {
             let allDropDownsMenus = [...document.getElementsByClassName("searchBarDropDown")]
             allDropDownsMenus.forEach(dropDown => {
-                if (dropDown.classList && !dropDown.classList.contains("hidden"))
+                if (dropDown.classList && !dropDown.classList.contains("hidden")) {
+                    if ((e.target.classList && e.target.classList.contains("search-bar-input")) ||
+                        (e.target.parentNode && e.target.parentNode.classList && e.target.parentNode.classList.contains("search-bar-input")))
+                        return;
                     dropDown.classList.add("hidden")
+                }
             })
         }
     }
@@ -78,12 +82,12 @@ const SearchBar = (props) => {
                     <li>אזור
                     <input className="search-bar-input" type="text" name="" autoComplete="off" placeholder="בחרו אזור" title=""
                             onClick={() => onOffDropList(".area")} ></input>
-                        <ul className="searchBarDropDown area hidden" onChange={(e) => {
+                        <ul key={counter++} className="searchBarDropDown area hidden" onChange={(e) => {
                             updateSearchParams(e, "area", props.carSearchParams.area)
                         }}>
                             {areas.map((oneArea) => {
                                 const zonesLi = oneArea.zones.map((oneZone) => (
-                                    <li><input key={oneZone} type="checkbox" />{oneZone}</li>
+                                    <li key={oneZone}><input key={oneZone} type="checkbox" />{oneZone}</li>
                                 ))
                                 zonesLi.unshift(<li><b><input key={oneArea.region} type="checkbox" />{oneArea.region}</b></li>)
                                 return zonesLi
@@ -146,7 +150,7 @@ const SearchBar = (props) => {
                             updateSearchParams(e, "maker", props.carSearchParams.maker)
                         }}>
                             {makersAndModels.map((oneMakerModel) => (
-                                <li><input key={oneMakerModel.maker} type="checkbox" />{oneMakerModel.maker}</li>
+                                <li key={oneMakerModel.maker}><input key={oneMakerModel.maker} type="checkbox" />{oneMakerModel.maker}</li>
                             ))}
                         </ul>
                     </li>
