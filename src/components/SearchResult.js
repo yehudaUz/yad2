@@ -83,7 +83,7 @@ const SearchResult = (props) => {
                                         {FilterRadioLi("byDate", "לפי תאריך")}
                                         {FilterRadioLi("byPriceLowToHigh", "מחיר - מהזול ליקר")}
                                         {FilterRadioLi("ByPriceHighToLow", "מחיר - מהיקר לזול")}
-                                        {FilterRadioLi("byDabyKmLowToHighte", `ק"מ - מהנמוך לגבוה`)}
+                                        {FilterRadioLi("byKmLowToHigh", `ק"מ - מהנמוך לגבוה`)}
                                         {FilterRadioLi("byYearHighToLow", "שנתון - מהגבוה לנמוך")}
                                     </ul>
                                 </li>
@@ -145,6 +145,7 @@ const SearchResult = (props) => {
                                                     ||
                                                     < img className="search-result-image" src="https://yad2-pics.s3.amazonaws.com/public/empty.jpg" alt="search-result" />
                                                 }
+                                                <i class="fi fi-heart-alt"></i>
                                             </div>
                                             <div className="search-result-car-name-and-title">
                                                 <label className="search-result-makerModel">{searchData.model + "  " + searchData.maker}</label>
@@ -223,7 +224,7 @@ const SearchResult = (props) => {
                                     </div>
                                     <div className="search-result-table hidden expendable-table footer">
                                         <div className="footer-text">
-                                            <label className="footer-ad-number">{searchData.userId} :מספר מודעה</label>
+                                            <label className="footer-ad-number">{searchData._id} :מספר מודעה</label>
                                             <a href="/foundError" className="footer-mistake-herf">מצאתי טעות</a>
                                         </div>
                                         <div className="footer-social-network-icons">

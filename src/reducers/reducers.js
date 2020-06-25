@@ -1,34 +1,5 @@
-// const mongoose = require('mongoose')
-// require('../database/mongooseActions')
+import { makersAndModels, areas } from '../other/textData'
 
-import { resolve } from "path"
-
-
-// console.log(mongooseAction)
-
-// const initialSearchResult = [{
-//     maker: "מרצדס", model: "amg", price: "50000", year: "1965", hand: "3", engineCc: "2000", area: "ירושלים", freeText: "ידשה ושמורה", km: "80000",
-//     engineType: "בנזין", transmitionType: "אוטומט", dateOnTheRoad: "15032015", testUntil: "180321", ownership: "פרטי", isReplaceOk: "false",
-//     isFitToDisability: "false", lastUpadte: "21052020", imgs: ["https://img.yad2.co.il/Pic/202006/07/1_1/o/o1_1_1_01240_20200607150613.jpg?l=7&c=6&w=1024&h=768"]
-// },
-// {
-//     maker: "פורד", model: "פוקוס", price: "40000", year: "1995", hand: "3", engineCc: "1980", area: "תל אביב", freeText: "ידשה ושמורה", km: "80000",
-//     engineType: "בנזין", transmitionType: "אוטומט", dateOnTheRoad: "15032015", testUntil: "180321", ownership: "פרטי", isReplaceOk: "false",
-//     isFitToDisability: "false", lastUpadte: "21052020", imgs: ["https://img.yad2.co.il/Pic/202006/10/1_1/o/y2_1_06574_20200610180642.jpeg?l=7&c=6&w=1024&h=768",
-//         "https://img.yad2.co.il/Pic/202006/10/1_1/o/y2_5_01614_20200610180626.jpeg?l=7&c=6&w=1024&h=768"]
-// },
-// {
-//     maker: "ניסאן", model: "amg", price: "50000", year: "1965", hand: "3", engineCc: "2000", area: "ירושלים", freeText: "ידשה ושמורה", km: "80000",
-//     engineType: "בנזין", transmitionType: "אוטומט", dateOnTheRoad: "15032015", testUntil: "180321", ownership: "פרטי", isReplaceOk: "false",
-//     isFitToDisability: "false", lastUpadte: "21052020", imgs: ["https://img.yad2.co.il/Pic/202006/13/1_1/o/y2_1_03107_20200613150606.jpeg?l=7&c=6&w=1024&h=768"]
-// },
-// {
-//     maker: "gm", model: "amg", price: "50000", year: "1965", hand: "3", engineCc: "2000", area: "ירושלים", freeText: "ידשה ושמורה", km: "80000",
-//     engineType: "בנזין", transmitionType: "אוטומט", dateOnTheRoad: "15032015", testUntil: "180321", ownership: "פרטי", isReplaceOk: "false",
-//     isFitToDisability: "false", lastUpadte: "21052020", imgs: ["https://img.yad2.co.il/Pic/202006/13/1_1/o/y2_1_03107_20200613150606.jpeg?l=7&c=6&w=1024&h=768"]
-// }]
-// console.log("initialSearchResult", initialSearchResult)
-// const UpdateInitialSearchResult = require('../components/UpdateInitialSearchResult')
 const initialCarSearchParams = {
     maker: [], model: [], fromYear: "", toYear: "", fromPrice: "", toPrice: "", area: [],
     fromKm: "", toKm: "", fromHand: "", toHand: "", color: "", ownership: "", engineCcFrom: "",

@@ -29,6 +29,19 @@ const sendSearchRequest = async (props, isSearchWithParams) => {
     })
 }
 
+const setText = (textEmpty, textMoreThenOne, arr) => {
+    if (Array.isArray(arr) && arr.length === 0)
+        return textEmpty
+    else if ((Array.isArray(arr) && arr.length === 1) || typeof (arr) === "string") {
+        if (Array.isArray(arr))
+            return arr[0]
+        else if (arr !== "")
+            return arr
+        else return textEmpty
+    }
+    return arr.length + " " + textMoreThenOne
+}
+
 const SearchBar = (props) => {
     let counter = 0;
 
@@ -44,11 +57,60 @@ const SearchBar = (props) => {
     const updateSearchParams = (e, propName, theProp) => {
         // console.log("TTTTT", e.target.parentNode.textContent, e.target.checked)
         if (!(e.target.checked)) {
-            const makerArrWithoutUncheckedItem = theProp.filter(maker => maker !== e.target.parentNode.textContent)
-            props.dispatch(updateCarSearchParams({ [propName]: [...makerArrWithoutUncheckedItem] }))
-        } else
-            props.dispatch(updateCarSearchParams({ [propName]: [...theProp, e.target.parentNode.textContent] }))
+            const arrWithoutUncheckedItem = theProp.filter(onePropItem => onePropItem !== e.target.parentNode.textContent)
+            if (propName === "maker") {
+                const validModelsArrs = makersAndModels.filter(oneMakerModel => arrWithoutUncheckedItem.includes(oneMakerModel.maker)).map(modelMaker => modelMaker.models)
+                // console.log("valid", validModelsArrs) //.models
+                let validModelsArr = []
+                validModelsArrs.forEach(modelsArr => modelsArr.forEach(model => validModelsArr.push(model)))
+                console.log(validModelsArr)
+                const newModelsProps = props.carSearchParams.model.filter(oneModel => validModelsArr.includes(oneModel))
+                props.dispatch(updateCarSearchParams({ [propName]: [...arrWithoutUncheckedItem], model: newModelsProps }))
+            } else
+                props.dispatch(updateCarSearchParams({ [propName]: [...arrWithoutUncheckedItem] }))
+            switch (propName) {
+                // case "maker": 
+                //     break;
+                default:
+            }
+        } else {
+            const newPropArr = [...theProp, e.target.parentNode.textContent]
+            props.dispatch(updateCarSearchParams({ [propName]: newPropArr }))
+        }
     }
+
+    const updateMenuInputs = () => {
+        let maker = document.getElementsByClassName("choose-maker")[0],
+            model = document.getElementsByClassName("choose-model")[0],
+            fromYear = document.getElementsByClassName("choose-fromYear")[0],
+            toYear = document.getElementsByClassName("choose-toYear")[0],
+            fromPrice = document.getElementsByClassName("choose-fromPrice")[0],
+            toPrice = document.getElementsByClassName("choose-toPrice")[0],
+            area = document.getElementsByClassName("choose-area")[0];
+
+        if (maker && model && fromYear && toYear && area)
+            Object.entries(props.carSearchParams).forEach(keyValue => {
+                switch (keyValue[0]) {
+                    case "maker": maker.placeholder = setText("בחרו יצרן", "יצרנים נבחרו", keyValue[1])
+                        break;
+                    case "model": model.placeholder = setText("בחרו דגם", "פריטים נבחרו", keyValue[1])
+                        break;
+                    case "fromYear": fromYear.placeholder = setText("משנה", "error", keyValue[1])
+                        break;
+                    case "toYear": toYear.placeholder = setText("עד שנה", "error", keyValue[1])
+                        break;
+                    // case "fromPrice": maker.placeholder = setText("ממחיר", "error", newPropArr)
+                    //     break;
+                    // case "toPrice": maker.placeholder = setText("עד מחיר", "error", newPropArr)
+                    //     break;
+                    case "area": area.placeholder = setText("בחרו איזור", "פריטים נבחרו", keyValue[1])
+                        break;
+                    default:
+                }
+            })
+    }
+
+    updateMenuInputs()
 
     window.onclick = (e) => { //close dropDown menu when click on window frame
         console.log("clciked", e.target.tagName)
@@ -80,7 +142,7 @@ const SearchBar = (props) => {
                             <span className="button_text">חיפוש מתקדם</span></span></button></div>
                     </li>
                     <li>אזור
-                    <input className="search-bar-input" type="text" name="" autoComplete="off" placeholder="בחרו אזור" title=""
+                    <input className="search-bar-input choose-area" type="text" name="" autoComplete="off" placeholder="בחרו אזור" title=""
                             onClick={() => onOffDropList(".area")} ></input>
                         <ul key={counter++} className="searchBarDropDown area hidden" onChange={(e) => {
                             updateSearchParams(e, "area", props.carSearchParams.area)
@@ -96,16 +158,16 @@ const SearchBar = (props) => {
                     </li>
                     <li>מחיר בש"ח
                     <div className="search-bar-input-wrapper">
-                            <input className="search-bar-input-double" type="text" name="" autoComplete="off" placeholder="עד מחיר"
+                            <input className="search-bar-input-double choose-toPrice" type="text" name="" autoComplete="off" placeholder="עד מחיר"
                                 onChange={(e) => props.dispatch(updateCarSearchParams({ toPrice: e.target.value }))}></input>
-                            <input className="search-bar-input-double" type="text" name="" autoComplete="off" placeholder="ממחיר"
+                            <input className="search-bar-input-double choose-fromPrice" type="text" name="" autoComplete="off" placeholder="ממחיר"
                                 onChange={(e) => props.dispatch(updateCarSearchParams({ fromPrice: e.target.value }))}></input>
                         </div>
                     </li>
                     <li>שנה
                     <div className="search-bar-input-wrapper">
                             <li className="from-year-to-year-li">
-                                <input className="search-bar-input-double" type="text" name="" autoComplete="off" placeholder="עד שנה"
+                                <input className="search-bar-input-double choose-toYear" type="text" name="" autoComplete="off" placeholder="עד שנה"
                                     onClick={() => onOffDropList(".toYear")}></input>
                                 <ul className="searchBarDropDown toYear hidden" onClick={(e) => {
                                     props.dispatch(updateCarSearchParams({
@@ -114,7 +176,7 @@ const SearchBar = (props) => {
                                 }}>
                                     {renderYears()}
                                 </ul>
-                                <input className="search-bar-input-double" type="text" name="" autoComplete="off" placeholder="משנה"
+                                <input className="search-bar-input-double choose-fromYear" type="text" name="" autoComplete="off" placeholder="משנה"
                                     onClick={() => onOffDropList(".fromYear")} ></input>
                                 <ul className="searchBarDropDown fromYear hidden" onClick={(e) => {
                                     props.dispatch(updateCarSearchParams({
@@ -127,7 +189,7 @@ const SearchBar = (props) => {
                         </div>
                     </li>
                     <li>דגם
-                    <input className="search-bar-input" type="text" name="" autoComplete="off" placeholder="בחרו דגם" title=""
+                    <input className="search-bar-input choose-model" type="text" name="" autoComplete="off" placeholder="בחרו דגם" title=""
                             onClick={() => onOffDropList(".model")} ></input>
                         <ul className="searchBarDropDown model hidden" onChange={(e) => {
                             updateSearchParams(e, "model", props.carSearchParams.model)
@@ -145,7 +207,7 @@ const SearchBar = (props) => {
                     <li>
                         יצרן
                         {/* {DropDownButton(true, "יצרן", ".maker")} */}
-                        <input className="search-bar-input" placeholder="בחרו יצרן" onClick={() => onOffDropList(".maker")}></input>
+                        <input className="search-bar-input choose-maker" placeholder="בחרו יצרן" onClick={() => onOffDropList(".maker")}></input>
                         <ul className="searchBarDropDown maker hidden" onChange={(e) => {
                             updateSearchParams(e, "maker", props.carSearchParams.maker)
                         }}>
