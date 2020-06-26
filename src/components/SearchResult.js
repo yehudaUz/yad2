@@ -145,7 +145,7 @@ const SearchResult = (props) => {
                                                     ||
                                                     < img className="search-result-image" src="https://yad2-pics.s3.amazonaws.com/public/empty.jpg" alt="search-result" />
                                                 }
-                                                <i class="fi fi-heart-alt"></i>
+                                                {/* <i class="fi fi-heart-alt"></i> */}
                                             </div>
                                             <div className="search-result-car-name-and-title">
                                                 <label className="search-result-makerModel">{searchData.model + "  " + searchData.maker}</label>

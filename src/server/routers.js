@@ -16,6 +16,8 @@ const s3 = new AWS.S3({
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
 
+const carController = require('../controllers/carController')
+
 const upload = multer({
     limits: {
         fileSize: 1000000
@@ -38,55 +40,51 @@ process.on('uncaughtException', (err, origin) => {
 
 router.post('/carSearch', async (req, res) => {
     console.log("RRRRRRRRRRRRRRRR", req.body)
-    let mongooseSearchObj = req.body.carSearchParams
+    let mongooseSearchObj = req.body.carSearchParams || {}
     Object.entries(mongooseSearchObj).forEach(keyValue => {
         if (keyValue[1] === "" || keyValue[1] === [] || keyValue[1] === undefined)
             delete mongooseSearchObj[keyValue[0]]
     })
     console.log("MMM", mongooseSearchObj)
-    if (mongooseSearchObj === undefined || Object.keys(mongooseSearchObj).length === 0)
-        mongooseSearchObj = {};
-    else {
-        const keys = Object.keys(mongooseSearchObj);
-        if (keys.includes("fromPrice"))
-            mongooseSearchObj.price = { "$gte": mongooseSearchObj["fromPrice"] }
-        if (keys.includes("toPrice")) {
-            if (!Object.keys(mongooseSearchObj).includes("price"))
-                mongooseSearchObj.price = { "$lte": mongooseSearchObj["toPrice"] }
-            else
-                mongooseSearchObj.price = { "$gte": mongooseSearchObj["fromPrice"], "$lte": mongooseSearchObj["toPrice"] }
-        }
-        delete mongooseSearchObj["fromPrice"]; delete mongooseSearchObj["toPrice"]
 
-        if (keys.includes("fromYear"))
-            mongooseSearchObj.year = { "$gte": mongooseSearchObj["fromYear"] }
-        if (keys.includes("toYear")) {
-            if (!Object.keys(mongooseSearchObj).includes("year"))
-                mongooseSearchObj.year = { "$lte": mongooseSearchObj["toYear"] }
-            else
-                mongooseSearchObj.year = { "$gte": mongooseSearchObj["fromYear"], "$lte": mongooseSearchObj["toYear"] }
-        }
-        delete mongooseSearchObj["fromYear"]; delete mongooseSearchObj["toYear"]
-
-        if (keys.includes("withPrice") && mongooseSearchObj["withPrice"])
-            if (!Object.keys(mongooseSearchObj).includes("price"))
-                mongooseSearchObj.price = { $ne: null }
-
-        delete mongooseSearchObj["withPrice"];
-
-
-        if (keys.includes("withPhoto") && mongooseSearchObj["withPhoto"]) {
-            mongooseSearchObj["imgsLinks.0"] = { "$exists": true }
-        }
-        delete mongooseSearchObj["withPhoto"];
-
-        console.log("Aaa")
-        Object.entries(mongooseSearchObj).map(keyValue => {
-            if (keyValue[0] && Array.isArray(keyValue[1]) && keyValue[1].length === 0)
-                delete mongooseSearchObj[keyValue[0]]
-        })
+    const keys = Object.keys(mongooseSearchObj);
+    if (mongooseSearchObj.fromPrice)
+        mongooseSearchObj.price = { "$gte": mongooseSearchObj["fromPrice"] }
+    if (mongooseSearchObj.toPrice) {
+        if (!mongooseSearchObj.price)
+            mongooseSearchObj.price = { "$lte": mongooseSearchObj["toPrice"] }
+        else
+            mongooseSearchObj.price = { "$gte": mongooseSearchObj["fromPrice"], "$lte": mongooseSearchObj["toPrice"] }
     }
+    delete mongooseSearchObj["fromPrice"]; delete mongooseSearchObj["toPrice"]
 
+    if (mongooseSearchObj.fromYear)
+        mongooseSearchObj.year = { "$gte": mongooseSearchObj["fromYear"] }
+    if (mongooseSearchObj.toYear) {
+        if (mongooseSearchObj.year)
+            mongooseSearchObj.year = { "$lte": mongooseSearchObj["toYear"] }
+        else
+            mongooseSearchObj.year = { "$gte": mongooseSearchObj["fromYear"], "$lte": mongooseSearchObj["toYear"] }
+    }
+    delete mongooseSearchObj["fromYear"]; delete mongooseSearchObj["toYear"]
+
+    if (mongooseSearchObj.withPrice && mongooseSearchObj["withPrice"])
+        if (!mongooseSearchObj.price)
+            mongooseSearchObj.price = { $ne: null }
+
+    delete mongooseSearchObj["withPrice"];
+
+
+    if (mongooseSearchObj.withPhoto  && mongooseSearchObj["withPhoto"]) {
+        mongooseSearchObj["imgsLinks.0"] = { "$exists": true }
+    }
+    delete mongooseSearchObj["withPhoto"];
+
+    console.log("Aaa")
+    Object.entries(mongooseSearchObj).map(keyValue => {
+        if (keyValue[0] && Array.isArray(keyValue[1]) && keyValue[1].length === 0)
+            delete mongooseSearchObj[keyValue[0]]
+    })
 
     let sortBy = req.body.sortBy ? req.body.sortBy : undefined
     if (sortBy && sortBy !== undefined && sortBy !== "" && sortBy != null) {
@@ -113,27 +111,24 @@ router.post('/carSearch', async (req, res) => {
     console.log("sortBy", sortBy)
     console.log("mongooseSearchObj", mongooseSearchObj)
     carAd.find(mongooseSearchObj, function (err, records) {
-        if (err) {
-            // console.log("errr", err, records)
+        if (err) 
             return res.status(500).send({ body: "Sorry, internal error when searched for document in database" })
-        }
+        
     }).sort(sortBy).then((records) => {
         console.log("in")
-
-        // console.log("SEND RECORD", records)
         res.send({ "body": records })
     });
 })
 
-router.post('/carSearchInitial', async (req, res) => {
-    carAd.find({}, function (err, records) {
-        if (err) {
-            console.log("errr", err, records)
-            return res.status(500).send({ body: "Sorry, internal error when searched for document in database" })
-        }
-        res.send({ "body": records })
-    });
-})
+router.post('/carSearchInitial',carController.carSearchInitial) //async (req, res) => {
+    // carAd.find({}, function (err, records) {
+    //     if (err) {
+    //         console.log("errr", err, records)
+    //         return res.status(500).send({ body: "Sorry, internal error when searched for document in database" })
+    //     }
+    //     res.send({ "body": records })
+    // });
+// })
 
 
 let counter = 0;
@@ -157,14 +152,14 @@ router.post('/getUserData', auth, async (req, res) => {
     res.status(200).send({ body: req.user })
 })
 
-router.post('/fetchSellerData', async (req, res) => {
-    console.log(req.body.userId)
-    User.findById(req.body.userId, (err, user) => {
-        if (err)
-            res.status(500).send({ error: err })
-        res.status(200).send(JSON.stringify({ name: user.name, email: user.email, phone: user.phoneNumber }))
-    })
-})
+router.post('/fetchSellerData',carController.fetchSellerData) //async (req, res) => {
+//     console.log(req.body.userId)
+//     User.findById(req.body.userId, (err, user) => {
+//         if (err)
+//             res.status(500).send({ error: err })
+//         res.status(200).send(JSON.stringify({ name: user.name, email: user.email, phone: user.phoneNumber }))
+//     })
+// })
 
 router.post('/postNewAd', auth, upload.any('photo'), async (req, res) => {
     try {
