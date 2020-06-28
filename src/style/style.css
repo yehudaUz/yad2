@@ -402,6 +402,87 @@ a {
     width: -webkit-fill-available;
 }
 
+.search-bar-dropDown-wrapper {
+    position: absolute;
+}
+
+.search-bar-buttons-strip-wrapper {
+    position: relative;
+    /* top: 0; */
+}
+
+.search-bar-buttons-strip {
+    --vh: 5.65px;
+    color: #363636;
+    direction: rtl;
+    -webkit-tap-highlight-color: transparent;
+    list-style: none;
+    font-size: 100%;
+    font: inherit;
+    text-align: right;
+    --number-of-options-to-display: 7;
+    --option-height: 40px;
+    white-space: nowrap;
+    box-sizing: inherit;
+    border: 1px solid #ccc;
+    width: 100%;
+    display: flex;
+    position: absolute;
+    top: 0em;
+    border-top-width:0px;
+    background: white;
+    border-bottom-width: 2px;
+}
+
+.search-bar-clear-button {
+    --vh: 5.65px;
+    direction: rtl;
+    -webkit-tap-highlight-color: transparent;
+    list-style: none;
+    --number-of-options-to-display: 7;
+    --option-height: 40px;
+    white-space: nowrap;
+    box-sizing: inherit;
+    border: none;
+    text-decoration: none;
+    -webkit-appearance: none;
+    background-color: initial;
+    outline: none;
+    font-family: Rubik, sans-serif;
+    height: var(--option-height);
+    padding: 0 10px;
+    width: 30%;
+    cursor: pointer;
+    text-align: right;
+    color: #363636;
+}
+
+.search-bar-select-button {
+    --vh: 5.65px;
+    direction: rtl;
+    -webkit-tap-highlight-color: transparent;
+    list-style: none;
+    --number-of-options-to-display: 7;
+    --option-height: 40px;
+    white-space: nowrap;
+    box-sizing: inherit;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    background-color: initial;
+    outline: none;
+    font-size: 1rem;
+    line-height: 1.1875rem;
+    color: #ff7100;
+    padding: 0 10px;
+    text-align: left;
+    width: 70%;
+    font-weight: 500;
+    font-family: Rubik, sans-serif;
+    margin: 10px auto 10px 0;
+}
+
 .search-form {
     width: 70vw;
     text-align: center;
@@ -503,6 +584,10 @@ table {
 
 .search-columns ul {
     z-index: 10;
+}
+
+.searchBarDropDown {
+    position: relative;
 }
 
 .searchBarDropDown ul {

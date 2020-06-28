@@ -1,3 +1,14 @@
+export const clearCheckedItemsFromList = (e, className) => {
+    return new Promise((resolve, reject) => {
+        [...document.getElementsByClassName(className.substring(1))[0].children].forEach(li => {
+            let input = li.children[0]
+            if (input.checked)
+                input.checked = false;
+        });
+        resolve();
+    })
+}
+
 export const onOffDropList = (className) => {
     if (document.querySelectorAll(className).length > 0) {
         switch (className) {
@@ -22,6 +33,14 @@ export const onOffDropList = (className) => {
                 console.log("unknown " + className + "  for dropList onOff!")
                 break;
         }
+
+        if (document.querySelectorAll(className)[0].classList &&
+            document.querySelectorAll(className)[0].classList.contains("hidden")) { //for buttons strip 
+            if (!document.querySelectorAll(className)[0].nextElementSibling.classList.contains("hidden"))
+                document.querySelectorAll(className)[0].nextElementSibling.classList.add("hidden")
+        } else if (document.querySelectorAll(className)[0].nextElementSibling.classList.contains("hidden"))
+            document.querySelectorAll(className)[0].nextElementSibling.classList.remove("hidden")
+
         const menus = document.getElementsByClassName("searchBarDropDown")
         for (let i = 0; i < menus.length; i++) {
             let oneMenu = menus[i]
