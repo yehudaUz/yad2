@@ -57,8 +57,14 @@ const SearchBar = (props) => {
             else {
                 props.dispatch(updateCarSearchParams({ [propName]: [] }))
             }
-        }
-        else if (!(e.target.checked)) {
+        } else if (propName === "area") {
+            const arrWithoutUncheckedItem = [];
+            [...document.getElementsByClassName("zone-input")].forEach(zoneInput => {
+                if (zoneInput.checked)
+                    arrWithoutUncheckedItem.push(zoneInput.parentElement.innerText)
+            })
+            props.dispatch(updateCarSearchParams({ [propName]: [...arrWithoutUncheckedItem] }))
+        } else if (!(e.target.checked)) {
             const arrWithoutUncheckedItem = theProp.filter(onePropItem => onePropItem !== e.target.parentNode.textContent)
             if (propName === "maker") {
                 const validModelsArrs = makersAndModels.filter(oneMakerModel => arrWithoutUncheckedItem.includes(oneMakerModel.maker)).map(modelMaker => modelMaker.models)
@@ -101,10 +107,24 @@ const SearchBar = (props) => {
 
     const renderZones = (area) => {
         const zonesLi = area.zones.map((oneZone) => (
-            <li key={oneZone}><input key={oneZone} type="checkbox" />{oneZone}</li>
+            <li key={oneZone}><input key={oneZone} type="checkbox" className={"zone-input " + oneZone} />{oneZone}</li>
         ))
-        zonesLi.unshift(<li><b><input key={area.region} type="checkbox" />{area.region}</b></li>)
+        zonesLi.unshift(<li><b><input key={area.region} type="checkbox" className={"zone-input " + area.region + " region"} />{area.region}</b></li>)
         return zonesLi
+    }
+
+    const selectZonesOfRegion = (e, areasList) => {
+        areasList.forEach(area => {
+            if (area.region === e.target.parentElement.innerText) {
+                area.zones.forEach(zone => {
+                    [...document.getElementsByClassName("zone-input " + zone)].forEach(z => {
+                        if (!z.classList.contains("region"))                     //.checked = e.target.checked
+                            z.checked = e.target.checked;
+                    })
+                })
+            }
+            console.log(area.region)
+        })
     }
 
     const inputWithDropDownList = (title, placeHolder, className, dropDownListArr) => (
@@ -113,6 +133,7 @@ const SearchBar = (props) => {
             <input className={"search-bar-input choose-" + className} placeholder={placeHolder} readOnly onClick={() => onOffDropList("." + className)}></input >
             <div className="search-bar-dropDown-wrapper">
                 <ul className={"searchBarDropDown " + className + " hidden"} onChange={(e) => {
+                    if (className === "area") selectZonesOfRegion(e, dropDownListArr)
                     updateSearchParams(e, className, props.carSearchParams[className])
                 }}>
                     {dropDownListArr.map((oneElement) => (

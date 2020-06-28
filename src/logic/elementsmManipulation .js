@@ -1,11 +1,13 @@
 export const clearCheckedItemsFromList = (e, className) => {
     return new Promise((resolve, reject) => {
-        [...document.getElementsByClassName(className.substring(1))[0].children].forEach(li => {
-            let input = li.children[0]
-            if (input.checked)
-                input.checked = false;
-        });
-        resolve();
+        [...document.getElementsByClassName(className.substring(1))].forEach(child => {
+            [...child.children].forEach(li => {
+                let input = li.firstElementChild.tagName === "INPUT" ? li.firstElementChild : li.firstElementChild.firstElementChild;
+                if (input.checked)
+                    input.checked = false;
+            });
+            resolve();
+        })
     })
 }
 
