@@ -4,7 +4,6 @@ import { updateCarSearchParams } from '../actions/actions'
 import { onOffDropList, clearCheckedItemsFromList } from '../logic/elementsmManipulation '
 import { makersAndModels, areas } from '../other/textData'
 import { updateCarSearchResult } from '../actions/actions'
-import DropDownButton from './DropDownButton'
 
 const sendSearchRequest = async (props, isSearchWithParams) => {
     let urlPath = "http://localhost:3000/carSearchInitial"
@@ -12,16 +11,10 @@ const sendSearchRequest = async (props, isSearchWithParams) => {
         urlPath = "http://localhost:3000/carSearch"
     fetch(urlPath, {
         method: 'POST',
-        headers: {
-            // 'Accept': 'application/json',
-            'Content-Type': 'application/json'
-            //  'Content-Type': 'application/x-www-form-urlencoded',
-            // redirect: 'follow'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ carSearchParams: props.carSearchParams, sortBy: props.sortBy })
     }).then(response => response.json()).then(data => {
         console.log(data)
-        // throw new Error()
         props.dispatch(updateCarSearchResult(data.body))
         return (data.body)
     }).catch((error) => {
@@ -68,7 +61,6 @@ const SearchBar = (props) => {
             const arrWithoutUncheckedItem = theProp.filter(onePropItem => onePropItem !== e.target.parentNode.textContent)
             if (propName === "maker") {
                 const validModelsArrs = makersAndModels.filter(oneMakerModel => arrWithoutUncheckedItem.includes(oneMakerModel.maker)).map(modelMaker => modelMaker.models)
-                // console.log("valid", validModelsArrs) //.models
                 let validModelsArr = []
                 validModelsArrs.forEach(modelsArr => modelsArr.forEach(model => validModelsArr.push(model)))
                 const newModelsProps = props.carSearchParams.model.filter(oneModel => validModelsArr.includes(oneModel))
@@ -86,8 +78,6 @@ const SearchBar = (props) => {
             model = document.getElementsByClassName("choose-model")[0],
             fromYear = document.getElementsByClassName("choose-fromYear")[0],
             toYear = document.getElementsByClassName("choose-toYear")[0],
-            fromPrice = document.getElementsByClassName("choose-fromPrice")[0],
-            toPrice = document.getElementsByClassName("choose-toPrice")[0],
             area = document.getElementsByClassName("choose-area")[0];
 
         if (maker && model && fromYear && toYear && area)
@@ -101,10 +91,6 @@ const SearchBar = (props) => {
                         break;
                     case "toYear": toYear.placeholder = setText("עד שנה", "error", keyValue[1])
                         break;
-                    // case "fromPrice": maker.placeholder = setText("ממחיר", "error", newPropArr)
-                    //     break;
-                    // case "toPrice": maker.placeholder = setText("עד מחיר", "error", newPropArr)
-                    //     break;
                     case "area": area.placeholder = setText("בחרו איזור", "פריטים נבחרו", keyValue[1])
                         break;
                     default:
@@ -112,8 +98,14 @@ const SearchBar = (props) => {
             })
     }
 
-    // יצרן בחר יצרן
-    // inputWithDropDownList("יצרן", "בחרו יצרן", "maker", makersAndModels)
+    const renderZones = (area) => {
+        const zonesLi = area.zones.map((oneZone) => (
+            <li key={oneZone}><input key={oneZone} type="checkbox" />{oneZone}</li>
+        ))
+        zonesLi.unshift(<li><b><input key={area.region} type="checkbox" />{area.region}</b></li>)
+        return zonesLi
+    }
+
     const inputWithDropDownList = (title, placeHolder, className, dropDownListArr) => (
         <>
             {title}
@@ -126,10 +118,12 @@ const SearchBar = (props) => {
                         (className === "maker" &&
                             <li key={oneElement.maker}><input key={oneElement.maker} type="checkbox" />{oneElement.maker}</li>)
                         ||
-                        (className === "model" &&
-                            <li key={oneElement.model}><input key={oneElement.model} type="checkbox" />{oneElement.model}</li>)
-                        ||
-                        (<li key={oneElement}><input key={oneElement} type="checkbox" />{oneElement}</li>)
+                        (className === "model" && props.carSearchParams.maker !== "" && props.carSearchParams.maker !== undefined &&
+                            props.carSearchParams.maker.includes(oneElement.maker) && oneElement.models.map((oneModel) => (
+                                <li key={++counter}><input key={++counter} type="checkbox" />{oneModel}</li>)))
+                        || (className === "area" && renderZones(oneElement)) ||
+                        (className !== "maker" && className !== "model" &&
+                            <li key={oneElement}><input key={oneElement} type="checkbox" />{oneElement}</li>)
                     ))}
                 </ul>
                 <div className="search-bar-buttons-strip-wrapper hidden">
@@ -167,7 +161,6 @@ const SearchBar = (props) => {
     return (
         <div className="search-bar-div">
             <form className="search-form">
-                {/* onSubmit={submitForm}> */}
                 <h3><span className="search-bar-header">?איזה רכב תרצו לחפש</span></h3>
                 <ul className="search-columns">
                     <li className="search-button-li" onClick={(e) => { e.preventDefault(); sendSearchRequest(props, true) }}><button type="submit" className="search-button">
@@ -178,20 +171,8 @@ const SearchBar = (props) => {
                         <span className="button_content"><i className="y2i_plus_o"></i>
                             <span className="button_text">חיפוש מתקדם</span></span></button></div>
                     </li>
-                    <li>אזור
-                    <input className="search-bar-input choose-area" type="text" name="" autoComplete="off" placeholder="בחרו אזור" title="" readOnly
-                            onClick={() => onOffDropList(".area")} ></input>
-                        <ul key={counter++} className="searchBarDropDown area hidden" onChange={(e) => {
-                            updateSearchParams(e, "area", props.carSearchParams.area)
-                        }}>
-                            {areas.map((oneArea) => {
-                                const zonesLi = oneArea.zones.map((oneZone) => (
-                                    <li key={oneZone}><input key={oneZone} type="checkbox" />{oneZone}</li>
-                                ))
-                                zonesLi.unshift(<li><b><input key={oneArea.region} type="checkbox" />{oneArea.region}</b></li>)
-                                return zonesLi
-                            })}
-                        </ul>
+                    <li>
+                        {inputWithDropDownList("אזור", "בחרו אזור", "area", areas)}
                     </li>
                     <li>מחיר בש"ח
                     <div className="search-bar-input-wrapper">
@@ -225,45 +206,11 @@ const SearchBar = (props) => {
                             </li>
                         </div>
                     </li>
-                    <li>דגם
-                    <input className="search-bar-input choose-model" type="text" name="" autoComplete="off" placeholder="בחרו דגם" title="" readOnly
-                            onClick={() => onOffDropList(".model")} ></input>
-                        <ul className="searchBarDropDown model hidden" onChange={(e) => {
-                            updateSearchParams(e, "model", props.carSearchParams.model)
-                        }} >
-                            {props.carSearchParams.maker !== "" && props.carSearchParams.maker !== undefined &&
-                                makersAndModels.map((oneMakerModel) => {
-                                    if (props.carSearchParams.maker.includes(oneMakerModel.maker)) {
-                                        return oneMakerModel.models.map((oneModel) => (
-                                            <li key={++counter}><input key={++counter} type="checkbox" />{oneModel}</li>
-                                        ))
-                                    }
-                                })}
-                        </ul>
+                    <li>
+                        {inputWithDropDownList("דגם", "בחרו דגם", "model", makersAndModels)}
                     </li>
                     <li>
-                        יצרן
-                        {/* {DropDownButton(true, "יצרן", ".maker")} */}
-                        <input className="search-bar-input choose-maker" placeholder="בחרו יצרן" readOnly onClick={() => onOffDropList(".maker")}></input>
-                        <div className="search-bar-dropDown-wrapper">
-                            <ul className="searchBarDropDown maker hidden" onChange={(e) => {
-                                updateSearchParams(e, "maker", props.carSearchParams.maker)
-                            }}>
-                                {makersAndModels.map((oneMakerModel) => (
-                                    <li key={oneMakerModel.maker}><input key={oneMakerModel.maker} type="checkbox" />{oneMakerModel.maker}</li>
-                                ))}
-                            </ul>
-                            <div className="search-bar-buttons-strip-wrapper hidden">
-                                <div className="search-bar-buttons-strip">
-                                    <button type="button" className="search-bar-clear-button" onClick={
-                                        (e) => clearCheckedItemsFromList(e, ".maker").then(() => {
-                                            updateSearchParams(e, "maker", props.carSearchParams.maker, true)
-                                        })
-                                    }>נקה</button>
-                                    <button type="button" className="search-bar-select-button" onClick={(e) => onOffDropList(".maker")}>בחר</button>
-                                </div>
-                            </div>
-                        </div>
+                        {inputWithDropDownList("יצרן", "בחרו יצרן", "maker", makersAndModels)}
                     </li>
                 </ul>
 
