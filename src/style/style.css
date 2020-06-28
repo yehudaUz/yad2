@@ -235,6 +235,19 @@ ul li ul.dropdown {
 
 .from-year-to-year-li {
     padding: 0px;
+    position: relative;
+}
+
+.fromYear, .toYear {
+    position: absolute!important;
+}
+
+.fromYear {
+    right: 0px;
+}
+
+.toYear {
+    left: 0px;
 }
 
 /* every li in dropmenu */
@@ -409,6 +422,7 @@ a {
 .search-bar-buttons-strip-wrapper {
     position: relative;
     /* top: 0; */
+    z-index: 10;
 }
 
 .search-bar-buttons-strip {
@@ -429,7 +443,7 @@ a {
     display: flex;
     position: absolute;
     top: 0em;
-    border-top-width:0px;
+    border-top-width: 0px;
     background: white;
     border-bottom-width: 2px;
 }
@@ -493,9 +507,9 @@ a {
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .1);
 }
 
-.td {
+/* .td { */
     /* padding: 10px 0; */
-}
+/* } */
 
 table {
     /* border-collapse: separate;
@@ -543,9 +557,9 @@ table {
     justify-content: space-evenly;
 }
 
-.search-bar-input-wrapper li {
+/* .search-bar-input-wrapper li { */
     /* padding: 0px; */
-}
+/* } */
 
 .search-form h3 {
     text-align: right;
@@ -639,7 +653,8 @@ table {
     border-radius: 0;
     border-width: 0px;
     font-family: Rubik, sans-serif;
-    font-size: .875rem;
+    font-size: 1em;
+    /* font-weight: 600; */
     outline: none;
     padding: 10px;
     width: 100%;
@@ -716,12 +731,12 @@ table {
     max-width: 700px;
 }
 
-.search-result-header-wrapper {
+/* .search-result-header-wrapper { */
     /* text-align: right; */
     /* width: 70vw;
     text-align: center;
     display: inline-block; */
-}
+/* } */
 
 .search-result-header-name {
     float: right;
@@ -744,11 +759,11 @@ table {
     font-family: Rubik, sans-serif;
 }
 
-.sortBy-wrapper {
+/* .sortBy-wrapper { */
     /* width: 70vw;
     text-align: center; */
     /* display: inline-block; */
-}
+/* } */
 
 .sort-by-label {
     float: right;

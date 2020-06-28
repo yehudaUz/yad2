@@ -9,36 +9,63 @@ export const clearCheckedItemsFromList = (e, className) => {
     })
 }
 
+// const obj = { vehicle: { mazda: { price: 50000, year: "", undi: undefined, nul: null } } }
+// const validate = (varible) => {
+//     console.log("ZZZZ",[varible])
+// }
+// console.log("validate obj exist: " + validate(obj.vehicle.mazda.price))
+// console.log("validate obj empty string: " + validate(obj.vehicle.mazda.year))
+// console.log("validate obj not exist: " + validate(obj.vehicle.mazda.blalba))
+// console.log("validate obj not exist: " + validate(obj.vehicle.honda.blalba))
+// console.log("validate obj null: " + validate(obj.vehicle.mazda.nul))
+// console.log("validate obj undidined: " + validate(obj.vehicle.mazda.undi))
+
 export const onOffDropList = (className) => {
     if (document.querySelectorAll(className).length > 0) {
         switch (className) {
-            case ".fromYear":
-                if (document.querySelectorAll(className + ".hidden").length > 0) {
-                    document.querySelectorAll(className + ".hidden")[0].classList.remove("hidden")
-                    document.querySelectorAll(".toYear")[0].classList.add("hidden")
-                } else
-                    document.querySelectorAll(className)[0].classList.add("hidden")
-                break;
-            case ".toYear":
-                if (document.querySelectorAll(className + ".hidden").length > 0) {
-                    document.querySelectorAll(className + ".hidden")[0].classList.remove("hidden")
-                    document.querySelectorAll(".fromYear")[0].classList.add("hidden")
-                } else
-                    document.querySelectorAll(className)[0].classList.add("hidden")
-                break;
+            // case ".fromYear":
+            //     if (document.querySelectorAll(className + ".hidden").length > 0) {
+            //         document.querySelectorAll(className + ".hidden")[0].classList.remove("hidden")
+            //         document.querySelectorAll(".toYear")[0].classList.add("hidden")
+            //     } else
+            //         document.querySelectorAll(className)[0].classList.add("hidden")
+            //     break;
+            // case ".toYear":
+            //     if (document.querySelectorAll(className + ".hidden").length > 0) {
+            //         document.querySelectorAll(className + ".hidden")[0].classList.remove("hidden")
+            //         document.querySelectorAll(".fromYear")[0].classList.add("hidden")
+            //     } else
+            //         document.querySelectorAll(className)[0].classList.add("hidden")
+            //     break;
             default:
-                document.querySelectorAll(className + ".hidden").length > 0 ?
+                if (document.querySelectorAll(className + ".hidden").length > 0 &&
+                    document.querySelectorAll(className + ".hidden")[0].childElementCount > 0)
                     document.querySelectorAll(className + ".hidden")[0].classList.remove("hidden")
-                    : document.querySelectorAll(className)[0].classList.add("hidden")
+                else
+                    document.querySelectorAll(className)[0].classList.add("hidden")
                 console.log("unknown " + className + "  for dropList onOff!")
+                // if (document.querySelectorAll(className)[0].nextElementSibling.classList.contains("search-bar-buttons-strip-wrapper"))
+                //     if (!document.querySelectorAll(className)[0].nextElementSibling.classList.contains("hidden"))
+                //         document.querySelectorAll(className)[0].nextElementSibling.classList.add("hidden")
+                //     else
+                //         document.querySelectorAll(className)[0].nextElementSibling.classList.remove("hidden")
+                document.querySelectorAll(".search-bar-buttons-strip-wrapper").forEach(buttonsWrapper => {
+                    const list = buttonsWrapper.previousElementSibling
+                    if ((list.classList.contains("hidden") && !buttonsWrapper.classList.contains("hidden")) ||
+                        (!list.classList.contains("hidden") && !list.classList.contains(className) &&
+                            !buttonsWrapper.classList.contains("hidden")))
+                        buttonsWrapper.classList.add("hidden")
+                })
                 break;
         }
 
-        if (document.querySelectorAll(className)[0].classList &&
+        if (document.querySelectorAll(className)[0] && document.querySelectorAll(className)[0].classList &&
             document.querySelectorAll(className)[0].classList.contains("hidden")) { //for buttons strip 
-            if (!document.querySelectorAll(className)[0].nextElementSibling.classList.contains("hidden"))
+            if (document.querySelectorAll(className)[0].nextElementSibling &&
+                document.querySelectorAll(className)[0].nextElementSibling.classList.contains("hidden"))
                 document.querySelectorAll(className)[0].nextElementSibling.classList.add("hidden")
-        } else if (document.querySelectorAll(className)[0].nextElementSibling.classList.contains("hidden"))
+        } else if (document.querySelectorAll(className)[0].nextElementSibling &&
+            document.querySelectorAll(className)[0].nextElementSibling.classList.contains("hidden"))
             document.querySelectorAll(className)[0].nextElementSibling.classList.remove("hidden")
 
         const menus = document.getElementsByClassName("searchBarDropDown")

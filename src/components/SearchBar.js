@@ -42,6 +42,7 @@ const SearchBar = (props) => {
         let years = []
         for (let i = 1971; i <= 2020; i++)
             years.push(i)
+        years.push("הכל")
         return years.reverse().map(year => (
             <li key={++counter}>{year}</li>
         ))
@@ -152,7 +153,9 @@ const SearchBar = (props) => {
                         (e.target.parentNode && e.target.parentNode.classList && e.target.parentNode.classList.contains("search-bar-input")))
                         return;
                     dropDown.classList.add("hidden")
-                    dropDown.nextElementSibling.classList.add("hidden")
+                    if (dropDown.nextElementSibling && dropDown.nextElementSibling.classList &&
+                        !dropDown.nextElementSibling.classList.contains("search-bar-input-double"))//button strip
+                        dropDown.nextElementSibling.classList.add("hidden")
                 }
             })
         }
@@ -188,18 +191,18 @@ const SearchBar = (props) => {
                                 <input className="search-bar-input-double choose-toYear" type="text" name="" autoComplete="off" placeholder="עד שנה" readOnly
                                     onClick={() => onOffDropList(".toYear")}></input>
                                 <ul className="searchBarDropDown toYear hidden" onClick={(e) => {
-                                    props.dispatch(updateCarSearchParams({
-                                        toYear: e.target.innerText
-                                    }))
+                                    e.target.innerText === "הכל" ?
+                                        props.dispatch(updateCarSearchParams({ toYear: "" })) :
+                                        props.dispatch(updateCarSearchParams({ toYear: e.target.innerText }))
                                 }}>
                                     {renderYears()}
                                 </ul>
                                 <input className="search-bar-input-double choose-fromYear" type="text" name="" autoComplete="off" placeholder="משנה" readOnly
                                     onClick={() => onOffDropList(".fromYear")} ></input>
                                 <ul className="searchBarDropDown fromYear hidden" onClick={(e) => {
-                                    props.dispatch(updateCarSearchParams({
-                                        fromYear: e.target.innerText
-                                    }))
+                                    e.target.innerText === "הכל" ?
+                                        props.dispatch(updateCarSearchParams({ fromYear: "" })) :
+                                        props.dispatch(updateCarSearchParams({ fromYear: e.target.innerText }))
                                 }}>
                                     {renderYears()}
                                 </ul>

@@ -2,7 +2,6 @@ const express = require('express')
 const bodyParser = require('body-parser')
 require('../database/mongoose')
 const multer = require('multer')
-const sharp = require('sharp')
 const User = require('../database/models/user')
 const auth = require('../database/middleware/auth')
 const carAd = require('../database/models/carAdvertisment')
@@ -62,7 +61,7 @@ const uploadAsync = (req, res) => {
     });
 }
 
-module.exports.carSearchInitial = () => {
+module.exports.carSearchInitial = async (req, res) => {
     carAd.find({}, (err, records) => {
         if (err) {
             console.log("errr", err, records)
@@ -116,8 +115,6 @@ module.exports.postNewAd = async (req, res) => {
         res.status(400).send({ error: e.message })
 
     }
-}, (error, req, res, next) => {
-    res.status(400).send({ error: error.message })
 }
 
 module.exports.carSearch = async (req, res) => {
