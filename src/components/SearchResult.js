@@ -11,7 +11,6 @@ import { formatPriceWhitCommas } from '../other/uti'
 
 const SearchResult = (props) => {
     const filterPressed = async (filterType, e) => {
-        console.log(props)
         if (e.target && e.target.tagName && e.target.tagName !== "BUTTON" &&
             e.target.parentElement && e.target.parentElement.tagName && e.target.parentElement.tagName === "BUTTON")
             e.target = e.target.parentElement
@@ -26,7 +25,6 @@ const SearchResult = (props) => {
         }
         props.dispatch(filterUpdated(true))
     }
-
 
     if (props.carSearchFiltersUpdated) {
         sendSearchRequest(props, true)
@@ -47,8 +45,6 @@ const SearchResult = (props) => {
             </li>
         )
     }
-
-
 
     if (props.searchResult && props.searchResult.length > 0)
         return (
@@ -73,7 +69,6 @@ const SearchResult = (props) => {
                                     {DropDownButton(true, "לפי תאריך", ".sortBy")}
                                     <label className="search-result-sortby-label">מיין לפי</label>
                                     <ul className="searchBarDropDown sortBy hidden" onChange={(e) => {
-                                        console.log(e.target)
                                         if (e && e.target && e.target.name && e.target.name === "filter-radio" &&
                                             e.target.checked) {
                                             props.dispatch(updateSortBy(e.target.className))
@@ -113,7 +108,6 @@ const SearchResult = (props) => {
                                             }</label></div>
                                             <div className="search-result-date-update"><label>{formatDate(searchData.updatedAt, true)}</label></div>
                                             <button type="button" className="search-result-contact-seller-button hidden" oncClick={(e) => {
-                                                console.log(e)
                                             }}>
                                                 <span className="search-result-button-text">הצגת מספר טלפון</span>
                                                 <i className="fi fi-phone search-result-icon"></i>
@@ -134,7 +128,6 @@ const SearchResult = (props) => {
                                                 </div>
                                             </div>
                                         </div>
-                                        {/* </div> */}
 
                                         <SearchResultMiddlePart searchData={searchData} />
 
@@ -145,7 +138,6 @@ const SearchResult = (props) => {
                                                     ||
                                                     < img className="search-result-image" src="https://yad2-pics.s3.amazonaws.com/public/empty.jpg" alt="search-result" />
                                                 }
-                                                {/* <i class="fi fi-heart-alt"></i> */}
                                             </div>
                                             <div className="search-result-car-name-and-title">
                                                 <label className="search-result-makerModel">{searchData.model + "  " + searchData.maker}</label>
@@ -219,7 +211,6 @@ const SearchResult = (props) => {
                                             </div>
                                         </div>
                                         <div className="search-result-table-expendable-table-size_1_3"></div>
-
 
                                     </div>
                                     <div className="search-result-table hidden expendable-table footer">

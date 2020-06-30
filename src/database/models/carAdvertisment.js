@@ -10,7 +10,6 @@ const carAdvertisementSchema = new mongoose.Schema({
         trim: true
     }, year: {
         type: Number,
-        // required: true,
         trim: true
     }, hand: {
         type: Number,
@@ -26,7 +25,6 @@ const carAdvertisementSchema = new mongoose.Schema({
         trim: true
     }, area: {
         type: String,
-        // required: true,
         trim: true
     }, freeText: {
         type: String,
@@ -34,7 +32,6 @@ const carAdvertisementSchema = new mongoose.Schema({
         trim: true
     }, km: {
         type: Number,
-        // required: true,
         trim: true
     },
     engingType: {
@@ -77,7 +74,6 @@ const carAdvertisementSchema = new mongoose.Schema({
     }, imgsLinks: [{ type: String }],
     price: {
         type: Number,
-        // required: true,
         trim: true
     }, userId: {
         type: String
@@ -86,14 +82,6 @@ const carAdvertisementSchema = new mongoose.Schema({
     { "versionKey": false }
 )
 
-// var Original = mongoose.model('Original', OriginalSchema);
-// var NewSch = Original.discriminator('NewSch', NewSchema);
-
-// const tempCarAdvertisement = mongoose.model('tempCarAdvertisement', carAdvertisementSchema)
-// const CarAdvertisement = tempCarAdvertisement.discriminator("CarAdvertisemen", advertisementSchema)
-// console.log("FFFFFFFFFFFFFFFFFFFFF",Advertisement.discriminator)
-// const CarAdvertisement = Advertisement.discriminator("CarAdvertisement", carAdvertisementSchema)
-
 const CarAdvertisement = mongoose.model('CarAdvertisement', carAdvertisementSchema)
 
-module.exports = CarAdvertisement //CarAdvertisementSchema
+module.exports = CarAdvertisement

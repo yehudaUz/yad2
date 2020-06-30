@@ -26,7 +26,6 @@ const uploadFileToAwsBucket = async (file, userId) => {
         };
         s3.upload(params, function (s3Err, data) {
             if (s3Err) throw s3Err
-            console.log(`File uploaded successfully at ${data.Location}`)
             resolve(data.Location)
         });
     });
@@ -38,7 +37,6 @@ const upload = multer({
     },
     fileFilter(req, file, cb) {
         if (!file.originalname.toLocaleLowerCase().match(/\.(jpg|jpeg|png|bmp)$/)) {
-            console.log(file.originalname)
             return cb(new Error('Please upload an image'))
         }
 
@@ -55,19 +53,8 @@ const uploadAsync = (req, res) => {
                 console.log("unknow error when uploading pic", err)
             if (err !== undefined)//(err !== null)
                 /*return*/ reject(err);
-            console.log("upload photo success")
             resolve();
         });
-    });
-}
-
-module.exports.carSearchInitial = async (req, res) => {
-    carAd.find({}, (err, records) => {
-        if (err) {
-            console.log("errr", err, records)
-            return res.status(500).send({ body: "Sorry, internal error when searched for document in database" })
-        }
-        res.send({ "body": records })
     });
 }
 
@@ -79,15 +66,11 @@ module.exports.fetchSellerData = async (req, res) => {
     })
 }
 
-
 module.exports.postNewAd = async (req, res) => {
     await auth(req, res)
-    console.log("aaa")
     try {
         uploadAsync(req, res).then(async () => {
-            console.log("after upload [hoto successs")
             const ad = new carAd(req.body)
-            console.log(ad)
             const userId = req.user._id
             ad.userId = userId
             const files = req.files;
@@ -117,88 +100,7 @@ module.exports.postNewAd = async (req, res) => {
     }
 }
 
-module.exports.carSearch = async (req, res) => {
-    // console.log("RRRRRRRRRRRRRRRR", req.body)
-    let mongooseSearchObj = req.body.carSearchParams || {}
-    Object.entries(mongooseSearchObj).forEach(keyValue => {
-        if (keyValue[1] === "" || keyValue[1] === [] || keyValue[1] === undefined)
-            delete mongooseSearchObj[keyValue[0]]
-    })
-    console.log("MMM", mongooseSearchObj)
-
-    if (mongooseSearchObj.fromPrice)
-        mongooseSearchObj.price = { "$gte": mongooseSearchObj["fromPrice"] }
-    if (mongooseSearchObj.toPrice) {
-        if (!mongooseSearchObj.price)
-            mongooseSearchObj.price = { "$lte": mongooseSearchObj["toPrice"] }
-        else
-            mongooseSearchObj.price = { "$gte": mongooseSearchObj["fromPrice"], "$lte": mongooseSearchObj["toPrice"] }
-    }
-    delete mongooseSearchObj["fromPrice"]; delete mongooseSearchObj["toPrice"]
-
-    if (mongooseSearchObj.fromYear)
-        mongooseSearchObj.year = { "$gte": mongooseSearchObj["fromYear"] }
-    if (mongooseSearchObj.toYear) {
-        if (!mongooseSearchObj.year)
-            mongooseSearchObj.year = { "$lte": mongooseSearchObj["toYear"] }
-        else
-            mongooseSearchObj.year = { "$gte": mongooseSearchObj["fromYear"], "$lte": mongooseSearchObj["toYear"] }
-    }
-    delete mongooseSearchObj["fromYear"]; delete mongooseSearchObj["toYear"]
-
-    if (mongooseSearchObj.withPrice && mongooseSearchObj["withPrice"])
-        if (!mongooseSearchObj.price)
-            mongooseSearchObj.price = { $ne: null }
-
-    delete mongooseSearchObj["withPrice"];
-
-
-    if (mongooseSearchObj.withPhoto && mongooseSearchObj["withPhoto"]) {
-        mongooseSearchObj["imgsLinks.0"] = { "$exists": true }
-    }
-    delete mongooseSearchObj["withPhoto"];
-
-    console.log("Aaa")
-    Object.entries(mongooseSearchObj).map(keyValue => {
-        if (keyValue[0] && Array.isArray(keyValue[1]) && keyValue[1].length === 0)
-            delete mongooseSearchObj[keyValue[0]]
-    })
-
-    let sortBy = req.body.sortBy ? req.body.sortBy : undefined
-    if (sortBy && sortBy !== undefined && sortBy !== "" && sortBy != null) {
-        switch (sortBy) {
-            case "byDate":
-                sortBy = "-updatedAt"
-                break;
-            case "byPriceLowToHigh":
-                sortBy = "price"
-                break;
-            case "ByPriceHighToLow":
-                sortBy = "-price"
-                break;
-            case "byKmLowToHigh":
-                sortBy = "km"
-                break;
-            case "byYearHighToLow":
-                sortBy = "-year"
-                break;
-            default:
-                console.log("UNKNOWN SORTBY OPTION!!!!!")
-        }
-    }
-    console.log("sortBy", sortBy)
-    console.log("mongooseSearchObj", mongooseSearchObj)
-    carAd.find(mongooseSearchObj, function (err, records) {
-        if (err)
-            return res.status(500).send({ body: "Sorry, internal error when searched for document in database" })
-    }).sort(sortBy).then((records) => {
-        console.log("in")
-        res.send({ "body": records })
-    });
-}
-
 module.exports.signup = async (req, res) => {
-    console.log(req.body)
     const user = new User(req.body)
     try {
         const found = await User.findOne({ $or: [{ name: req.body.email }, { email: req.body.password }] })
@@ -213,13 +115,11 @@ module.exports.signup = async (req, res) => {
 }
 
 module.exports.login = async (req, res) => {
-    console.log("trying login")
     console.log(req.body.email)
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password)
         const token = await user.generateAuthToken()
         res.cookie('Authorization', token)
-        console.log(JSON.stringify(user))
         res.redirect("/personalArea")
     } catch (e) {
         res.status(400).send('login failed!' + e);//redirect('/')

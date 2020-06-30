@@ -4,28 +4,29 @@ const router = new express.Router()
 router.use(bodyParser.urlencoded({ extended: true }))
 router.use(bodyParser.json())
 
-const carController = require('../controllers/carController')
+const searchController = require('../controllers/searchController')
+const userController = require('../controllers/userController')
 
 process.on('uncaughtException', (err, origin) => {
     console.log(err)
     process.exit(1)
 });
 
-router.post('/carSearch', carController.carSearch)
+router.post('/carSearch', searchController.carSearch)
 
-router.post('/carSearchInitial', carController.carSearchInitial)
+router.post('/carSearchInitial', searchController.carSearchInitial)
 
-router.post('/getUserData',carController.getUserData)
+router.post('/getUserData',userController.getUserData)
 
-router.post('/fetchSellerData', carController.fetchSellerData)
+router.post('/fetchSellerData', userController.fetchSellerData)
 
-router.post('/postNewAd', carController.postNewAd)
+router.post('/postNewAd', userController.postNewAd)
 
-router.post('/signup', carController.signup)
+router.post('/signup', userController.signup)
 
-router.post('/login', carController.login)
+router.post('/login', userController.login)
 
-router.post('/users/logout', carController.logOut)
+router.post('/users/logout', userController.logOut)
 
 router.get('*', async (req, res) => { return res.redirect('/') })
 

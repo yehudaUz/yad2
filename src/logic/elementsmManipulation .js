@@ -11,46 +11,16 @@ export const clearCheckedItemsFromList = (e, className) => {
     })
 }
 
-// const obj = { vehicle: { mazda: { price: 50000, year: "", undi: undefined, nul: null } } }
-// const validate = (varible) => {
-//     console.log("ZZZZ",[varible])
-// }
-// console.log("validate obj exist: " + validate(obj.vehicle.mazda.price))
-// console.log("validate obj empty string: " + validate(obj.vehicle.mazda.year))
-// console.log("validate obj not exist: " + validate(obj.vehicle.mazda.blalba))
-// console.log("validate obj not exist: " + validate(obj.vehicle.honda.blalba))
-// console.log("validate obj null: " + validate(obj.vehicle.mazda.nul))
-// console.log("validate obj undidined: " + validate(obj.vehicle.mazda.undi))
-
 export const onOffDropList = (className) => {
     if (document.querySelectorAll(className).length > 0) {
         switch (className) {
-            // case ".fromYear":
-            //     if (document.querySelectorAll(className + ".hidden").length > 0) {
-            //         document.querySelectorAll(className + ".hidden")[0].classList.remove("hidden")
-            //         document.querySelectorAll(".toYear")[0].classList.add("hidden")
-            //     } else
-            //         document.querySelectorAll(className)[0].classList.add("hidden")
-            //     break;
-            // case ".toYear":
-            //     if (document.querySelectorAll(className + ".hidden").length > 0) {
-            //         document.querySelectorAll(className + ".hidden")[0].classList.remove("hidden")
-            //         document.querySelectorAll(".fromYear")[0].classList.add("hidden")
-            //     } else
-            //         document.querySelectorAll(className)[0].classList.add("hidden")
-            //     break;
             default:
                 if (document.querySelectorAll(className + ".hidden").length > 0 &&
                     document.querySelectorAll(className + ".hidden")[0].childElementCount > 0)
                     document.querySelectorAll(className + ".hidden")[0].classList.remove("hidden")
                 else
                     document.querySelectorAll(className)[0].classList.add("hidden")
-                console.log("unknown " + className + "  for dropList onOff!")
-                // if (document.querySelectorAll(className)[0].nextElementSibling.classList.contains("search-bar-buttons-strip-wrapper"))
-                //     if (!document.querySelectorAll(className)[0].nextElementSibling.classList.contains("hidden"))
-                //         document.querySelectorAll(className)[0].nextElementSibling.classList.add("hidden")
-                //     else
-                //         document.querySelectorAll(className)[0].nextElementSibling.classList.remove("hidden")
+
                 document.querySelectorAll(".search-bar-buttons-strip-wrapper").forEach(buttonsWrapper => {
                     const list = buttonsWrapper.previousElementSibling
                     if ((list.classList.contains("hidden") && !buttonsWrapper.classList.contains("hidden")) ||
@@ -141,12 +111,6 @@ const fetchSellerData = async (userId) => {
         },
         body: JSON.stringify({ userId })
     }).then(response => response.json()).then(data => {
-        console.log("ddddddddddd", data)
-        // throw new Error()
-        // if (Object.keys(Response).includes("error"))
-        // props.dispatch(updateUser({ name: "לא ידוע" }))
-
-        // props.dispatch(updateUser(data.body))
         return (data)
     }).catch((error) => {
         console.log("ERROR: " + error)
@@ -155,8 +119,6 @@ const fetchSellerData = async (userId) => {
 
 export const onOffResult = (e) => {
     try {
-        console.log(e);
-        console.log(e.target)
         //this is for showNumber buttons
         if (e.target && e.target.classList && (
             e.target.classList.contains("search-result-contact-seller-button") ||
@@ -169,7 +131,6 @@ export const onOffResult = (e) => {
                     if (e.target.nextElementSibling.classList.contains("hidden")) {
                         let showSellerButton = e.target
                         fetchSellerData(e.target.lastElementChild.innerText).then((sellerData) => {
-                            console.log(sellerData)
                             showSellerButton.nextElementSibling.children[0].firstElementChild.innerText = sellerData.name
                             showSellerButton.nextElementSibling.children[1].firstElementChild.innerText = sellerData.phone
                             showSellerButton.nextElementSibling.children[2].firstElementChild.href = "mailto:" + sellerData.email
@@ -190,7 +151,6 @@ export const onOffResult = (e) => {
                             e.target.parentElement.lastElementChild.tagName === "LABEL") {
                             let showSellerIconOrText = e.target
                             fetchSellerData(e.target.parentElement.lastElementChild.outerText).then((sellerData) => {
-                                console.log(sellerData)
                                 showSellerIconOrText.parentElement.nextElementSibling.children[0].firstElementChild.innerText = sellerData.name
                                 showSellerIconOrText.parentElement.nextElementSibling.children[1].firstElementChild.innerText = sellerData.phone
                                 showSellerIconOrText.parentElement.nextElementSibling.children[2].firstElementChild.href = "mailto:" + sellerData.email
@@ -201,17 +161,6 @@ export const onOffResult = (e) => {
                     else
                         e.target.parentElement.nextElementSibling.classList.add("hidden")
             }
-            // else if (e.target.classList.contains("search-result-icon")) {
-            //     if (e.target.nextElementSibling && e.target.nextElementSibling.classList &&
-            //         e.target.nextElementSibling.classList.contains("show-phone-number-wrapper"))
-            //         if (e.target.nextElementSibling.classList.contains("hidden"))
-            //             e.target.nextElementSibling.classList.remove("hidden")
-            //         else
-            //             e.target.nextElementSibling.classList.addF("hidden")
-            // }
-
-            // console.log("button cliced")
-            // e.target.click()
             return
         }
 

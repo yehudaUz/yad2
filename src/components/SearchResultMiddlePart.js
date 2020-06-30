@@ -1,5 +1,4 @@
 import React from 'react'
-// import { connect } from 'react-redux';
 
 const SearchResultMiddlePart = (props) => {
     let counter = 0;
@@ -21,10 +20,5 @@ const SearchResultMiddlePart = (props) => {
         </div>
     )
 }
-// const mapStateToProps = (state) => {
-//     return state
-// };
-
-// export default connect(mapStateToProps)(SearchResultMiddlePart);
 
 export default SearchResultMiddlePart

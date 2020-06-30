@@ -9,13 +9,6 @@ const Ads = (props) => {
     )
 }
 
-// export { Ads as default }
-
-const mapStateToProps = (state) => {
-    return state
-    // return {
-    //     expenses: selectExpenses(state.expenses, state.filters)
-    // };
-};
+const mapStateToProps = (state) => { return state };
 
 export default connect(mapStateToProps)(Ads);

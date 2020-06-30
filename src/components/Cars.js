@@ -6,8 +6,6 @@ import SiteMapLink from '../components/SiteMapLink'
 import { cars } from '../other/textData'
 import SearchBar from '../components/SearchBar.js'
 import SearchResult from '../components/SearchResult'
-// import Testing from './Testing.js'
-
 
 const Cars = () => {
     return (
@@ -18,7 +16,6 @@ const Cars = () => {
             <Ads />
             <SearchBar/>
             <SearchResult/>
-            {/* <Testing/> */}
         </>
     )
 }

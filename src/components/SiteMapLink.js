@@ -5,7 +5,7 @@ const SiteMapLink = (props) => {
     const renderMapTexts = () => {
         return props.menuText.map(text => (
             <li key={text} className="sitemap-link-text">{
-                text != props.menuText[props.menuText.length - 1] ? "  < " + text : text}</li>
+                text !== props.menuText[props.menuText.length - 1] ? "  < " + text : text}</li>
         )).reverse()
     }
 
@@ -15,8 +15,7 @@ const SiteMapLink = (props) => {
                 <ul>
                     {renderMapTexts()}
                 </ul>
-                :
-                ""
+                : ""
             }
         </div>
     )

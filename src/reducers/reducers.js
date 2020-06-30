@@ -1,5 +1,3 @@
-import { makersAndModels, areas } from '../other/textData'
-
 const initialCarSearchParams = {
     maker: [], model: [], fromYear: "", toYear: "", fromPrice: "", toPrice: "", area: [],
     fromKm: "", toKm: "", fromHand: "", toHand: "", color: "", ownership: "", engineCcFrom: "",
@@ -10,13 +8,11 @@ const initialCarSearchParams = {
 const getLocalStorageOrSetDefault = () => {
     // localStorage.clear()
     if (localStorage.getItem('state')) {
-        // console.log("parse", localStorage.getItem('state'))
         let tempState = JSON.parse(localStorage.getItem('state'))
         tempState.carSearchParams = initialCarSearchParams
-        return tempState //JSON.parse(localStorage.getItem('state'))
+        return tempState 
     }
-    // UpdateInitialSearchResult.default()
-    // UpdateInitialSearchResult.default.WrappedComponent()
+
     const state = {
         adsPath: "/yad2Ad.png",
         menuText: ["ראשי"],
@@ -32,7 +28,6 @@ const getLocalStorageOrSetDefault = () => {
 const initialState = getLocalStorageOrSetDefault()
 
 export default (state = initialState, action) => {
-    // console.log("action: " + JSON.stringify(action) + "   state: " + JSON.stringify(state))
     let newState
     switch (action.type) {
         case 'UPDATE_ADS':

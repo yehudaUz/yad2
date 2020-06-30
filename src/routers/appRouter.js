@@ -7,7 +7,6 @@ import PageNotFound from '../components/PageNotFound'
 import Login from '../components/Login'
 import PersonalArea from '../components/PersonalArea'
 
-
 const AppRouter = () => (
   <Router>
     <Switch>
@@ -22,5 +21,3 @@ const AppRouter = () => (
 );
 
 export default AppRouter;
-
-//         <Route path="/edit/:id" component={EditExpensePage} />

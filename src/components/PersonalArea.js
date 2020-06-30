@@ -11,23 +11,19 @@ const PersonalArea = (props) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            // body: JSON.stringify(props.carSearchParams)
         }).then(response => response.json()).then(data => {
-            console.log(data)
-            // throw new Error()
             if (Object.keys(Response).includes("error"))
                 props.dispatch(updateUser({ name: "לא ידוע" }))
-
             props.dispatch(updateUser(data.body))
             return (data.body)
         }).catch((error) => {
             console.log("ERROR: " + error)
         })
     }
-    if (!props.user)// || (props.user && props.user.name == "לא ידוע"))
+    if (!props.user)
         updateUserData()
-    console.log("gadsg")
-    return (
+
+        return (
         <div className="login-wrapper">
             <div className="login-header">
                 <div className="login-logo">
@@ -46,8 +42,6 @@ const PersonalArea = (props) => {
                     <a href="/logout" className="logout">התנתק</a>
                 </div>
             </div>
-
-
 
             <div className="nav">
                 <ul className="nav-list">
@@ -127,7 +121,6 @@ const PersonalArea = (props) => {
                 </div>
                 <button type="submit" value="upload" onClick={(e) => {
                     e.preventDefault()
-                    // console.log(document.getElementsByClassName("files-upload-input")[0].files)
                     if (document.getElementsByClassName("files-upload-input")[0].files.length < 1)
                         document.getElementsByClassName("personal-all-input-wrapper")[0].removeAttribute("encType")
                     document.getElementsByClassName("personal-all-input-wrapper")[0].submit()
@@ -143,9 +136,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(PersonalArea);
-
-// [{
-//     maker: "מרצדס", model: "amg", price: "50000", year: "1965", hand: "3", engineCc: "2000", area: "ירושלים", freeText: "ידשה ושמורה", km: "80000",
-//     engineType: "בנזין", transmitionType: "אוטומט", dateOnTheRoad: "15032015", testUntil: "180321", ownership: "פרטי", isReplaceOk: "false",
-//     isFitToDisability: "false", lastUpadte: "21052020", imgs: ["https://img.yad2.co.il/Pic/202006/07/1_1/o/o1_1_1_01240_20200607150613.jpg?l=7&c=6&w=1024&h=768"]
-// },

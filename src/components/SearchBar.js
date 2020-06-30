@@ -14,7 +14,6 @@ const sendSearchRequest = async (props, isSearchWithParams) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ carSearchParams: props.carSearchParams, sortBy: props.sortBy })
     }).then(response => response.json()).then(data => {
-        console.log(data)
         props.dispatch(updateCarSearchResult(data.body))
         return (data.body)
     }).catch((error) => {
@@ -123,7 +122,6 @@ const SearchBar = (props) => {
                     })
                 })
             }
-            console.log(area.region)
         })
     }
 
@@ -165,7 +163,6 @@ const SearchBar = (props) => {
     updateMenuInputs()
 
     window.onclick = (e) => { //close dropDown menu when click on window frame
-        console.log("clciked", e.target.tagName)
         if (e.target && e.target.tagName && e.target.tagName !== "INPUT") {
             let allDropDownsMenus = [...document.getElementsByClassName("searchBarDropDown")]
             allDropDownsMenus.forEach(dropDown => {
