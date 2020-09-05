@@ -21,12 +21,14 @@
     "validator": "^13.1.1"
   },
   "scripts": {
-    "start-client": "react-scripts start",
     "build": "react-scripts build && (cd src/server && yarn install)",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start": "npm-run-all --parallel start-server",
-    "start-server": "cd src/server && yarn start"
+    "start2": "npm-run-all --parallel start-server",
+    "start": "node index.js",
+    "heroku-postbuild": "yarn build",
+    "start-server": "cd src/server && yarn start",
+    "start-client": "react-scripts start"
   },
   "browserslist": {
     "production": [
