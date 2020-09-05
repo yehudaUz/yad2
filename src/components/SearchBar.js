@@ -5,7 +5,7 @@ import { onOffDropList, clearCheckedItemsFromList } from '../logic/elementsmMani
 import { makersAndModels, areas } from '../other/textData'
 import { updateCarSearchResult } from '../actions/actions'
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 const sendSearchRequest = async (props, isSearchWithParams) => {
     let urlPath = "http://localhost:" + PORT + "/carSearchInitial"
