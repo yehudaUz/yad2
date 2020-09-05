@@ -17,10 +17,11 @@ app.use(userRouter)
 app.use(carAdvertisementRouter)
 
 
+
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.listen(process.env.PORT || 8080, () => {
-  console.log("App start listening on " + process.env.PORT || 8080)
+app.listen(process.env.PORT, () => {
+  console.log("App start listening on " + process.env.PORT)
 });
