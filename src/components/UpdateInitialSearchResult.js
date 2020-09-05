@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { updateCarSearchParams } from '../actions/actions'
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT;
 
 const UpdateInitialSearchResult = async (props) => {
     fetch('http://localhost:" + PORT + "/carSearchInitial', {

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { updateUser } from '../actions/actions'
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT;
 
 const PersonalArea = (props) => {
 
