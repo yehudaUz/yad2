@@ -8,9 +8,9 @@ import { updateCarSearchResult } from '../actions/actions'
 const PORT = process.env.PORT || 5000;
 
 const sendSearchRequest = async (props, isSearchWithParams) => {
-    let urlPath = "https://glacial-escarpment-22041.herokuapp.com:" + PORT + "/carSearchInitial"
+    let urlPath = "http://localhost:" + PORT + "/carSearchInitial"
     if (isSearchWithParams)
-        urlPath = "https://glacial-escarpment-22041.herokuapp.com:" + PORT + "/carSearch"
+        urlPath = "http://localhost:" + PORT + "/carSearch"
     fetch(urlPath, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
