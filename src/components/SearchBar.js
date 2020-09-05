@@ -5,10 +5,12 @@ import { onOffDropList, clearCheckedItemsFromList } from '../logic/elementsmMani
 import { makersAndModels, areas } from '../other/textData'
 import { updateCarSearchResult } from '../actions/actions'
 
+const PORT = process.env.PORT || 5000;
+
 const sendSearchRequest = async (props, isSearchWithParams) => {
-    let urlPath = "http://localhost:3000/carSearchInitial"
+    let urlPath = "http://localhost:" + PORT + "/carSearchInitial"
     if (isSearchWithParams)
-        urlPath = "http://localhost:3000/carSearch"
+        urlPath = "http://localhost:" + PORT + "/carSearch"
     fetch(urlPath, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
