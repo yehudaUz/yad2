@@ -19,13 +19,13 @@ app.use('/', router)
 app.use(userRouter)
 app.use(carAdvertisementRouter)
 
-
+const PORT = process.env.PORT || 5000;
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  // res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.send(PORT)
 });
 
-const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log("App start listening on " + PORT)
