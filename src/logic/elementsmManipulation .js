@@ -105,7 +105,7 @@ export const onNewTab = (e) => {
 const PORT = process.env.PORT || 5000;
 
 const fetchSellerData = async (userId) => {
-    let urlPath = "http://localhost:" + PORT + "/fetchSellerData"
+    let urlPath = "https://glacial-escarpment-22041.herokuapp.com:" + PORT + "/fetchSellerData"
     return fetch(urlPath, {
         method: 'POST',
         headers: {

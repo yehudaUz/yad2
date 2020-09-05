@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 5000;
 const PersonalArea = (props) => {
 
     const updateUserData = async () => {
-        let urlPath = "http://localhost:" + PORT + "/getUserData"
+        let urlPath = "https://glacial-escarpment-22041.herokuapp.com:" + PORT + "/getUserData"
         fetch(urlPath, {
             method: 'POST',
             headers: {

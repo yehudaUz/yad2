@@ -4,7 +4,7 @@ import { updateCarSearchParams } from '../actions/actions'
 const PORT = process.env.PORT || 5000;
 
 const UpdateInitialSearchResult = async (props) => {
-    fetch('http://localhost:' + PORT + '/carSearchInitial', {
+    fetch('http://glacial-escarpment-22041.herokuapp.com/:' + PORT + "/carSearchInitial", {
         method: 'POST',
     }).then(response => response.json()).then(data => {
         props.dispatch(updateCarSearchParams())
