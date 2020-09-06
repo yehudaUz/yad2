@@ -102,8 +102,10 @@ export const onNewTab = (e) => {
     }
 }
 
+const PORT = process.env.PORT || 5000;
+
 const fetchSellerData = async (userId) => {
-    let urlPath = "http://localhost:3000/fetchSellerData"
+    let urlPath = "/fetchSellerData"
     return fetch(urlPath, {
         method: 'POST',
         headers: {

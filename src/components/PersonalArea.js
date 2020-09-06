@@ -2,10 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { updateUser } from '../actions/actions'
 
+const PORT = process.env.PORT || 5000;
+
 const PersonalArea = (props) => {
 
     const updateUserData = async () => {
-        let urlPath = "http://localhost:3000/getUserData"
+        let urlPath = "/getUserData"
         fetch(urlPath, {
             method: 'POST',
             headers: {
@@ -23,7 +25,7 @@ const PersonalArea = (props) => {
     if (!props.user)
         updateUserData()
 
-        return (
+    return (
         <div className="login-wrapper">
             <div className="login-header">
                 <div className="login-logo">
