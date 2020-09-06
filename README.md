@@ -1,3 +1,3 @@
 # yad2
-
-Live on: https://morning-forest-06311.herokuapp.com/
+Replica of the famouse yad2 site.
+Live at: https://morning-forest-06311.herokuapp.com/
